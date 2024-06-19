@@ -1,0 +1,23 @@
+{
+    "name": "web_widget",
+    "version": "1.0.0",
+    "description": "Web widget to display offers based on GraphQL",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "license": "",
+    "dependencies": {
+        "browserify": "^17.0.0",
+        "watchify": "^4.0.0",
+        "graphql": "^16.8.1"
+    },
+    "browserify-css": {
+        "autoInject": true,
+        "minify": true,
+        "rootDir": "."
+    },
+    "devDependencies": {
+        "browserify-css": "^0.15.0"
+    }
+}

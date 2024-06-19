@@ -1,0 +1,24 @@
+body{
+    font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+#ww-main-container {
+    max-width:1024px;
+    margin: 0 auto;
+}
+
+#ww-main-container div,
+#ww-main-container label,
+#ww-main-container span{
+    font-size: 1rem;
+}
+
+#ww-main-container p{
+    margin: 0!important;
+    line-height: 1.4rem;
+    font-size: 1.1rem;
+}
+
+#ww-main-container{
+    padding: 2em;
+    background-color: #f3f3f3;
+}
