@@ -4,28 +4,37 @@ This documentation provides an overview of the web widget to display offers base
 
 ## Project Structure
 
-The project is organized into the following directory structure:
+The project is organized into the following directory structure (https://chatgpt.com/c/ab16e1c0-bac0-4300-b11d-641f9cb931bd):
+
+https://chatgpt.com/share/09bd2c16-af30-43fe-8031-1f440e439280
+
 
 ```bash
-/project-root
-    /dist
-        web_widget.1.0.1.js
-    /versions
-        /1.0.1
-            /js
-                script.js
-            /css
-                style.css
-            /lang
-                languages.js
-            index.js
-    index.php
+/web-widget-offers
+├── dist
+│   └── web_widget_offers.1.0.1.js
+├── versions
+│   └── 1.0.1
+│       ├── script.js
+│       ├── graphql
+│       │   └── graphqlQueries.js
+│       ├── lang
+│       │   └── languages.js
+│       ├── css
+│       │   └── styles.css
+│       ├── assets
+│       │   └── images
+│       └── utils
+│           └── api.js
+├── index.php
+├── package.json
+└── README.md
 ```
-- **/dist**: Contains the compiled JavaScript file for the web widget.
+- **/dist**: Contains the compiled JavaScript file for the current version of web widget.
 
 - **/versions/1.0.1**: Contains the version-specific source files for the web widget.
 
-    - **/js/script.js**: Additional JavaScript files for the widget.
+    - **script.js**: Main JavaScript file for the widget.
     - **/css/style.css**: CSS stylesheets for the widget.
     - **/lang/languages.js**: Language strings for internationalization.
     - **index.js**: Main entry point for the widget's JavaScript code.
