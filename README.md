@@ -72,7 +72,7 @@ npm install --save-dev browserify-css
 3. **Compile the Widget**: Run the following command in the project root directory to compile the widget using Browserify and watchify:
 
 ```bash
-watchify -t browserify-css versions/1.0.1/index.js --standalone web_widget -o ./dist/web_widget.1.0.1.js
+watchify -t browserify-css versions/1.0.1/index.js --standalone web_widget_offers -o ./dist/web_widget_offers.1.0.1.js
 ```
 
 4. **Serve the Example HTML**: Open the `index.php` file in a web server environment (e.g., using XAMPP, WAMP, or a built-in server like PHP's built-in server). Ensure the web server points to the project root directory.

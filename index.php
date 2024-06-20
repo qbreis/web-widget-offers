@@ -15,6 +15,10 @@
         brandColor3: '#6E8B62',
         brandColor4: '#6E8B62',
         endpointUrl: 'http://localhost/leskarellis-2/documents/api/get-accommodations.php',
+        graphqlConfig: {
+            endpointURL: 'https://leskarellis.resalys.com/rsl/graphql',
+            username: 'web_fr',
+        },
     });
     </script>
 </body>

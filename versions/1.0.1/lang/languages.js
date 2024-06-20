@@ -1,8 +1,8 @@
-function getString(ww_languageCode){
-    let ww_translationChains = {};
-    switch(ww_languageCode){
+function getString(wwo_languageCode){
+    let wwo_translationChains = {};
+    switch(wwo_languageCode){
         case 'es':
-            ww_translationChains = {
+            wwo_translationChains = {
                 'translation_example': 'Ejemplo de traducción',
                 'code_lang': 'es-es',
                 'days' : [
@@ -17,7 +17,7 @@ function getString(ww_languageCode){
             }
             break;  
         case 'en':
-            ww_translationChains = {
+            wwo_translationChains = {
                 'translation_example': 'Translation example',
                 'code_lang': 'en-gb',
                 'days': [
@@ -32,7 +32,7 @@ function getString(ww_languageCode){
             }
             break;
         case 'fr':
-            ww_translationChains = {
+            wwo_translationChains = {
                 'translation_example': 'Example de traduction',
                 'code_lang': 'fr-fr',
                 'days': [
@@ -48,6 +48,6 @@ function getString(ww_languageCode){
         break;
         
     }
-    return ww_translationChains;
+    return wwo_translationChains;
 }
 module.exports = { getString };

@@ -1,28 +1,31 @@
 'use strict';
 
 // Importing CSS
-const css = require('./css/style.css');
+const wwo_css = require('./css/style.css');
 
 // Importing language strings
-const ww_languagesStrings = require(`./lang/languages.js`);
+const wwo_languagesStrings = require(`./lang/languages.js`);
+
+// Importing GraphQL queries
+const wwo_graphqlQueries = require(`./graphql/graphqlQueries.js`);
 
 // Main widget initialization function
 function initWidget(options){
     console.log('Initializing widget with options:', options);
 
     // Fetch the corresponding language strings
-    const WW_STRINGS = ww_languagesStrings.getString(
+    const WWO_STRINGS = wwo_languagesStrings.getString(
         // Default to 'es' if no language is specified
         (options.language) ? options.language : 'es'
     );
 
     // Handle missing translations
-    if (!WW_STRINGS) {
+    if (!WWO_STRINGS) {
         console.error(`No language strings found for language code: ${languageCode}`);
         return;
     }
 
-    console.log('Language strings:', WW_STRINGS);
+    console.log('Language strings:', WWO_STRINGS);
 
 
 
@@ -118,27 +121,16 @@ fetch(
 
 
 
-const GRAPHQL_ENDPOINT = 'https://leskarellis.resalys.com/rsl/graphql';
-
-// Define the GraphQL query as a string
-const getSessionQuery = `
-    query session($username: String!) {
-        getSession(input: { username: $username }) {
-            name
-        }
-    }
-`;
-
 // Define a function to fetch session data
 const fetchSessionData = async (username) => {
     try {
-        const response = await fetch(GRAPHQL_ENDPOINT, {
+        const response = await fetch(options.graphqlConfig.endpointURL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                query: getSessionQuery,
+                query: wwo_graphqlQueries.getSession,
                 variables: { username: username },
             })
         });
@@ -205,7 +197,7 @@ main();
     let html = `
         <div id="ww-main-container">
             wtd-contain-dispos-group in versions/1.0.4/index.js
-            <p>${WW_STRINGS.translation_example}</p>
+            <p>${WWO_STRINGS.translation_example}</p>
             <p>options.endpointUrl: ${options.endpointUrl}</p>
         </div>
     `;

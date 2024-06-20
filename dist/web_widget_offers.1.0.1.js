@@ -78,31 +78,69 @@ module.exports = {
 },{}],2:[function(require,module,exports){
 var css = "body{font-family:BlinkMacSystemFont,-apple-system,\"Segoe UI\",Roboto,Oxygen,Ubuntu,Cantarell,\"Fira Sans\",\"Droid Sans\",\"Helvetica Neue\",Helvetica,Arial,sans-serif}#ww-main-container{max-width:1024px;margin:0 auto}#ww-main-container div,#ww-main-container label,#ww-main-container span{font-size:1rem}#ww-main-container p{margin:0!important;line-height:1.4rem;font-size:1.1rem}#ww-main-container{padding:2em;background-color:#f3f3f3}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\style.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":1}],3:[function(require,module,exports){
+module.exports = {
+    getSession: `
+        query session($username: String! ) {
+            getSession(input: { 
+                username: $username
+            }) {
+                name
+            }
+        }
+    `,
+    getProposals: `
+        query getProposal1($session : Session! , $input: ProposalsInput){
+            Method1:getProposals(
+                session : $session, 
+                input : $input
+            )
+            {
+                proposals : proposals {
+                    propertyId
+                    proposalKey,
+                    price {
+                        amount,
+                        currencyCode
+                    },
+                    productOption {
+                        code,
+                        label
+                    }
+                }
+            }
+        }
+    `,
+};
+
+},{}],4:[function(require,module,exports){
 'use strict';
 
 // Importing CSS
-const css = require('./css/style.css');
+const wwo_css = require('./css/style.css');
 
 // Importing language strings
-const ww_languagesStrings = require(`./lang/languages.js`);
+const wwo_languagesStrings = require(`./lang/languages.js`);
+
+// Importing GraphQL queries
+const wwo_graphqlQueries = require(`./graphql/graphqlQueries.js`);
 
 // Main widget initialization function
 function initWidget(options){
     console.log('Initializing widget with options:', options);
 
     // Fetch the corresponding language strings
-    const WW_STRINGS = ww_languagesStrings.getString(
+    const WWO_STRINGS = wwo_languagesStrings.getString(
         // Default to 'es' if no language is specified
         (options.language) ? options.language : 'es'
     );
 
     // Handle missing translations
-    if (!WW_STRINGS) {
+    if (!WWO_STRINGS) {
         console.error(`No language strings found for language code: ${languageCode}`);
         return;
     }
 
-    console.log('Language strings:', WW_STRINGS);
+    console.log('Language strings:', WWO_STRINGS);
 
 
 
@@ -198,27 +236,16 @@ fetch(
 
 
 
-const GRAPHQL_ENDPOINT = 'https://leskarellis.resalys.com/rsl/graphql';
-
-// Define the GraphQL query as a string
-const getSessionQuery = `
-    query session($username: String!) {
-        getSession(input: { username: $username }) {
-            name
-        }
-    }
-`;
-
 // Define a function to fetch session data
 const fetchSessionData = async (username) => {
     try {
-        const response = await fetch(GRAPHQL_ENDPOINT, {
+        const response = await fetch(options.graphqlConfig.endpointURL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                query: getSessionQuery,
+                query: wwo_graphqlQueries.getSession,
                 variables: { username: username },
             })
         });
@@ -285,7 +312,7 @@ main();
     let html = `
         <div id="ww-main-container">
             wtd-contain-dispos-group in versions/1.0.4/index.js
-            <p>${WW_STRINGS.translation_example}</p>
+            <p>${WWO_STRINGS.translation_example}</p>
             <p>options.endpointUrl: ${options.endpointUrl}</p>
         </div>
     `;
@@ -301,12 +328,12 @@ main();
 }
 
 module.exports = {initWidget};
-},{"./css/style.css":2,"./lang/languages.js":4}],4:[function(require,module,exports){
-function getString(ww_languageCode){
-    let ww_translationChains = {};
-    switch(ww_languageCode){
+},{"./css/style.css":2,"./graphql/graphqlQueries.js":3,"./lang/languages.js":5}],5:[function(require,module,exports){
+function getString(wwo_languageCode){
+    let wwo_translationChains = {};
+    switch(wwo_languageCode){
         case 'es':
-            ww_translationChains = {
+            wwo_translationChains = {
                 'translation_example': 'Ejemplo de traducción',
                 'code_lang': 'es-es',
                 'days' : [
@@ -321,7 +348,7 @@ function getString(ww_languageCode){
             }
             break;  
         case 'en':
-            ww_translationChains = {
+            wwo_translationChains = {
                 'translation_example': 'Translation example',
                 'code_lang': 'en-gb',
                 'days': [
@@ -336,7 +363,7 @@ function getString(ww_languageCode){
             }
             break;
         case 'fr':
-            ww_translationChains = {
+            wwo_translationChains = {
                 'translation_example': 'Example de traduction',
                 'code_lang': 'fr-fr',
                 'days': [
@@ -352,8 +379,8 @@ function getString(ww_languageCode){
         break;
         
     }
-    return ww_translationChains;
+    return wwo_translationChains;
 }
 module.exports = { getString };
-},{}]},{},[3])(3)
+},{}]},{},[4])(4)
 });
