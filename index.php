@@ -12,9 +12,14 @@
         language: 'es',
         brandColor1: '#000',
         brandColor2: '#000',
-        brandColor3: '#6E8B62',
+        brandColor3: '#6E8B62', 
         brandColor4: '#6E8B62',
-        endpointUrl: 'http://localhost/leskarellis-2/documents/api/get-accommodations.php',
+        // endpointUrl: 'https://www.karellis-reservation.com/wp-json/api-campings/v2/get_offers',
+        endpointUrl: 'http://localhost/leskarellis-2/documents/wp-json/api-campings/v2/get_offers',
+        graphqlConfig: {
+            endpointURL: 'https://leskarellis.resalys.com/rsl/graphql', // https://leskarellis.resalys.com/rsl/graphiql
+            username: 'web_fr',
+        },
     });
     </script>
 </body>
