@@ -1,25 +1,54 @@
-// utils/api.js
+// utils/api.js - Contains functions related to fetching data from APIs.
 
-/**
- * Function to make a fetch request to the given URL with specified options.
- * @param {string} url - The endpoint URL.
- * @param {Object} options - The fetch options including method, headers, and body.
- * @returns {Promise<Response>} The fetch response.
- */
-
-/*
-export const fetchData = async (url, options) => {
+// Define a function to fetch session data
+const fetchSessionData = async (username, endpointURL, graphqlQuery) => {
     try {
-        const response = await fetch(url, options);
-        
+        const response = await fetch(endpointURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                query: graphqlQuery,
+                variables: { username: username },
+            })
+        });
+
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error('Error al realizar la solicitud HTTP a getSession');
         }
 
-        return response;
+        const data = await response.json();
+        return data;
     } catch (error) {
-        console.error('Error during fetch request:', error);
+        console.error('Error getSession:', error);
         throw error;
     }
 };
-*/
+
+// Define a function to fetch proposals data
+const fetchProposalsData = async (endpointURL, graphqlQuery) => {
+    try {
+        const response = await fetch(endpointURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                query: graphqlQuery
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al realizar la solicitud HTTP');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetchProposalsData:', error);
+        throw error;
+    }
+};
+
+module.exports = { fetchSessionData, fetchProposalsData };

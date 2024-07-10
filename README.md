@@ -4,10 +4,7 @@ This documentation provides an overview of the web widget to display offers base
 
 ## Project Structure
 
-The project is organized into the following directory structure (https://chatgpt.com/c/ab16e1c0-bac0-4300-b11d-641f9cb931bd):
-
-https://chatgpt.com/share/09bd2c16-af30-43fe-8031-1f440e439280
-
+The project is organized into the following directory structure:
 
 ```bash
 /web-widget-offers
@@ -15,8 +12,9 @@ https://chatgpt.com/share/09bd2c16-af30-43fe-8031-1f440e439280
 │   └── web_widget_offers.1.0.1.js
 ├── versions
 │   └── 1.0.1
-│       ├── script.js
-│       ├── graphql
+│       ├── script.js // widget.js: Contains only the main initialization function and any core widget-related logic.
+│       ├── graphql // Contains functions related to constructing and handling GraphQL queries.
+│       │   ├── graphql.js
 │       │   └── graphqlQueries.js
 │       ├── lang
 │       │   └── languages.js
@@ -24,12 +22,15 @@ https://chatgpt.com/share/09bd2c16-af30-43fe-8031-1f440e439280
 │       │   └── styles.css
 │       ├── assets
 │       │   └── images
-│       └── utils
-│           └── api.js
+│       └── utils // Utility functions.
+│           ├── utils.js // Custom functions.
+│           ├── handlers.js // Contains functions for data handling and processing functions.
+│           └── api.js // Contains functions related to fetching data from APIs.
 ├── index.php
 ├── package.json
 └── README.md
 ```
+
 - **/dist**: Contains the compiled JavaScript file for the current version of web widget.
 
 - **/versions/1.0.1**: Contains the version-specific source files for the web widget.
