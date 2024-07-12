@@ -4,19 +4,49 @@ if(debugHtmlBuilder) console.log('debugHtmlBuilder is set to 1');
 const { getLanguageStrings } = require('../lang/languageManager');
 const { formatDateRange } = require('../utils/utils');
 
-/*
+const buildHtmlOffers = (proposalsOffersArray) => {
+    let html = `
+        <div class="wwo-offer-container">
+            <ul>
+    `;
+    proposalsOffersArray.forEach((item, key) => {
+        console.log('item in buildHtmlOffers', item);
+
+        let disponibilityRange = formatDateRange(item.acfItem['offer-date-start'], item.acfItem['offer-date-end']);//, wwo_strings);
+        html += `
+            <li style="border: 4px #c0c solid;margin: 0.5em 0;">
+                <div class="wwo-disponibility-dates">
+                    ${disponibilityRange}
+                </div><!-- .wwo-disponibility-dates -->
+                propertyId: ${item.proposal.propertyId}<br />
+                ${item.proposal.price.amount} ${item.proposal.price.currencyCode}<br />
+                proposalKey: ${item.proposal.proposalKey}<br />
+                nbDays: ${item.proposal.nbDays}<br />
+                date start: ${item.proposal.formattedDate}<br />
+                ${item.offer.get_the_title}<br />
+            </li>
+        `;
+    });
+    html += `
+        </ul>
+    </div><!-- .wwo-offer-container -->
+    `;
+    return html;
+}
+
 const buildHtmlFromOffersProposalsCombinations = (proposalsOffersArray) => {
     if (debugHtmlBuilder) console.log('proposalsOffersArray', proposalsOffersArray);
-    let html = 'SOLO A MODO DE PRUEBA<br />';
+    let html = 'ESTRUCTURA DE LAS DISPONIBILIDADES MOSTRADAS — SOLO PARA DESARROLLO:<br />';
 
     proposalsOffersArray.forEach((item, key) => {
+        if (debugHtmlBuilder) console.log('item in buildHtmlFromOffersProposalsCombinations', item);
         if (debugHtmlBuilder) console.log('item.offer.acf_data', item.offer.acf_data);
         const wwo_strings = getLanguageStrings();
         if (!wwo_strings) {
             console.error('Failed to get language strings in graphql/graphql');
             return;
         }
-        if (debugHtmlBuilder) console.log('wwo_strings', wwo_strings);
+        //if (debugHtmlBuilder) console.log('wwo_strings', wwo_strings);
 
         let dateStr = item.offer.acf_data[0]['offer-date-start'];
 
@@ -28,10 +58,14 @@ const buildHtmlFromOffersProposalsCombinations = (proposalsOffersArray) => {
         html += `
             <div class="ww-offer-container">
                 <h2>
-                    ${item.offer.get_the_title}
+                    ${item.offer.get_the_title} (WP post ID: ${item.offer.ID})
                     &nbsp;-&nbsp;
-                    From <span class="wwo-day-of-week">${dayOfWeek}</span> ${item.offer.acf_data[0]['offer-date-start']} to ${item.offer.acf_data[0]['offer-date-end']}
+                    From <span class="wwo-day-of-week">${dayOfWeek}</span> ${item.acfItem['offer-date-start']} to ${item.acfItem['offer-date-end']}
                 </h2>
+                <p>
+                    Se deben mostrar las disponibilidades entre las fechas indicadas en el título.<br />
+                    Que empiecen en día de la semana: ${item.acfItem['offer-day-of-week']}
+                </p>
                 <h3>Proposals:</h3>
                 <ul>
         `;
@@ -54,7 +88,7 @@ const buildHtmlFromOffersProposalsCombinations = (proposalsOffersArray) => {
     });
     return html;
 }
-*/
+
 
 const buildHtmlOffersOutput = (offersProposalsList) => {
     let html = '';
@@ -112,6 +146,7 @@ const buildHtmlOffersOutput = (offersProposalsList) => {
 }
 
 module.exports = { 
-    // buildHtmlFromOffersProposalsCombinations, 
-    buildHtmlOffersOutput
+    buildHtmlFromOffersProposalsCombinations, 
+    buildHtmlOffersOutput,
+    buildHtmlOffers
 };
