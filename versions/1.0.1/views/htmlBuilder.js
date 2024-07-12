@@ -4,6 +4,7 @@ if(debugHtmlBuilder) console.log('debugHtmlBuilder is set to 1');
 const { getLanguageStrings } = require('../lang/languageManager');
 const { formatDateRange } = require('../utils/utils');
 
+/*
 const buildHtmlFromOffersProposalsCombinations = (proposalsOffersArray) => {
     if (debugHtmlBuilder) console.log('proposalsOffersArray', proposalsOffersArray);
     let html = 'SOLO A MODO DE PRUEBA<br />';
@@ -53,6 +54,7 @@ const buildHtmlFromOffersProposalsCombinations = (proposalsOffersArray) => {
     });
     return html;
 }
+*/
 
 const buildHtmlOffersOutput = (offersProposalsList) => {
     let html = '';
@@ -109,4 +111,7 @@ const buildHtmlOffersOutput = (offersProposalsList) => {
     return html;
 }
 
-module.exports = { buildHtmlFromOffersProposalsCombinations, buildHtmlOffersOutput };
+module.exports = { 
+    // buildHtmlFromOffersProposalsCombinations, 
+    buildHtmlOffersOutput
+};

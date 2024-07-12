@@ -5,14 +5,17 @@ if(debugGraphql) console.log('debugGraphql is set to 1');
 
 const { fetchSessionData, fetchProposalsData } = require('../utils/api');
 const { buildProposalsQuery, offersProposalsCombinations, getOffersProposalsList } = require('../utils/handlers');
-const { buildHtmlFromOffersProposalsCombinations, buildHtmlOffersOutput } = require('../views/htmlBuilder');
+const { 
+    // buildHtmlFromOffersProposalsCombinations, 
+    buildHtmlOffersOutput 
+} = require('../views/htmlBuilder');
 
 const wwo_graphqlQueries = require('./graphqlQueries');
 
 const runGraphql = async (options, endpointData) => {
     const username = 'web_fr';
     try {
-        const sessionData = await fetchSessionData(username, options.graphqlConfig.endpointURL, wwo_graphqlQueries.getSession);
+        const sessionData = await fetchSessionData(username, options.graphqlConfig.endpointUrl, wwo_graphqlQueries.getSession);
         await handleSessionData(sessionData, options, endpointData);
     } catch (error) {
         console.error('Error en runGraphql:', error);
@@ -25,8 +28,8 @@ const handleSessionData = async (data, options, endpointData) => {
     const sessionName = data.data.getSession.name;
     const proposalsQuery = buildProposalsQuery(sessionName, endpointData);
     try {
-        const proposalsData = await fetchProposalsData(options.graphqlConfig.endpointURL, proposalsQuery);
-        if (debugGraphql) console.log('Datos recibidos getProposals de GraphQL endpoint ' + options.graphqlConfig.endpointURL + ':', proposalsData.data);
+        const proposalsData = await fetchProposalsData(options.graphqlConfig.endpointUrl, proposalsQuery);
+        if (debugGraphql) console.log('Datos recibidos getProposals de GraphQL endpoint ' + options.graphqlConfig.endpointUrl + ':', proposalsData.data);
 
         if (debugGraphql) console.log('offers in endpointData:', endpointData);
 
