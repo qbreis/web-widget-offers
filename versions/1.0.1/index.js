@@ -1,6 +1,6 @@
 'use strict';
 
-const debugIndex = 0;
+const debugIndex = 1;
 if(debugIndex) console.log('debugIndex is set to 1');
 
 require('./css/style.css');
@@ -59,11 +59,17 @@ function initWidget(options) {
     // Building the widget's HTML
     let html = `
         <div id="ww-main-container">
-            wtd-contain-dispos-group in versions/1.0.4/index.js
+        <div style="border: 2px #ccc solid;margin: 1em 0;padding: 0.5em;">
+            <h2>Widget options</h2>
+            <ul>
+                <li>id: <strong>${options.id}</strong> &#8212; Es el id de la etiqueta HTML donde se implementa el widget.</li>
+                <li>language: <strong>${options.language}</strong></li>
+                <li>endpointUrl: <strong>${options.endpointUrl}</strong> &#8212; URL del punto de acceso para obtener las ofertas de WordPress.</li>
+                <li>graphqlConfig.endpointUrl: <strong>${options.graphqlConfig.endpointUrl}</strong> &#8212; URL del punto de acceso para obtener las disponibilidades por GraphQL.</li>
+            </ul>
             <p>${wwo_strings.translation_example}</p>
-            <p>options.endpointUrl: ${options.endpointUrl}</p>
+        </div>
             <div id="wwo-offers-list" style="border: 2px #f0c solid;"></div>
-            <div id="ww-offers-list" style="border: 2px #0f0 solid;"></div>
         </div>
     `;
 

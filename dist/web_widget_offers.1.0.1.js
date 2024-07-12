@@ -85,14 +85,17 @@ if(debugGraphql) console.log('debugGraphql is set to 1');
 
 const { fetchSessionData, fetchProposalsData } = require('../utils/api');
 const { buildProposalsQuery, offersProposalsCombinations, getOffersProposalsList } = require('../utils/handlers');
-const { buildHtmlFromOffersProposalsCombinations, buildHtmlOffersOutput } = require('../views/htmlBuilder');
+const { 
+    // buildHtmlFromOffersProposalsCombinations, 
+    buildHtmlOffersOutput 
+} = require('../views/htmlBuilder');
 
 const wwo_graphqlQueries = require('./graphqlQueries');
 
 const runGraphql = async (options, endpointData) => {
     const username = 'web_fr';
     try {
-        const sessionData = await fetchSessionData(username, options.graphqlConfig.endpointURL, wwo_graphqlQueries.getSession);
+        const sessionData = await fetchSessionData(username, options.graphqlConfig.endpointUrl, wwo_graphqlQueries.getSession);
         await handleSessionData(sessionData, options, endpointData);
     } catch (error) {
         console.error('Error en runGraphql:', error);
@@ -105,8 +108,8 @@ const handleSessionData = async (data, options, endpointData) => {
     const sessionName = data.data.getSession.name;
     const proposalsQuery = buildProposalsQuery(sessionName, endpointData);
     try {
-        const proposalsData = await fetchProposalsData(options.graphqlConfig.endpointURL, proposalsQuery);
-        if (debugGraphql) console.log('Datos recibidos getProposals de GraphQL endpoint ' + options.graphqlConfig.endpointURL + ':', proposalsData.data);
+        const proposalsData = await fetchProposalsData(options.graphqlConfig.endpointUrl, proposalsQuery);
+        if (debugGraphql) console.log('Datos recibidos getProposals de GraphQL endpoint ' + options.graphqlConfig.endpointUrl + ':', proposalsData.data);
 
         if (debugGraphql) console.log('offers in endpointData:', endpointData);
 
@@ -185,7 +188,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-const debugIndex = 0;
+const debugIndex = 1;
 if(debugIndex) console.log('debugIndex is set to 1');
 
 require('./css/style.css');
@@ -244,11 +247,17 @@ function initWidget(options) {
     // Building the widget's HTML
     let html = `
         <div id="ww-main-container">
-            wtd-contain-dispos-group in versions/1.0.4/index.js
+        <div style="border: 2px #ccc solid;margin: 1em 0;padding: 0.5em;">
+            <h2>Widget options</h2>
+            <ul>
+                <li>id: <strong>${options.id}</strong> &#8212; Es el id de la etiqueta HTML donde se implementa el widget.</li>
+                <li>language: <strong>${options.language}</strong></li>
+                <li>endpointUrl: <strong>${options.endpointUrl}</strong> &#8212; URL del punto de acceso para obtener las ofertas de WordPress.</li>
+                <li>graphqlConfig.endpointUrl: <strong>${options.graphqlConfig.endpointUrl}</strong> &#8212; URL del punto de acceso para obtener las disponibilidades por GraphQL.</li>
+            </ul>
             <p>${wwo_strings.translation_example}</p>
-            <p>options.endpointUrl: ${options.endpointUrl}</p>
+        </div>
             <div id="wwo-offers-list" style="border: 2px #f0c solid;"></div>
-            <div id="ww-offers-list" style="border: 2px #0f0 solid;"></div>
         </div>
     `;
 
@@ -600,6 +609,7 @@ if(debugHtmlBuilder) console.log('debugHtmlBuilder is set to 1');
 const { getLanguageStrings } = require('../lang/languageManager');
 const { formatDateRange } = require('../utils/utils');
 
+/*
 const buildHtmlFromOffersProposalsCombinations = (proposalsOffersArray) => {
     if (debugHtmlBuilder) console.log('proposalsOffersArray', proposalsOffersArray);
     let html = 'SOLO A MODO DE PRUEBA<br />';
@@ -649,6 +659,7 @@ const buildHtmlFromOffersProposalsCombinations = (proposalsOffersArray) => {
     });
     return html;
 }
+*/
 
 const buildHtmlOffersOutput = (offersProposalsList) => {
     let html = '';
@@ -705,6 +716,9 @@ const buildHtmlOffersOutput = (offersProposalsList) => {
     return html;
 }
 
-module.exports = { buildHtmlFromOffersProposalsCombinations, buildHtmlOffersOutput };
+module.exports = { 
+    // buildHtmlFromOffersProposalsCombinations, 
+    buildHtmlOffersOutput
+};
 },{"../lang/languageManager":6,"../utils/utils":10}]},{},[5])(5)
 });
