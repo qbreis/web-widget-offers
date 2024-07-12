@@ -18,6 +18,8 @@ The project is organized into the following directory structure:
 │       │   └── graphqlQueries.js
 │       ├── lang
 │       │   └── languages.js
+│       ├── views // Contains  UI-related functions
+│       │   └── htmlBuilder.js  // Contains functions for building HTML based on data.
 │       ├── css
 │       │   └── styles.css
 │       ├── assets
