@@ -12,7 +12,7 @@ const buildHtmlOffers = (proposalsOffersArray) => {
     proposalsOffersArray.forEach((item, key) => {
         console.log('item in buildHtmlOffers', item);
 
-        let disponibilityRange = formatDateRange(item.acfItem['offer-date-start'], item.acfItem['offer-date-end']);//, wwo_strings);
+        let disponibilityRange = formatDateRange(item.proposal.formattedDate, item.acfItem['offer-date-end']);//, wwo_strings);
         html += `
             <li style="border: 4px #c0c solid;margin: 0.5em 0;">
                 <div class="wwo-disponibility-dates">

@@ -345,8 +345,8 @@ function getString(wwo_languageCode){
             wwo_translationChains = {
                 'translation_example': 'Ejemplo de traducción',
                 'code_lang': 'es-es',
-                'dows' : ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'],
-                'dows-short' : ['lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom'],
+                'dows' : ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
+                'dows-short' : ['dom', 'lun', 'mar', 'mie', 'jue', 'vie', 'sab'],
                 'months' : ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
                 'monts-short' : ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
                 'from' : 'desde',
@@ -357,8 +357,8 @@ function getString(wwo_languageCode){
             wwo_translationChains = {
                 'translation_example': 'Translation example',
                 'code_lang': 'en-gb',
-                'dows' : ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-                'dows-short' : ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
+                'dows' : ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
+                'dows-short' : ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
                 'months' : ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
                 'monts-short' : ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
                 'from' : 'from',
@@ -369,8 +369,8 @@ function getString(wwo_languageCode){
             wwo_translationChains = {
                 'translation_example': 'Example de traduction',
                 'code_lang': 'fr-fr',
-                'dows' : ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'],
-                'dows-short' : ['lun', 'mar', 'mer', 'jeu', 'ven', 'sam', 'dim'],
+                'dows' : ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
+                'dows-short' : ['dim', 'lun', 'mar', 'mer', 'jeu', 'ven', 'sam'],
                 'months' : ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
                 'monts-short' : ['jan', 'fév', 'mar', 'avr', 'mai', 'juin', 'juil', 'août', 'sep', 'oct', 'nov', 'déc'],
                 'from' : 'du',
@@ -780,7 +780,8 @@ const formatDateRange = (dateStartString, dateEndString) => {
 
     let dateStartParts = dateStartString.split('/');
     let dateStart = new Date(`${dateStartParts[2]}-${dateStartParts[1]}-${dateStartParts[0]}`);
-
+    
+    console.log('---', dateStart.getUTCDay(), wwo_strings['dows-short']);
     let dayOfWeek = wwo_strings['dows-short'][dateStart.getUTCDay()];
 
     let dateEndParts = dateEndString.split('/');
@@ -819,7 +820,7 @@ const buildHtmlOffers = (proposalsOffersArray) => {
     proposalsOffersArray.forEach((item, key) => {
         console.log('item in buildHtmlOffers', item);
 
-        let disponibilityRange = formatDateRange(item.acfItem['offer-date-start'], item.acfItem['offer-date-end']);//, wwo_strings);
+        let disponibilityRange = formatDateRange(item.proposal.formattedDate, item.acfItem['offer-date-end']);//, wwo_strings);
         html += `
             <li style="border: 4px #c0c solid;margin: 0.5em 0;">
                 <div class="wwo-disponibility-dates">
