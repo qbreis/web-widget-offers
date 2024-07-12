@@ -9,7 +9,7 @@
     <script>
     web_widget_offers.initWidget({
         id: 'web-widget-container',
-        language: 'es',
+        language: 'fr',
         brandColor1: '#000',
         brandColor2: '#000',
         brandColor3: '#6E8B62', 

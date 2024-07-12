@@ -76,13 +76,18 @@ module.exports = {
 };
 
 },{}],2:[function(require,module,exports){
-var css = "body{font-family:BlinkMacSystemFont,-apple-system,\"Segoe UI\",Roboto,Oxygen,Ubuntu,Cantarell,\"Fira Sans\",\"Droid Sans\",\"Helvetica Neue\",Helvetica,Arial,sans-serif}#ww-main-container{max-width:1024px;margin:0 auto}#ww-main-container div,#ww-main-container label,#ww-main-container span{font-size:1rem}#ww-main-container p{margin:0!important;line-height:1.4rem;font-size:1.1rem}#ww-main-container{padding:2em;background-color:#f3f3f3}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\style.css" }, { "insertAt": "bottom" })); module.exports = css;
+var css = "body{font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\style.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":1}],3:[function(require,module,exports){
 // graphql.js: Contains functions related to constructing and handling GraphQL queries.
 
-const { fetchSessionData, fetchProposalsData } = require('../utils/api.js');
-const { buildProposalsQuery } = require('../utils/handlers.js');
-const wwo_graphqlQueries = require('./graphqlQueries.js');
+const debugGraphql = 0;
+if(debugGraphql) console.log('debugGraphql is set to 1');
+
+const { fetchSessionData, fetchProposalsData } = require('../utils/api');
+const { buildProposalsQuery, offersProposalsCombinations, getOffersProposalsList } = require('../utils/handlers');
+const { buildHtmlFromOffersProposalsCombinations, buildHtmlOffersOutput } = require('../views/htmlBuilder');
+
+const wwo_graphqlQueries = require('./graphqlQueries');
 
 const runGraphql = async (options, endpointData) => {
     const username = 'web_fr';
@@ -95,22 +100,54 @@ const runGraphql = async (options, endpointData) => {
 };
 
 const handleSessionData = async (data, options, endpointData) => {
-    console.log('Datos recibidos getSession in refactored code:', data);
-    console.log('getSession name:', data.data.getSession.name);
-
+    if (debugGraphql) console.log('Datos recibidos getSession in refactored code:', data);
+    if (debugGraphql) console.log('getSession name:', data.data.getSession.name);
     const sessionName = data.data.getSession.name;
     const proposalsQuery = buildProposalsQuery(sessionName, endpointData);
-
     try {
         const proposalsData = await fetchProposalsData(options.graphqlConfig.endpointURL, proposalsQuery);
-        console.log('Datos recibidos getProposals de GraphQL endpoint ' + options.graphqlConfig.endpointURL + ':', proposalsData);
+        if (debugGraphql) console.log('Datos recibidos getProposals de GraphQL endpoint ' + options.graphqlConfig.endpointURL + ':', proposalsData.data);
+
+        if (debugGraphql) console.log('offers in endpointData:', endpointData);
+
+        /*
+        To create a new object that combines offers from endpointData with proposals from proposalsData, you can iterate through each offer in endpointData and then iterate through acf_data within each offer. During this process, you can match and combine relevant proposals from proposalsData. 
+        */
+        const proposalsOffersArray = offersProposalsCombinations(proposalsData, endpointData);
+        if (debugGraphql) console.log('proposalsOffersArray...', proposalsOffersArray);
+
+        /*
+        transform proposalsOffersArray into offersProposalsArray where each offer is paired with each proposal, you can iterate through proposalsOffersArray and create a new array offersProposalsArray with the desired structure. Here's how you can achieve this:
+        */
+        const offersProposalsList = getOffersProposalsList(proposalsOffersArray);
+        if (debugGraphql) console.log('offersProposalsList', offersProposalsList);
+
+        const htmlOffersOutput = buildHtmlOffersOutput(offersProposalsList);
+        const containerOffersOutput = document.getElementById('wwo-offers-list');
+        if (containerOffersOutput) {
+            containerOffersOutput.innerHTML = htmlOffersOutput;
+        } else {
+            console.error(`Element with id wwo-offers-list not found.`);
+        }
+
+
+
+        /*
+        const htmlOffers = buildHtmlFromOffersProposalsCombinations(proposalsOffersArray);
+        const containerOfers = document.getElementById('ww-offers-list');
+        if (containerOfers) {
+            containerOfers.innerHTML = htmlOffers;
+        } else {
+            console.error(`Element with id ww-offers-list not found.`);
+        }
+        */
     } catch (error) {
         console.error('Error fetching proposals data:', error);
     }
 };
 
 module.exports = { runGraphql, handleSessionData };
-},{"../utils/api.js":7,"../utils/handlers.js":8,"./graphqlQueries.js":4}],4:[function(require,module,exports){
+},{"../utils/api":8,"../utils/handlers":9,"../views/htmlBuilder":11,"./graphqlQueries":4}],4:[function(require,module,exports){
 module.exports = {
     getSession: `
         query session($username: String! ) {
@@ -148,37 +185,46 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-// Importing CSS
-// const wwo_css = require('./css/style.css');
+const debugIndex = 0;
+if(debugIndex) console.log('debugIndex is set to 1');
+
 require('./css/style.css');
 
 // Importing language strings
-// const wwo_languagesStrings = require(`./lang/languages.js`);
-const { getString } = require('./lang/languages.js');
+// const { getString } = require('./lang/languages.js');
+const { initLanguage, getLanguageStrings } = require('./lang/languageManager');
 
 // Importing GraphQL queries and utilities
-const { runGraphql } = require('./graphql/graphql.js');
-
+const { runGraphql } = require('./graphql/graphql');
 
 // Main widget initialization function
 function initWidget(options) {
-    console.log('Initializing widget with options:', options);
+    if (debugIndex) console.log('Initializing widget with options:', options);
 
+    initLanguage(options);
+    const wwo_strings = getLanguageStrings();
+    if (!wwo_strings) {
+        console.error('Failed to initialize language strings in index.js');
+        return;
+    }
+    /*
     // Fetch the corresponding language strings
-    const WWO_STRINGS = getString(
+    const wwo_strings = getString(
         // Default to 'es' if no language is specified
         (options.language) ? options.language : 'es'
     );
 
     // Handle missing translations
-    if (!WWO_STRINGS) {
+    if (!wwo_strings) {
         console.error(`No language strings found for language code: ${options.language || 'es'}`);
         return;
     }
+    */
 
-    console.log('Language strings:', WWO_STRINGS);
 
-    console.log('options.endpointUrl:', options.endpointUrl);
+    if (debugIndex) console.log('Language strings:', wwo_strings);
+
+    if (debugIndex) console.log('options.endpointUrl:', options.endpointUrl);
 
     fetch(options.endpointUrl)
         .then(response => {
@@ -189,7 +235,7 @@ function initWidget(options) {
         })
         .then(data => {
             runGraphql(options, data);
-            console.log('Data from WP endpoint ' + options.endpointUrl + ':', data);
+            if (debugIndex) console.log('Data from WP endpoint ' + options.endpointUrl + ':', data);
         })
         .catch(error => {
             console.error('Error fetching data from options.endpointUrl:', error);
@@ -199,8 +245,10 @@ function initWidget(options) {
     let html = `
         <div id="ww-main-container">
             wtd-contain-dispos-group in versions/1.0.4/index.js
-            <p>${WWO_STRINGS.translation_example}</p>
+            <p>${wwo_strings.translation_example}</p>
             <p>options.endpointUrl: ${options.endpointUrl}</p>
+            <div id="wwo-offers-list" style="border: 2px #f0c solid;"></div>
+            <div id="ww-offers-list" style="border: 2px #0f0 solid;"></div>
         </div>
     `;
 
@@ -213,115 +261,37 @@ function initWidget(options) {
     }
 }
 
-// Define a function to fetch session data
-/*
-const fetchSessionData = async (username, endpointURL, graphqlQuery) => {
-    try {
-        const response = await fetch(endpointURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                query: graphqlQuery,
-                variables: { username: username },
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error('Error al realizar la solicitud HTTP a getSession');
-        }
-
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error getSession:', error);
-        throw error;
-    }
-};
-
-// Define a function to fetch proposals data
-const fetchProposalsData = async (endpointURL, graphqlQuery) => {
-    try {
-        const response = await fetch(endpointURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                query: graphqlQuery
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error('Error al realizar la solicitud HTTP');
-        }
-
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetchProposalsData:', error);
-        throw error;
-    }
-};
-
-
-// Function to handle the received data
-const handleSessionData = async (data, options, endpointData) => {
-    console.log('Datos recibidos getSession in refactored code:', data);
-    console.log('getSession name:', data.data.getSession.name);
-
-    const sessionName = data.data.getSession.name;
-    const proposalsQuery = buildProposalsQuery(sessionName, endpointData);
-
-    try {
-        const proposalsData = await fetchProposalsData(options.graphqlConfig.endpointURL, proposalsQuery);
-        console.log('Datos recibidos getProposals de GraphQL endpoint ' + options.graphqlConfig.endpointURL + ':', proposalsData);
-    } catch (error) {
-        console.error('Error fetching proposals data:', error);
-    }
-};
-*/
-/*
-// Main function to execute the fetch and handle logic
-const runGraphql = async (options, endpointData) => {
-
-
-    
-
-
-
-    const username = 'web_fr'; // Define the username variable
-    try {
-        const sessionData = await fetchSessionData(username, options.graphqlConfig.endpointURL, wwo_graphqlQueries.getSession);
-        await handleSessionData(sessionData, options, endpointData);
-    } catch (error) {
-        console.error('Error en runGraphql:', error);
-    }
-};
-*/
-/*
-function convertDateFormat(dateString) {
-    // Split the date string into day, month, and year
-    const parts = dateString.split('/');
-    
-    // Construct a new Date object (month - 1 because months are zero-based in Date objects)
-    const dateObject = new Date(parts[2], parts[1] - 1, parts[0]);
-    
-    // Extract year, month, and day from the Date object
-    const year = dateObject.getFullYear();
-    const month = ('0' + (dateObject.getMonth() + 1)).slice(-2); // Adding 1 because months are zero-based
-    const day = ('0' + dateObject.getDate()).slice(-2);
-    
-    // Construct the ISO 8601 date format (yyyy-mm-dd)
-    const isoDateString = `${year}-${month}-${day}`;
-    
-    return isoDateString;
-}
-*/
 module.exports = { initWidget };
 
-},{"./css/style.css":2,"./graphql/graphql.js":3,"./lang/languages.js":6}],6:[function(require,module,exports){
+},{"./css/style.css":2,"./graphql/graphql":3,"./lang/languageManager":6}],6:[function(require,module,exports){
+// languageManager.js
+const { getString } = require('./languages');
+
+let wwo_strings = null;
+
+function initLanguage(options = {}) {
+    wwo_strings = getString(options.language || 'es');
+
+    // Handle missing translations
+    if (!wwo_strings) {
+        console.error(`No language strings found for language code: ${options.language || 'es'}`);
+        return;
+    }
+
+    if (options.debug) console.log('Language strings:', wwo_strings);
+}
+
+function getLanguageStrings() {
+    if (!wwo_strings) {
+        console.error('Language strings not initialized. Please call initLanguage first.');
+        return null;
+    }
+    return wwo_strings;
+}
+
+module.exports = { initLanguage, getLanguageStrings };
+
+},{"./languages":7}],7:[function(require,module,exports){
 function getString(wwo_languageCode){
     let wwo_translationChains = {};
     switch(wwo_languageCode){
@@ -329,45 +299,36 @@ function getString(wwo_languageCode){
             wwo_translationChains = {
                 'translation_example': 'Ejemplo de traducción',
                 'code_lang': 'es-es',
-                'days' : [
-                    {'value': 1 , 'name': 'LUNES'},
-                    {'value': 2 , 'name': 'MARTES'},
-                    {'value': 3 , 'name': 'MIERCOLES'},
-                    {'value': 4 , 'name': 'JUEVES'},
-                    {'value': 5 , 'name': 'VIERNES'},
-                    {'value': 6 , 'name': 'SABADO'},
-                    {'value': 0 , 'name': 'DOMINGO'},
-                ],
+                'dows' : ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'],
+                'dows-short' : ['lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom'],
+                'months' : ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+                'monts-short' : ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+                'from' : 'desde',
+                'to' : 'hasta',
             }
             break;  
         case 'en':
             wwo_translationChains = {
                 'translation_example': 'Translation example',
                 'code_lang': 'en-gb',
-                'days': [
-                    {'value': 1 , 'name': 'MONDAY'},
-                    {'value': 2 , 'name': 'TUESDAY'},
-                    {'value': 3 , 'name': 'WEDNESDAY'},
-                    {'value': 4 , 'name': 'THUESDAY'},
-                    {'value': 5 , 'name': 'FRIDAY'},
-                    {'value': 6 , 'name': 'SATURDAY'},
-                    {'value': 0 , 'name': 'SUNDAY'},
-                ],
+                'dows' : ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
+                'dows-short' : ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
+                'months' : ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
+                'monts-short' : ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
+                'from' : 'from',
+                'to' : 'to',
             }
             break;
         case 'fr':
             wwo_translationChains = {
                 'translation_example': 'Example de traduction',
                 'code_lang': 'fr-fr',
-                'days': [
-                    {'value': 1 , 'name': 'LUNDI'},
-                    {'value': 2 , 'name': 'MARDI'},
-                    {'value': 3 , 'name': 'MERCREDI'},
-                    {'value': 4 , 'name': 'JEUDI'},
-                    {'value': 5 , 'name': 'VENDREDI'},
-                    {'value': 6 , 'name': 'SAMEDI'},
-                    {'value': 0 , 'name': 'DIMANCHE'},
-                ],
+                'dows' : ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'],
+                'dows-short' : ['lun', 'mar', 'mer', 'jeu', 'ven', 'sam', 'dim'],
+                'months' : ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+                'monts-short' : ['jan', 'fév', 'mar', 'avr', 'mai', 'juin', 'juil', 'août', 'sep', 'oct', 'nov', 'déc'],
+                'from' : 'du',
+                'to' : 'au',
         }
         break;
         
@@ -375,7 +336,7 @@ function getString(wwo_languageCode){
     return wwo_translationChains;
 }
 module.exports = { getString };
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 // utils/api.js - Contains functions related to fetching data from APIs.
 
 // Define a function to fetch session data
@@ -430,31 +391,37 @@ const fetchProposalsData = async (endpointURL, graphqlQuery) => {
 };
 
 module.exports = { fetchSessionData, fetchProposalsData };
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 // handlers.js: Contains functions for data handling and processing functions
 
-const { convertDateFormat } = require('./utils.js');
+const debugHandlers = 0;
+if(debugHandlers) console.log('debugHandlers is set to 1');
+
+const { convertDateFormat } = require('./utils');
 
 // Function to build the proposals query string dynamically
 const buildProposalsQuery = (sessionName, endpointData) => {
     let returnProposalsQuery = "";
+    if (debugHandlers) console.log('endpointData has one item for each offer in wp data base', endpointData);
     endpointData.forEach((item, key) => {
-        console.log('-----'+key, item);
+        if (debugHandlers) console.log(`-----${key} will create method_${key}_X`, item);
         item.acf_data.forEach((acf, key2) => {
-            console.log('ACF Data for', item.get_the_title, ':', acf);
+            if (debugHandlers) console.log('ACF Data for', item.get_the_title, ':', acf);
 
             // Example action: Log the start and end dates
-            console.log('Offer Start Date:', convertDateFormat(acf['offer-date-start'])); // 01/08/2024
-            console.log('Offer End Date:', acf['offer-date-end']);
-            console.log('Number of Days:', acf['offer-number-of-days']);
+            if (debugHandlers) console.log('Offer Start Date:', convertDateFormat(acf['offer-date-start'])); // 01/08/2024
+            if (debugHandlers) console.log('Offer End Date:', acf['offer-date-end']);
+            if (debugHandlers) console.log('Number of Days:', acf['offer-number-of-days']);
 
-            console.log('item.propertyIds: ', item.propertyIds);
+            if (debugHandlers) console.log('item.propertyIds: ', item.propertyIds);
 
-            const nbDays = acf['offer-number-of-days'] || 2;
+            const nbDays = acf['offer-number-of-days'] || 7;
             const startDate = convertDateFormat(acf['offer-date-start']);
             const nbAdults = 2;
             // item.propertyIds is something like ["1", "2", "3"] we want [1, 2, 3]
-            const propertyIds = item.propertyIds.map(Number) || [];
+            // const propertyIds = item.propertyIds.map(Number) || [];
+            // item.propertyIds is something like {"1", "2", "3"} we want {1, 2, 3}
+            const propertyIds = Object.values(item.propertyIds).map(Number);
 
             // Extract necessary data from endpointData and construct the query string
             // This is a placeholder logic, adapt it to your actual data structure and requirements
@@ -492,66 +459,11 @@ const buildProposalsQuery = (sessionName, endpointData) => {
                 }
             },
         `;
-/*
-            returnProposalsQuery += `
-                query getProposalsQuery {
-                    proposalsSearch: getProposals(
-                        session: { name: "${sessionName}" }
-                        input: {
-                            criterias: {
-                                nbDays: ${nbDays},
-                                startDate: "${startDate}",
-                                nbAdults: ${nbAdults},
-                                propertyIds: ${JSON.stringify(propertyIds)},
-                                nbChildren1: ${nbChildren1},
-                                nbChildren2: ${nbChildren2},
-                                maxResults: ${maxResults},
-                                childrenBirthdate: ${JSON.stringify(childrenBirthdate)}
-                            }
-                        }
-                    ) {
-                        proposals: proposals {
-                            propertyId,
-                            proposalKey,
-                            price {
-                                amount,
-                                currencyCode
-                            },
-                            productOption {
-                                code,
-                                label
-                            },
-                            distribution {
-                                roomTypes {
-                                    code,
-                                    propertyId,
-                                    categoryCode,
-                                    categoryLabel,
-                                    label,
-                                    webLabel,
-                                    paxMax,
-                                    pax,
-                                    quantity
-                                },
-                                roomNumbers
-                            },
-                            nbDays
-                        }
-                    }
-                },
-            `;
-*/
-
-
-
-
-
-
         });
         
     });
 
-    console.log(`
+    if (debugHandlers) console.log(`
             query getProposal111{
                 ${returnProposalsQuery}
             }
@@ -564,69 +476,72 @@ const buildProposalsQuery = (sessionName, endpointData) => {
 
 };
 
+const offersProposalsCombinations = (proposalsData, endpointData) => {
+    // Initialize the combined data array
+    const proposalsOffersArray = [];
+    if (debugHandlers) console.log('proposalsData.data', proposalsData.data);
+    // Iterate over endpointData
+    let counter = 0;
+    endpointData.forEach(thisOffer => {
+        if (debugHandlers) console.log('thisOffer:', thisOffer.acf_data);
+        // Iterate over acf_data within each offer
+        thisOffer.acf_data.forEach((acfItem, acfIndex) => {
 
+            if (debugHandlers) console.log('proposalsData.data '+counter, 
+                proposalsData.data[
+                    Object.keys(proposalsData.data)[counter]
+                ]
+            );
+            // Create a combined object for each acfItem
+            const combinedObject = {
+                offer: thisOffer,
+                acfItem: acfItem,
+                proposals: proposalsData.data[
+                    Object.keys(proposalsData.data)[counter]
+                ]
+            };
 
+            // Push the combined object to the array
+            proposalsOffersArray.push(combinedObject);
+        });
 
+        counter++;
+    });
+    if (debugHandlers) console.log('proposalsOffersArray:', proposalsOffersArray);
+    return proposalsOffersArray;
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-const buildProposalsQuery = (sessionName, endpointData) => {
-    let returnProposalsQuery = "";
-    endpointData.forEach((item, key) => {
-        item.acf_data.forEach((acf, key2) => {
-            const nbDays = acf['offer-number-of-days'] || 2;
-            const startDate = convertDateFormat(acf['offer-date-start']);
-            const nbAdults = 2;
-            const propertyIds = item.propertyIds.map(Number) || [];
-
-            returnProposalsQuery += `
-                method_${key}_${key2}: getProposals(
-                    session: { name: "${sessionName}" }
-                    input: {
-                        criterias: {
-                            nbDays: ${nbDays},
-                            startDate: "${startDate}",
-                            nbAdults: ${nbAdults},
-                            propertyIds: ${JSON.stringify(propertyIds)},
-                        } 
-                    }
-                ){
-                    proposals: proposals {
-                        propertyId
-                        proposalKey
-                        price {
-                            amount
-                            currencyCode
-                        }
-                        nbDays
-                    }
-                },
-            `;
+const getOffersProposalsList = (proposalsOffersArray) => {
+    const offersProposalsArray = [];
+    proposalsOffersArray.forEach(item => {
+        const offer = item.offer;
+        const proposals = item.proposals.proposals;
+        proposals.forEach(proposal => {
+            const offerProposalPair = {
+                offer: offer,
+                acfItem: item.acfItem,
+                proposal: {
+                    propertyId: proposal.propertyId,
+                    proposalKey: proposal.proposalKey,
+                    price: {
+                    amount: proposal.price.amount,
+                    currencyCode: proposal.price.currencyCode
+                    },
+                    nbDays: proposal.nbDays
+                }
+            };
+            offersProposalsArray.push(offerProposalPair);
         });
     });
-
-    return `query getProposal111{ ${returnProposalsQuery} }`;
+    return offersProposalsArray;
 };
-*/
 
-module.exports = { buildProposalsQuery };
-},{"./utils.js":9}],9:[function(require,module,exports){
-function convertDateFormat(dateString){
+module.exports = { buildProposalsQuery, offersProposalsCombinations, getOffersProposalsList };
+},{"./utils":10}],10:[function(require,module,exports){
+const { getLanguageStrings } = require('../lang/languageManager');
+
+//function convertDateFormat(dateString){
+const convertDateFormat = (dateString) => {
     // Split the date string into day, month, and year
     const parts = dateString.split('/');
     
@@ -643,6 +558,153 @@ function convertDateFormat(dateString){
     
     return isoDateString;
 }
-module.exports = { convertDateFormat };
-},{}]},{},[5])(5)
+
+const formatDateRange = (dateStartString, dateEndString) => {
+
+    const wwo_strings = getLanguageStrings();
+    if (!wwo_strings) {
+        console.error('Failed to get language strings in graphql/graphql');
+        return;
+    }
+
+    let dateStartParts = dateStartString.split('/');
+    let dateStart = new Date(`${dateStartParts[2]}-${dateStartParts[1]}-${dateStartParts[0]}`);
+
+    let dayOfWeek = wwo_strings['dows-short'][dateStart.getUTCDay()];
+
+    let dateEndParts = dateEndString.split('/');
+    let dateEnd = new Date(`${dateEndParts[2]}-${dateEndParts[1]}-${dateEndParts[0]}`);
+    
+    wwo_strings['monts-short']
+    let dayEnd = String(dateEnd.getUTCDate()).padStart(2, '0');
+    let monthEnd = wwo_strings['monts-short'][dateEnd.getUTCMonth()];
+    let yearEnd = dateEnd.getUTCFullYear();
+
+    let dayStart = String(dateStart.getUTCDate()).padStart(2, '0');
+    let monthStart = wwo_strings['monts-short'][dateStart.getUTCMonth()];
+    let yearStart = dateStart.getUTCFullYear();
+
+    let returnDateRange = (yearStart === yearEnd) ? 
+        `${dayStart} ${monthStart} ${wwo_strings['to']} ${dayEnd} ${monthEnd} ${yearEnd}` :
+        `${dayStart} ${monthStart} ${yearStart} ${wwo_strings['to']} ${dayEnd} ${monthEnd} ${yearEnd}`;
+ 
+    return `<span class="wwo-day-of-week">${dayOfWeek}</span> ${returnDateRange}`; //`<span class="wwo-day-of-week">${dayOfWeek}</span> ${returnDateRange}`;
+        
+}
+
+module.exports = { convertDateFormat, formatDateRange };
+},{"../lang/languageManager":6}],11:[function(require,module,exports){
+const debugHtmlBuilder = 0;
+if(debugHtmlBuilder) console.log('debugHtmlBuilder is set to 1');
+
+const { getLanguageStrings } = require('../lang/languageManager');
+const { formatDateRange } = require('../utils/utils');
+
+const buildHtmlFromOffersProposalsCombinations = (proposalsOffersArray) => {
+    if (debugHtmlBuilder) console.log('proposalsOffersArray', proposalsOffersArray);
+    let html = 'SOLO A MODO DE PRUEBA<br />';
+
+    proposalsOffersArray.forEach((item, key) => {
+        if (debugHtmlBuilder) console.log('item.offer.acf_data', item.offer.acf_data);
+        const wwo_strings = getLanguageStrings();
+        if (!wwo_strings) {
+            console.error('Failed to get language strings in graphql/graphql');
+            return;
+        }
+        if (debugHtmlBuilder) console.log('wwo_strings', wwo_strings);
+
+        let dateStr = item.offer.acf_data[0]['offer-date-start'];
+
+        let dateParts = dateStr.split('/');
+        let date = new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`);
+
+        if (debugHtmlBuilder) wwo_strings.translation_example['dows-short'];
+        let dayOfWeek = wwo_strings['dows-short'][date.getUTCDay()];
+        html += `
+            <div class="ww-offer-container">
+                <h2>
+                    ${item.offer.get_the_title}
+                    &nbsp;-&nbsp;
+                    From <span class="wwo-day-of-week">${dayOfWeek}</span> ${item.offer.acf_data[0]['offer-date-start']} to ${item.offer.acf_data[0]['offer-date-end']}
+                </h2>
+                <h3>Proposals:</h3>
+                <ul>
+        `;
+        if (debugHtmlBuilder) console.log('item.proposals.proposals', item.proposals.proposals);
+        item.proposals.proposals.forEach((proposal, key2) => {
+            html += `
+                    <li style="border: 1px #000 solid;margin: 0.5em 0;">
+                        propertyId: ${proposal.propertyId}<br />
+                        price.amount: ${proposal.price.amount}<br />
+                        proposalKey: ${proposal.proposalKey}<br />
+                        nbDays: ${proposal.nbDays}<br />
+                    </li>
+            `;
+        });
+
+        html += `
+                </ul>
+            </div>
+        `;
+    });
+    return html;
+}
+
+const buildHtmlOffersOutput = (offersProposalsList) => {
+    let html = '';
+    if(debugHtmlBuilder) console.log('offersProposalsList', offersProposalsList);
+
+    html += `
+        <div class="wwo-offer-container">
+            <ul>
+    `;
+
+    offersProposalsList.forEach((item, key) => {
+        if (debugHtmlBuilder) console.log('item', item);
+        const wwo_strings = getLanguageStrings();
+        if (!wwo_strings) {
+            console.error('Failed to get language strings in graphql/graphql.js');
+            return;
+        }
+
+
+
+
+
+        
+        let disponibilityRange = formatDateRange(item.acfItem['offer-date-start'], item.acfItem['offer-date-end']);//, wwo_strings);
+
+
+        html += `
+                <li style="border: 4px #c0c solid;margin: 0.5em 0;">
+
+
+                    <div class="wwo-disponibility-dates">
+                        ${disponibilityRange}
+                    </div><!-- .wwo-disponibility-dates -->
+
+
+
+
+                    item.offer.get_the_title: ${item.offer.get_the_title}<br />
+                    
+                    proposal propertyId: ${item.proposal.propertyId}<br />
+                    proposal price amount: ${item.proposal.price.amount}<br />
+                    proposal nbDays: ${item.proposal.nbDays}<br />
+                    proposal proposalKey: ${item.proposal.proposalKey}<br />
+                </li>
+        `;
+
+    });
+
+    html += `
+            </ul>
+        </div><!-- .wwo-offer-container -->
+    `;
+
+    return html;
+}
+
+module.exports = { buildHtmlFromOffersProposalsCombinations, buildHtmlOffersOutput };
+},{"../lang/languageManager":6,"../utils/utils":10}]},{},[5])(5)
 });
