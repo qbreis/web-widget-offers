@@ -84,15 +84,22 @@ const debugGraphql = 0;
 if(debugGraphql) console.log('debugGraphql is set to 1');
 
 const { fetchSessionData, fetchProposalsData } = require('../utils/api');
-const { buildProposalsQuery, offersProposalsCombinations, getOffersProposalsList } = require('../utils/handlers');
 const { 
-    // buildHtmlFromOffersProposalsCombinations, 
-    buildHtmlOffersOutput 
+    buildProposalsQuery, 
+    //offersProposalsCombinations, 
+    //getOffersProposalsList, 
+    thisOffersProposalsCombinations 
+} = require('../utils/handlers');
+const { 
+    //buildHtmlFromOffersProposalsCombinations, 
+    //buildHtmlOffersOutput,
+    buildHtmlOffers
 } = require('../views/htmlBuilder');
 
 const wwo_graphqlQueries = require('./graphqlQueries');
 
 const runGraphql = async (options, endpointData) => {
+    // console.log('endpointData in runGraphql:', endpointData);
     const username = 'web_fr';
     try {
         const sessionData = await fetchSessionData(username, options.graphqlConfig.endpointUrl, wwo_graphqlQueries.getSession);
@@ -103,29 +110,24 @@ const runGraphql = async (options, endpointData) => {
 };
 
 const handleSessionData = async (data, options, endpointData) => {
-    if (debugGraphql) console.log('Datos recibidos getSession in refactored code:', data);
+    // console.log('endpointData in handleSessionData:', endpointData);
+    // if (debugGraphql) console.log('Datos recibidos getSession in refactored code:', data);
     if (debugGraphql) console.log('getSession name:', data.data.getSession.name);
     const sessionName = data.data.getSession.name;
     const proposalsQuery = buildProposalsQuery(sessionName, endpointData);
     try {
         const proposalsData = await fetchProposalsData(options.graphqlConfig.endpointUrl, proposalsQuery);
-        if (debugGraphql) console.log('Datos recibidos getProposals de GraphQL endpoint ' + options.graphqlConfig.endpointUrl + ':', proposalsData.data);
+        if (debugGraphql) console.log('-------------------Datos recibidos getProposals de GraphQL endpoint ' + options.graphqlConfig.endpointUrl + ':', proposalsData.data);
 
         if (debugGraphql) console.log('offers in endpointData:', endpointData);
 
         /*
         To create a new object that combines offers from endpointData with proposals from proposalsData, you can iterate through each offer in endpointData and then iterate through acf_data within each offer. During this process, you can match and combine relevant proposals from proposalsData. 
         */
-        const proposalsOffersArray = offersProposalsCombinations(proposalsData, endpointData);
-        if (debugGraphql) console.log('proposalsOffersArray...', proposalsOffersArray);
 
-        /*
-        transform proposalsOffersArray into offersProposalsArray where each offer is paired with each proposal, you can iterate through proposalsOffersArray and create a new array offersProposalsArray with the desired structure. Here's how you can achieve this:
-        */
-        const offersProposalsList = getOffersProposalsList(proposalsOffersArray);
-        if (debugGraphql) console.log('offersProposalsList', offersProposalsList);
-
-        const htmlOffersOutput = buildHtmlOffersOutput(offersProposalsList);
+        const proposalsOffersArray = thisOffersProposalsCombinations(proposalsData, endpointData);
+        console.log('proposalsOffersArray', proposalsOffersArray);
+        const htmlOffersOutput = buildHtmlOffers(proposalsOffersArray);
         const containerOffersOutput = document.getElementById('wwo-offers-list');
         if (containerOffersOutput) {
             containerOffersOutput.innerHTML = htmlOffersOutput;
@@ -133,8 +135,24 @@ const handleSessionData = async (data, options, endpointData) => {
             console.error(`Element with id wwo-offers-list not found.`);
         }
 
+//        const proposalsOffersArray = offersProposalsCombinations(proposalsData, endpointData);
+//        if (debugGraphql) console.log('proposalsOffersArray...', proposalsOffersArray);
 
+        /*
+        transform proposalsOffersArray into offersProposalsArray where each offer is paired with each proposal, you can iterate through proposalsOffersArray and create a new array offersProposalsArray with the desired structure. Here's how you can achieve this:
+        */
+//        const offersProposalsList = getOffersProposalsList(proposalsOffersArray);
+//        if (debugGraphql) console.log('offersProposalsList', offersProposalsList);
 
+        /*
+        const htmlOffersOutput = buildHtmlOffersOutput(offersProposalsList);
+        const containerOffersOutput = document.getElementById('wwo-offers-list');
+        if (containerOffersOutput) {
+            containerOffersOutput.innerHTML = htmlOffersOutput;
+        } else {
+            console.error(`Element with id wwo-offers-list not found.`);
+        }
+        */
         /*
         const htmlOffers = buildHtmlFromOffersProposalsCombinations(proposalsOffersArray);
         const containerOfers = document.getElementById('ww-offers-list');
@@ -144,6 +162,7 @@ const handleSessionData = async (data, options, endpointData) => {
             console.error(`Element with id ww-offers-list not found.`);
         }
         */
+        
     } catch (error) {
         console.error('Error fetching proposals data:', error);
     }
@@ -188,7 +207,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-const debugIndex = 1;
+const debugIndex = 0;
 if(debugIndex) console.log('debugIndex is set to 1');
 
 require('./css/style.css');
@@ -247,17 +266,18 @@ function initWidget(options) {
     // Building the widget's HTML
     let html = `
         <div id="ww-main-container">
-        <div style="border: 2px #ccc solid;margin: 1em 0;padding: 0.5em;">
-            <h2>Widget options</h2>
-            <ul>
-                <li>id: <strong>${options.id}</strong> &#8212; Es el id de la etiqueta HTML donde se implementa el widget.</li>
-                <li>language: <strong>${options.language}</strong></li>
-                <li>endpointUrl: <strong>${options.endpointUrl}</strong> &#8212; URL del punto de acceso para obtener las ofertas de WordPress.</li>
-                <li>graphqlConfig.endpointUrl: <strong>${options.graphqlConfig.endpointUrl}</strong> &#8212; URL del punto de acceso para obtener las disponibilidades por GraphQL.</li>
-            </ul>
-            <p>${wwo_strings.translation_example}</p>
-        </div>
+            <div style="border: 2px #ccc solid;margin: 1em 0;padding: 0.5em;">
+                <h2>Widget options</h2>
+                <ul>
+                    <li>id: <strong>${options.id}</strong> &#8212; Es el id de la etiqueta HTML donde se implementa el widget.</li>
+                    <li>language: <strong>${options.language}</strong></li>
+                    <li>endpointUrl: <strong>${options.endpointUrl}</strong> &#8212; URL del punto de acceso para obtener las ofertas de WordPress.</li>
+                    <li>graphqlConfig.endpointUrl: <strong>${options.graphqlConfig.endpointUrl}</strong> &#8212; URL del punto de acceso para obtener las disponibilidades por GraphQL.</li>
+                </ul>
+                <p>${wwo_strings.translation_example}</p>
+            </div>
             <div id="wwo-offers-list" style="border: 2px #f0c solid;"></div>
+            <div id="ww-offers-list" style="border: 2px #f0c solid;"></div>
         </div>
     `;
 
@@ -308,8 +328,8 @@ function getString(wwo_languageCode){
             wwo_translationChains = {
                 'translation_example': 'Ejemplo de traducción',
                 'code_lang': 'es-es',
-                'dows' : ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'],
-                'dows-short' : ['lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom'],
+                'dows' : ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
+                'dows-short' : ['dom', 'lun', 'mar', 'mie', 'jue', 'vie', 'sab'],
                 'months' : ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
                 'monts-short' : ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
                 'from' : 'desde',
@@ -320,8 +340,8 @@ function getString(wwo_languageCode){
             wwo_translationChains = {
                 'translation_example': 'Translation example',
                 'code_lang': 'en-gb',
-                'dows' : ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-                'dows-short' : ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
+                'dows' : ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
+                'dows-short' : ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
                 'months' : ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
                 'monts-short' : ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
                 'from' : 'from',
@@ -332,8 +352,8 @@ function getString(wwo_languageCode){
             wwo_translationChains = {
                 'translation_example': 'Example de traduction',
                 'code_lang': 'fr-fr',
-                'dows' : ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'],
-                'dows-short' : ['lun', 'mar', 'mer', 'jeu', 'ven', 'sam', 'dim'],
+                'dows' : ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
+                'dows-short' : ['dim', 'lun', 'mar', 'mer', 'jeu', 'ven', 'sam'],
                 'months' : ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
                 'monts-short' : ['jan', 'fév', 'mar', 'avr', 'mai', 'juin', 'juil', 'août', 'sep', 'oct', 'nov', 'déc'],
                 'from' : 'du',
@@ -411,6 +431,7 @@ const { convertDateFormat } = require('./utils');
 // Function to build the proposals query string dynamically
 const buildProposalsQuery = (sessionName, endpointData) => {
     let returnProposalsQuery = "";
+    let this_returnProposalsQuery = "";
     if (debugHandlers) console.log('endpointData has one item for each offer in wp data base', endpointData);
     endpointData.forEach((item, key) => {
         if (debugHandlers) console.log(`-----${key} will create method_${key}_X`, item);
@@ -418,117 +439,282 @@ const buildProposalsQuery = (sessionName, endpointData) => {
             if (debugHandlers) console.log('ACF Data for', item.get_the_title, ':', acf);
 
             // Example action: Log the start and end dates
-            if (debugHandlers) console.log('Offer Start Date:', convertDateFormat(acf['offer-date-start'])); // 01/08/2024
-            if (debugHandlers) console.log('Offer End Date:', acf['offer-date-end']);
-            if (debugHandlers) console.log('Number of Days:', acf['offer-number-of-days']);
+            // if (debugHandlers) console.log('Offer Start Date:', convertDateFormat(acf['offer-date-start'])); // 01/08/2024
+            // if (debugHandlers) console.log('Offer End Date:', acf['offer-date-end']);
+            // if (debugHandlers) console.log('Number of Days:', acf['offer-number-of-days']);
+            // if (debugHandlers) console.log('Day of week:', acf['offer-day-of-week']);
 
-            if (debugHandlers) console.log('item.propertyIds: ', item.propertyIds);
+            // if (debugHandlers) console.log('item.propertyIds: ', item.propertyIds);
 
-            const nbDays = acf['offer-number-of-days'] || 7;
-            const startDate = convertDateFormat(acf['offer-date-start']);
-            const nbAdults = 2;
-            // item.propertyIds is something like ["1", "2", "3"] we want [1, 2, 3]
-            // const propertyIds = item.propertyIds.map(Number) || [];
-            // item.propertyIds is something like {"1", "2", "3"} we want {1, 2, 3}
-            const propertyIds = Object.values(item.propertyIds).map(Number);
+            // To loop between the given start and end dates inclusive, starting with the specified day of the week ("0" which corresponds to Sunday)
+            // Initialize the date strings and day of week
+            let offerDateStart = convertDateFormat(acf['offer-date-start']);
+            let offerDateEnd = convertDateFormat(acf['offer-date-end']);
+            let offerDayOfWeek = parseInt(acf['offer-day-of-week'], 10);
+            // Parse the date strings into Date objects
+            let thisStartDate = new Date(offerDateStart.split('/').reverse().join('-'));
+            let thisEndDate = new Date(offerDateEnd.split('/').reverse().join('-'));
+            // Create an array to store the matching dates
+            let matchingDates = [];
+            while (thisStartDate.getDay() !== offerDayOfWeek) {
+                if (debugHandlers) console.log('thisStartDate.getDay(): '+thisStartDate.getDay(), offerDayOfWeek);
 
-            // Extract necessary data from endpointData and construct the query string
-            // This is a placeholder logic, adapt it to your actual data structure and requirements
-
-            //const nbDays = endpointData.nbDays || 7;
-            //const startDate = endpointData.startDate || "2024-07-12";
-            //const nbAdults = endpointData.nbAdults || 2;
-            //const nbChildren1 = endpointData.nbChildren1 || 3;
-            //const nbChildren2 = endpointData.nbChildren2 || 1;
-            //const maxResults = endpointData.maxResults || 300;
-            //const childrenBirthdate = endpointData.childrenBirthdate || ["2020-07-12", "2020-07-12", "2020-07-12"];
-
-            returnProposalsQuery += `
-                method_${key}_${key2}: getProposals(
-                    session: {
-                        name: "${sessionName}"
-                    }
-                    input: {
-                        criterias: {
-                            nbDays: ${nbDays},
-                            startDate: "${startDate}",
-                            nbAdults: ${nbAdults},
-                            propertyIds: ${JSON.stringify(propertyIds)},
-                        } 
-                    }
-                ){
-                    proposals: proposals {
-                    propertyId
-                    proposalKey,
-                    price {
-                        amount,
-                        currencyCode
-                    },
-                    nbDays
+                if (typeof offerDayOfWeek !== 'number' || offerDayOfWeek < 0 || offerDayOfWeek > 6) {
+                    console.error('offerDayOfWeek is not a valid day of the week. It should be an integer between 0 and 6, and type number, which now it is typeof '+typeof offerDayOfWeek+' and value '+offerDayOfWeek);
+                    break;
                 }
-            },
-        `;
+                thisStartDate.setDate(thisStartDate.getDate() + 1);
+            }
+            if (debugHandlers) console.log('First date found on dow '+offerDayOfWeek+' is '+thisStartDate);
+            // Adjust the start date to the next occurrence of the specified day of the week
+            while (thisStartDate.getDay() !== offerDayOfWeek) {
+                thisStartDate.setDate(thisStartDate.getDate() + 1);
+            }
+            if (debugHandlers) console.log(`matching dates starting on dow ${offerDayOfWeek} - ${thisStartDate}`)
+
+            // Loop through the dates, adding each matching date to the array
+            while (thisStartDate <= thisEndDate) {
+                matchingDates.push(new Date(thisStartDate));
+                thisStartDate.setDate(thisStartDate.getDate() + 7);
+            }
+            if (debugHandlers) console.log('matchingDates:', matchingDates);
+
+            console.log('matchingDates:', matchingDates);
+
+            // Format the dates as "dd/mm/yyyy" strings
+            let formattedDates = matchingDates.map(date => {
+                let day = String(date.getDate()).padStart(2, '0');
+                let month = String(date.getMonth() + 1).padStart(2, '0');
+                let year = date.getFullYear();
+
+                if (debugHandlers) console.log(`matching dates starting on dow ${offerDayOfWeek} - ${day}/${month}/${year}`);
+                //return `${day}/${month}/${year}`;
+                const this_startDate = `${day}/${month}/${year}`;
+
+                const this_nbDays = acf['offer-number-of-days'] || 7;
+                const this_nbAdults = 2;
+                // item.propertyIds is something like ["1", "2", "3"] we want [1, 2, 3]
+                // const propertyIds = item.propertyIds.map(Number) || [];
+                // item.propertyIds is something like {"1", "2", "3"} we want {1, 2, 3}
+                const this_propertyIds = Object.values(item.propertyIds).map(Number);
+
+                // Extract necessary data from endpointData and construct the query string
+                // This is a placeholder logic, adapt it to your actual data structure and requirements
+
+                //const nbDays = endpointData.nbDays || 7;
+                //const startDate = endpointData.startDate || "2024-07-12";
+                //const nbAdults = endpointData.nbAdults || 2;
+                //const nbChildren1 = endpointData.nbChildren1 || 3;
+                //const nbChildren2 = endpointData.nbChildren2 || 1;
+                //const maxResults = endpointData.maxResults || 300;
+                //const childrenBirthdate = endpointData.childrenBirthdate || ["2020-07-12", "2020-07-12", "2020-07-12"];
+
+                this_returnProposalsQuery += `
+                    method_${key}_${key2}_${day}_${month}_${year}: getProposals(
+                        session: {
+                            name: "${sessionName}"
+                        }
+                        input: {
+                            criterias: {
+                                nbDays: ${this_nbDays},
+                                startDate: "${year}-${month}-${day}",
+                                nbAdults: ${this_nbAdults},
+                                propertyIds: ${JSON.stringify(this_propertyIds)},
+                            } 
+                        }
+                    ){
+                        proposals: proposals {
+                            propertyId
+                            proposalKey,
+                            price {
+                                amount,
+                                currencyCode
+                            },
+                            nbDays
+                        }
+                    },
+                `;
+            });
+            if (debugHandlers) console.log('this_returnProposalsQuery', this_returnProposalsQuery);
         });
         
     });
 
     if (debugHandlers) console.log(`
-            query getProposal111{
-                ${returnProposalsQuery}
-            }
-        `);
+        query getProposal111{
+            ${returnProposalsQuery}
+        }
+    `);
     return `
-            query getProposal111{
-                ${returnProposalsQuery}
-            }
-        `;
-
+        query getProposal111{
+            ${this_returnProposalsQuery}
+        }
+    `;
 };
 
+/*
 const offersProposalsCombinations = (proposalsData, endpointData) => {
+
+
+
+
+
+
+    const transformData = (data) => {
+        const transformedData = {};
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const dateMatch = key.match(/(\d{2}_\d{2}_\d{4})/);
+            if (dateMatch) {
+              const formattedDate = dateMatch[1].replace(/_/g, '/');
+              const proposals = data[key].proposals.map(proposal => {
+                return {
+                  ...proposal,
+                  formattedDate: formattedDate
+                };
+              });
+              transformedData[key] = { proposals };
+            }
+          }
+        }
+      
+        return transformedData;
+    };
+    const transformedData = transformData(proposalsData.data);
+    console.log('transformedData', transformedData);
+
+
+
+
+
+
+
+
+
+
+
     // Initialize the combined data array
     const proposalsOffersArray = [];
-    if (debugHandlers) console.log('proposalsData.data', proposalsData.data);
+
+    const thisProposalsOffersArray = [];
+    if (debugHandlers) console.log('transformedData', transformedData);
+    if (debugHandlers) console.log('endpointData', endpointData);
     // Iterate over endpointData
     let counter = 0;
     endpointData.forEach(thisOffer => {
         if (debugHandlers) console.log('thisOffer:', thisOffer.acf_data);
-        // Iterate over acf_data within each offer
+        console.log('thisOffer:', thisOffer.acf_data);
         thisOffer.acf_data.forEach((acfItem, acfIndex) => {
-
-            if (debugHandlers) console.log('proposalsData.data '+counter, 
-                proposalsData.data[
-                    Object.keys(proposalsData.data)[counter]
-                ]
-            );
-            // Create a combined object for each acfItem
+            const methodString = Object.keys(transformedData)[counter];
             const combinedObject = {
                 offer: thisOffer,
                 acfItem: acfItem,
-                proposals: proposalsData.data[
-                    Object.keys(proposalsData.data)[counter]
+                method: methodString,
+                proposals: transformedData[
+                    Object.keys(transformedData)[counter]
                 ]
             };
-
-            // Push the combined object to the array
             proposalsOffersArray.push(combinedObject);
         });
-
         counter++;
     });
     if (debugHandlers) console.log('proposalsOffersArray:', proposalsOffersArray);
     return proposalsOffersArray;
 };
+*/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+const thisOffersProposalsCombinations = (proposalsData, endpointData) => {
+    const transformData = (data) => {
+        const transformedData = {};
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const dateMatch = key.match(/(\d{2}_\d{2}_\d{4})/);
+            if (dateMatch) {
+              const formattedDate = dateMatch[1].replace(/_/g, '/');
+              const proposals = data[key].proposals.map(proposal => {
+                return {
+                  ...proposal,
+                  formattedDate: formattedDate
+                };
+              });
+              transformedData[key] = { proposals };
+            }
+          }
+        }
+        return transformedData;
+    };
+    const transformedData = transformData(proposalsData.data);
+    console.log('transformedData', transformedData);
+    const thisProposalsOffersArray = [];
+    if (debugHandlers) console.log('transformedData', transformedData);
+    if (debugHandlers) console.log('endpointData', endpointData);
+    let counter = 0;
+    endpointData.forEach(thisOffer => {
+        if (debugHandlers) console.log('thisOffer:', thisOffer.acf_data);
+        console.log('thisOffer:', thisOffer.acf_data);
+        thisOffer.acf_data.forEach((acfItem, acfIndex) => {
+            for (const key in transformedData) {
+                if (transformedData.hasOwnProperty(key)) {
+                    transformedData[key].proposals.forEach(proposal => {
+                        const combinedObject = {
+                            offer: thisOffer,
+                            acfItem: acfItem,
+                            method: key,
+                            proposal: proposal,
+                        };
+                        thisProposalsOffersArray.push(combinedObject);
+                    });
+                }
+            }
+        });
+    });
+    console.log('thisProposalsOffersArray:', thisProposalsOffersArray);
+    return thisProposalsOffersArray;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 const getOffersProposalsList = (proposalsOffersArray) => {
+
+    if (debugHandlers) console.log('proposalsOffersArray in getOffersProposalsList', proposalsOffersArray);
     const offersProposalsArray = [];
     proposalsOffersArray.forEach(item => {
         const offer = item.offer;
         const proposals = item.proposals.proposals;
         proposals.forEach(proposal => {
+            
             const offerProposalPair = {
                 offer: offer,
                 acfItem: item.acfItem,
+                // formattedDate : item.formattedDate,
                 proposal: {
                     propertyId: proposal.propertyId,
                     proposalKey: proposal.proposalKey,
@@ -544,8 +730,13 @@ const getOffersProposalsList = (proposalsOffersArray) => {
     });
     return offersProposalsArray;
 };
-
-module.exports = { buildProposalsQuery, offersProposalsCombinations, getOffersProposalsList };
+*/
+module.exports = { 
+    buildProposalsQuery, 
+    // offersProposalsCombinations, 
+    // getOffersProposalsList, 
+    thisOffersProposalsCombinations 
+};
 },{"./utils":10}],10:[function(require,module,exports){
 const { getLanguageStrings } = require('../lang/languageManager');
 
@@ -578,7 +769,8 @@ const formatDateRange = (dateStartString, dateEndString) => {
 
     let dateStartParts = dateStartString.split('/');
     let dateStart = new Date(`${dateStartParts[2]}-${dateStartParts[1]}-${dateStartParts[0]}`);
-
+    
+    console.log('---', dateStart.getUTCDay(), wwo_strings['dows-short']);
     let dayOfWeek = wwo_strings['dows-short'][dateStart.getUTCDay()];
 
     let dateEndParts = dateEndString.split('/');
@@ -609,19 +801,49 @@ if(debugHtmlBuilder) console.log('debugHtmlBuilder is set to 1');
 const { getLanguageStrings } = require('../lang/languageManager');
 const { formatDateRange } = require('../utils/utils');
 
-/*
+const buildHtmlOffers = (proposalsOffersArray) => {
+    let html = `
+        <div class="wwo-offer-container">
+            <ul>
+    `;
+    proposalsOffersArray.forEach((item, key) => {
+        console.log('item in buildHtmlOffers', item);
+
+        let disponibilityRange = formatDateRange(item.proposal.formattedDate, item.acfItem['offer-date-end']);//, wwo_strings);
+        html += `
+            <li style="border: 4px #c0c solid;margin: 0.5em 0;">
+                <div class="wwo-disponibility-dates">
+                    ${disponibilityRange}
+                </div><!-- .wwo-disponibility-dates -->
+                propertyId: ${item.proposal.propertyId}<br />
+                ${item.proposal.price.amount} ${item.proposal.price.currencyCode}<br />
+                proposalKey: ${item.proposal.proposalKey}<br />
+                nbDays: ${item.proposal.nbDays}<br />
+                date start: ${item.proposal.formattedDate}<br />
+                ${item.offer.get_the_title}<br />
+            </li>
+        `;
+    });
+    html += `
+        </ul>
+    </div><!-- .wwo-offer-container -->
+    `;
+    return html;
+}
+
 const buildHtmlFromOffersProposalsCombinations = (proposalsOffersArray) => {
     if (debugHtmlBuilder) console.log('proposalsOffersArray', proposalsOffersArray);
-    let html = 'SOLO A MODO DE PRUEBA<br />';
+    let html = 'ESTRUCTURA DE LAS DISPONIBILIDADES MOSTRADAS — SOLO PARA DESARROLLO:<br />';
 
     proposalsOffersArray.forEach((item, key) => {
+        if (debugHtmlBuilder) console.log('item in buildHtmlFromOffersProposalsCombinations', item);
         if (debugHtmlBuilder) console.log('item.offer.acf_data', item.offer.acf_data);
         const wwo_strings = getLanguageStrings();
         if (!wwo_strings) {
             console.error('Failed to get language strings in graphql/graphql');
             return;
         }
-        if (debugHtmlBuilder) console.log('wwo_strings', wwo_strings);
+        //if (debugHtmlBuilder) console.log('wwo_strings', wwo_strings);
 
         let dateStr = item.offer.acf_data[0]['offer-date-start'];
 
@@ -633,10 +855,14 @@ const buildHtmlFromOffersProposalsCombinations = (proposalsOffersArray) => {
         html += `
             <div class="ww-offer-container">
                 <h2>
-                    ${item.offer.get_the_title}
+                    ${item.offer.get_the_title} (WP post ID: ${item.offer.ID})
                     &nbsp;-&nbsp;
-                    From <span class="wwo-day-of-week">${dayOfWeek}</span> ${item.offer.acf_data[0]['offer-date-start']} to ${item.offer.acf_data[0]['offer-date-end']}
+                    From <span class="wwo-day-of-week">${dayOfWeek}</span> ${item.acfItem['offer-date-start']} to ${item.acfItem['offer-date-end']}
                 </h2>
+                <p>
+                    Se deben mostrar las disponibilidades entre las fechas indicadas en el título.<br />
+                    Que empiecen en día de la semana: ${item.acfItem['offer-day-of-week']}
+                </p>
                 <h3>Proposals:</h3>
                 <ul>
         `;
@@ -659,7 +885,7 @@ const buildHtmlFromOffersProposalsCombinations = (proposalsOffersArray) => {
     });
     return html;
 }
-*/
+
 
 const buildHtmlOffersOutput = (offersProposalsList) => {
     let html = '';
@@ -717,8 +943,9 @@ const buildHtmlOffersOutput = (offersProposalsList) => {
 }
 
 module.exports = { 
-    // buildHtmlFromOffersProposalsCombinations, 
-    buildHtmlOffersOutput
+    buildHtmlFromOffersProposalsCombinations, 
+    buildHtmlOffersOutput,
+    buildHtmlOffers
 };
 },{"../lang/languageManager":6,"../utils/utils":10}]},{},[5])(5)
 });
