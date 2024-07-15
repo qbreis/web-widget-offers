@@ -19,7 +19,8 @@ The project is organized into the following directory structure:
 │       ├── lang
 │       │   └── languages.js
 │       ├── views // Contains  UI-related functions
-│       │   └── htmlBuilder.js  // Contains functions for building HTML based on data.
+│       │   ├── htmlBuilder.js  // Contains functions for building HTML based on data.
+│       │   └── carousel.js  // Contains functions for initializing the carousel.
 │       ├── css
 │       │   └── styles.css
 │       ├── assets

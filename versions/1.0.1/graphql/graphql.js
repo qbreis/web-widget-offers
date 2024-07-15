@@ -6,6 +6,7 @@ if(debugGraphql) console.log('debugGraphql is set to 1');
 const { fetchSessionData, fetchProposalsData } = require('../utils/api');
 const { buildProposalsQuery, thisOffersProposalsCombinations } = require('../utils/handlers');
 const { buildHtmlOffers } = require('../views/htmlBuilder');
+const { initCarousel } = require('../views/carousel');
 
 const wwo_graphqlQueries = require('./graphqlQueries');
 
@@ -41,6 +42,7 @@ const handleSessionData = async (data, options, endpointData) => {
         const containerOffersOutput = document.getElementById('wwo-offers-list');
         if (containerOffersOutput) {
             containerOffersOutput.innerHTML = htmlOffersOutput;
+            initCarousel();
         } else {
             console.error(`Element with id wwo-offers-list not found.`);
         }

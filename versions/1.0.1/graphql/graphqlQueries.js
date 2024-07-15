@@ -8,6 +8,7 @@ module.exports = {
             }
         }
     `,
+    /*
     getProposals: `
         query getProposal1($session : Session! , $input: ProposalsInput){
             Method1:getProposals(
@@ -30,4 +31,5 @@ module.exports = {
             }
         }
     `,
+    */
 };

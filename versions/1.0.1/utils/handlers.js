@@ -71,7 +71,13 @@ const buildProposalsQuery = (sessionName, endpointData) => {
                 // item.propertyIds is something like ["1", "2", "3"] we want [1, 2, 3]
                 // const propertyIds = item.propertyIds.map(Number) || [];
                 // item.propertyIds is something like {"1", "2", "3"} we want {1, 2, 3}
-                const this_propertyIds = Object.values(item.propertyIds).map(Number);
+                
+                
+                // const this_propertyIds = Object.values(item.propertyIds).map(Number);
+
+                if (debugHandlers) console.log('item.properties', item.properties);
+                const this_propertyIds = item.properties.map(property => Number(property.ws_establishment_id));
+                if (debugHandlers) console.log('this_propertyIds', this_propertyIds);
 
                 // Extract necessary data from endpointData and construct the query string
                 // This is a placeholder logic, adapt it to your actual data structure and requirements
