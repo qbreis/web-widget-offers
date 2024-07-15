@@ -19,6 +19,22 @@ const convertDateFormat = (dateString) => {
     return isoDateString;
 }
 
+const addDaysToDate = (startDate, nbDays) => {
+    // Parse the start date (assuming the date is in "dd/MM/yyyy" format)
+    let parts = startDate.split('/');
+    let date = new Date(parts[2], parts[1] - 1, parts[0]); // year, month, day
+
+    // Add the number of days
+    date.setDate(date.getDate() + nbDays);
+
+    // Format the new date as "dd/MM/yyyy"
+    let newDate = ('0' + date.getDate()).slice(-2) + '/' + 
+                  ('0' + (date.getMonth() + 1)).slice(-2) + '/' + 
+                  date.getFullYear();
+    
+    return newDate;
+}
+
 const formatDateRange = (dateStartString, dateEndString) => {
 
     const wwo_strings = getLanguageStrings();
@@ -53,4 +69,4 @@ const formatDateRange = (dateStartString, dateEndString) => {
         
 }
 
-module.exports = { convertDateFormat, formatDateRange };
+module.exports = { convertDateFormat, formatDateRange, addDaysToDate };

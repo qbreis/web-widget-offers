@@ -1,7 +1,7 @@
-const debugHtmlBuilder = 0;
+const debugHtmlBuilder = 1;
 if(debugHtmlBuilder) console.log('debugHtmlBuilder is set to 1');
 
-const { formatDateRange } = require('../utils/utils');
+const { formatDateRange, addDaysToDate } = require('../utils/utils');
 
 const buildHtmlOffers = (proposalsOffersArray) => {
     let html = `
@@ -10,8 +10,11 @@ const buildHtmlOffers = (proposalsOffersArray) => {
     `;
     proposalsOffersArray.forEach((item, key) => {
         if(debugHtmlBuilder) console.log('item in buildHtmlOffers', item);
-
-        let disponibilityRange = formatDateRange(item.proposal.formattedDate, item.acfItem['offer-date-end']);//, wwo_strings);
+        if(debugHtmlBuilder) console.log('--'+addDaysToDate(item.proposal.formattedDate, item.proposal.nbDays))
+        let disponibilityRange = formatDateRange(
+            item.proposal.formattedDate, 
+            addDaysToDate(item.proposal.formattedDate, item.proposal.nbDays)
+        );
         html += `
             <li style="border: 4px #c0c solid;margin: 0.5em 0;">
                 <div class="wwo-disponibility-dates">
@@ -23,6 +26,10 @@ const buildHtmlOffers = (proposalsOffersArray) => {
                 nbDays: ${item.proposal.nbDays}<br />
                 date start: ${item.proposal.formattedDate}<br />
                 ${item.offer.get_the_title}<br />
+                <div class="offer-categories">
+                    Categories: 
+                    ${item.offer.offers_categories.map(category => `${category.name}`).join(', ')}
+                </div><!-- .offer-categories -->
             </li>
         `;
     });
