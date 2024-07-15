@@ -30,7 +30,7 @@ const formatDateRange = (dateStartString, dateEndString) => {
     let dateStartParts = dateStartString.split('/');
     let dateStart = new Date(`${dateStartParts[2]}-${dateStartParts[1]}-${dateStartParts[0]}`);
     
-    console.log('---', dateStart.getUTCDay(), wwo_strings['dows-short']);
+    // console.log('---', dateStart.getUTCDay(), wwo_strings['dows-short']);
     let dayOfWeek = wwo_strings['dows-short'][dateStart.getUTCDay()];
 
     let dateEndParts = dateEndString.split('/');
