@@ -76,7 +76,7 @@ module.exports = {
 };
 
 },{}],2:[function(require,module,exports){
-var css = "body{font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\style.css" }, { "insertAt": "bottom" })); module.exports = css;
+var css = "body{font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif}#wwo-offers-list{display:flex;justify-content:center}.wwo-slider-wrapper{margin:1rem;position:relative;overflow:hidden;width:900px;height:400px}.wwo-slides-container{height:calc(100vh - 2rem);width:100%;display:flex;overflow:scroll;scroll-behavior:smooth;list-style:none;margin:0;padding:0}.wwo-offer{width:33.33%}.wwo-offer-item{background-color:#cfcfcf;margin:.5em}.wwo-slide-arrow{position:absolute;display:flex;top:0;bottom:0;margin:auto;height:4rem;background-color:#fff;border:none;width:2rem;font-size:3rem;padding:0;cursor:pointer;opacity:.5;transition:opacity .1s}.wwo-slide-arrow:focus,.wwo-slide-arrow:hover{opacity:1}#wwo-slide-arrow-prev{left:0;padding-left:.25rem;border-radius:0 2rem 2rem 0}#wwo-slide-arrow-next{right:0;padding-left:.75rem;border-radius:2rem 0 0 2rem}.wwo-slide{width:100%;height:100%;flex:1 0 100%;display:flex}.wwo-slides-container{scrollbar-width:none;-ms-overflow-style:none}.wwo-slides-container::-webkit-scrollbar{width:0;height:0}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\style.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":1}],3:[function(require,module,exports){
 // graphql.js: Contains functions related to constructing and handling GraphQL queries.
 
@@ -84,17 +84,9 @@ const debugGraphql = 0;
 if(debugGraphql) console.log('debugGraphql is set to 1');
 
 const { fetchSessionData, fetchProposalsData } = require('../utils/api');
-const { 
-    buildProposalsQuery, 
-    //offersProposalsCombinations, 
-    //getOffersProposalsList, 
-    thisOffersProposalsCombinations 
-} = require('../utils/handlers');
-const { 
-    //buildHtmlFromOffersProposalsCombinations, 
-    //buildHtmlOffersOutput,
-    buildHtmlOffers
-} = require('../views/htmlBuilder');
+const { buildProposalsQuery, thisOffersProposalsCombinations } = require('../utils/handlers');
+const { buildHtmlOffers } = require('../views/htmlBuilder');
+const { initCarousel } = require('../views/carousel');
 
 const wwo_graphqlQueries = require('./graphqlQueries');
 
@@ -126,50 +118,21 @@ const handleSessionData = async (data, options, endpointData) => {
         */
 
         const proposalsOffersArray = thisOffersProposalsCombinations(proposalsData, endpointData);
-        console.log('proposalsOffersArray', proposalsOffersArray);
         const htmlOffersOutput = buildHtmlOffers(proposalsOffersArray);
         const containerOffersOutput = document.getElementById('wwo-offers-list');
         if (containerOffersOutput) {
             containerOffersOutput.innerHTML = htmlOffersOutput;
+            initCarousel();
         } else {
             console.error(`Element with id wwo-offers-list not found.`);
         }
-
-//        const proposalsOffersArray = offersProposalsCombinations(proposalsData, endpointData);
-//        if (debugGraphql) console.log('proposalsOffersArray...', proposalsOffersArray);
-
-        /*
-        transform proposalsOffersArray into offersProposalsArray where each offer is paired with each proposal, you can iterate through proposalsOffersArray and create a new array offersProposalsArray with the desired structure. Here's how you can achieve this:
-        */
-//        const offersProposalsList = getOffersProposalsList(proposalsOffersArray);
-//        if (debugGraphql) console.log('offersProposalsList', offersProposalsList);
-
-        /*
-        const htmlOffersOutput = buildHtmlOffersOutput(offersProposalsList);
-        const containerOffersOutput = document.getElementById('wwo-offers-list');
-        if (containerOffersOutput) {
-            containerOffersOutput.innerHTML = htmlOffersOutput;
-        } else {
-            console.error(`Element with id wwo-offers-list not found.`);
-        }
-        */
-        /*
-        const htmlOffers = buildHtmlFromOffersProposalsCombinations(proposalsOffersArray);
-        const containerOfers = document.getElementById('ww-offers-list');
-        if (containerOfers) {
-            containerOfers.innerHTML = htmlOffers;
-        } else {
-            console.error(`Element with id ww-offers-list not found.`);
-        }
-        */
-        
     } catch (error) {
         console.error('Error fetching proposals data:', error);
     }
 };
 
 module.exports = { runGraphql, handleSessionData };
-},{"../utils/api":8,"../utils/handlers":9,"../views/htmlBuilder":11,"./graphqlQueries":4}],4:[function(require,module,exports){
+},{"../utils/api":8,"../utils/handlers":9,"../views/carousel":11,"../views/htmlBuilder":12,"./graphqlQueries":4}],4:[function(require,module,exports){
 module.exports = {
     getSession: `
         query session($username: String! ) {
@@ -180,6 +143,7 @@ module.exports = {
             }
         }
     `,
+    /*
     getProposals: `
         query getProposal1($session : Session! , $input: ProposalsInput){
             Method1:getProposals(
@@ -202,6 +166,7 @@ module.exports = {
             }
         }
     `,
+    */
 };
 
 },{}],5:[function(require,module,exports){
@@ -479,8 +444,6 @@ const buildProposalsQuery = (sessionName, endpointData) => {
             }
             if (debugHandlers) console.log('matchingDates:', matchingDates);
 
-            console.log('matchingDates:', matchingDates);
-
             // Format the dates as "dd/mm/yyyy" strings
             let formattedDates = matchingDates.map(date => {
                 let day = String(date.getDate()).padStart(2, '0');
@@ -496,7 +459,13 @@ const buildProposalsQuery = (sessionName, endpointData) => {
                 // item.propertyIds is something like ["1", "2", "3"] we want [1, 2, 3]
                 // const propertyIds = item.propertyIds.map(Number) || [];
                 // item.propertyIds is something like {"1", "2", "3"} we want {1, 2, 3}
-                const this_propertyIds = Object.values(item.propertyIds).map(Number);
+                
+                
+                // const this_propertyIds = Object.values(item.propertyIds).map(Number);
+
+                if (debugHandlers) console.log('item.properties', item.properties);
+                const this_propertyIds = item.properties.map(property => Number(property.ws_establishment_id));
+                if (debugHandlers) console.log('this_propertyIds', this_propertyIds);
 
                 // Extract necessary data from endpointData and construct the query string
                 // This is a placeholder logic, adapt it to your actual data structure and requirements
@@ -537,9 +506,7 @@ const buildProposalsQuery = (sessionName, endpointData) => {
             });
             if (debugHandlers) console.log('this_returnProposalsQuery', this_returnProposalsQuery);
         });
-        
     });
-
     if (debugHandlers) console.log(`
         query getProposal111{
             ${returnProposalsQuery}
@@ -551,90 +518,6 @@ const buildProposalsQuery = (sessionName, endpointData) => {
         }
     `;
 };
-
-/*
-const offersProposalsCombinations = (proposalsData, endpointData) => {
-
-
-
-
-
-
-    const transformData = (data) => {
-        const transformedData = {};
-        for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            const dateMatch = key.match(/(\d{2}_\d{2}_\d{4})/);
-            if (dateMatch) {
-              const formattedDate = dateMatch[1].replace(/_/g, '/');
-              const proposals = data[key].proposals.map(proposal => {
-                return {
-                  ...proposal,
-                  formattedDate: formattedDate
-                };
-              });
-              transformedData[key] = { proposals };
-            }
-          }
-        }
-      
-        return transformedData;
-    };
-    const transformedData = transformData(proposalsData.data);
-    console.log('transformedData', transformedData);
-
-
-
-
-
-
-
-
-
-
-
-    // Initialize the combined data array
-    const proposalsOffersArray = [];
-
-    const thisProposalsOffersArray = [];
-    if (debugHandlers) console.log('transformedData', transformedData);
-    if (debugHandlers) console.log('endpointData', endpointData);
-    // Iterate over endpointData
-    let counter = 0;
-    endpointData.forEach(thisOffer => {
-        if (debugHandlers) console.log('thisOffer:', thisOffer.acf_data);
-        console.log('thisOffer:', thisOffer.acf_data);
-        thisOffer.acf_data.forEach((acfItem, acfIndex) => {
-            const methodString = Object.keys(transformedData)[counter];
-            const combinedObject = {
-                offer: thisOffer,
-                acfItem: acfItem,
-                method: methodString,
-                proposals: transformedData[
-                    Object.keys(transformedData)[counter]
-                ]
-            };
-            proposalsOffersArray.push(combinedObject);
-        });
-        counter++;
-    });
-    if (debugHandlers) console.log('proposalsOffersArray:', proposalsOffersArray);
-    return proposalsOffersArray;
-};
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const thisOffersProposalsCombinations = (proposalsData, endpointData) => {
     const transformData = (data) => {
@@ -657,14 +540,12 @@ const thisOffersProposalsCombinations = (proposalsData, endpointData) => {
         return transformedData;
     };
     const transformedData = transformData(proposalsData.data);
-    console.log('transformedData', transformedData);
     const thisProposalsOffersArray = [];
     if (debugHandlers) console.log('transformedData', transformedData);
     if (debugHandlers) console.log('endpointData', endpointData);
     let counter = 0;
     endpointData.forEach(thisOffer => {
         if (debugHandlers) console.log('thisOffer:', thisOffer.acf_data);
-        console.log('thisOffer:', thisOffer.acf_data);
         thisOffer.acf_data.forEach((acfItem, acfIndex) => {
             for (const key in transformedData) {
                 if (transformedData.hasOwnProperty(key)) {
@@ -681,60 +562,12 @@ const thisOffersProposalsCombinations = (proposalsData, endpointData) => {
             }
         });
     });
-    console.log('thisProposalsOffersArray:', thisProposalsOffersArray);
+    if (debugHandlers) console.log('thisProposalsOffersArray:', thisProposalsOffersArray);
     return thisProposalsOffersArray;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-const getOffersProposalsList = (proposalsOffersArray) => {
-
-    if (debugHandlers) console.log('proposalsOffersArray in getOffersProposalsList', proposalsOffersArray);
-    const offersProposalsArray = [];
-    proposalsOffersArray.forEach(item => {
-        const offer = item.offer;
-        const proposals = item.proposals.proposals;
-        proposals.forEach(proposal => {
-            
-            const offerProposalPair = {
-                offer: offer,
-                acfItem: item.acfItem,
-                // formattedDate : item.formattedDate,
-                proposal: {
-                    propertyId: proposal.propertyId,
-                    proposalKey: proposal.proposalKey,
-                    price: {
-                    amount: proposal.price.amount,
-                    currencyCode: proposal.price.currencyCode
-                    },
-                    nbDays: proposal.nbDays
-                }
-            };
-            offersProposalsArray.push(offerProposalPair);
-        });
-    });
-    return offersProposalsArray;
-};
-*/
 module.exports = { 
     buildProposalsQuery, 
-    // offersProposalsCombinations, 
-    // getOffersProposalsList, 
     thisOffersProposalsCombinations 
 };
 },{"./utils":10}],10:[function(require,module,exports){
@@ -759,6 +592,22 @@ const convertDateFormat = (dateString) => {
     return isoDateString;
 }
 
+const addDaysToDate = (startDate, nbDays) => {
+    // Parse the start date (assuming the date is in "dd/MM/yyyy" format)
+    let parts = startDate.split('/');
+    let date = new Date(parts[2], parts[1] - 1, parts[0]); // year, month, day
+
+    // Add the number of days
+    date.setDate(date.getDate() + nbDays);
+
+    // Format the new date as "dd/MM/yyyy"
+    let newDate = ('0' + date.getDate()).slice(-2) + '/' + 
+                  ('0' + (date.getMonth() + 1)).slice(-2) + '/' + 
+                  date.getFullYear();
+    
+    return newDate;
+}
+
 const formatDateRange = (dateStartString, dateEndString) => {
 
     const wwo_strings = getLanguageStrings();
@@ -770,7 +619,7 @@ const formatDateRange = (dateStartString, dateEndString) => {
     let dateStartParts = dateStartString.split('/');
     let dateStart = new Date(`${dateStartParts[2]}-${dateStartParts[1]}-${dateStartParts[0]}`);
     
-    console.log('---', dateStart.getUTCDay(), wwo_strings['dows-short']);
+    // console.log('---', dateStart.getUTCDay(), wwo_strings['dows-short']);
     let dayOfWeek = wwo_strings['dows-short'][dateStart.getUTCDay()];
 
     let dateEndParts = dateEndString.split('/');
@@ -793,159 +642,131 @@ const formatDateRange = (dateStartString, dateEndString) => {
         
 }
 
-module.exports = { convertDateFormat, formatDateRange };
+module.exports = { convertDateFormat, formatDateRange, addDaysToDate };
 },{"../lang/languageManager":6}],11:[function(require,module,exports){
+// versions/1.0.1/views/carousel.js
+
+const initCarousel = () => {
+    // versions/1.0.1/views/carousel.js
+
+    const wwo_slidesContainer = document.getElementById('wwo-slides-container');
+    const wwo_slides = document.querySelectorAll('.wwo-slide');
+    const prevButton = document.getElementById('wwo-slide-arrow-prev');
+    const nextButton = document.getElementById('wwo-slide-arrow-next');
+
+    nextButton.addEventListener('click', () => {
+        const slideWidth = wwo_slidesContainer.clientWidth / 3; // One third of the container width
+        const maxScrollLeft = wwo_slidesContainer.scrollWidth - wwo_slidesContainer.clientWidth;
+
+        if (wwo_slidesContainer.scrollLeft + slideWidth > maxScrollLeft) {
+            // If we're at the end, loop back to the start
+            wwo_slidesContainer.scrollLeft = 0;
+        } else {
+            wwo_slidesContainer.scrollLeft += slideWidth;
+        }
+    });
+
+    prevButton.addEventListener('click', () => {
+        const slideWidth = wwo_slidesContainer.clientWidth / 3; // One third of the container width
+
+        if (wwo_slidesContainer.scrollLeft - slideWidth < 0) {
+            // If we're at the start, loop back to the end
+            wwo_slidesContainer.scrollLeft = wwo_slidesContainer.scrollWidth - wwo_slidesContainer.clientWidth;
+        } else {
+            wwo_slidesContainer.scrollLeft -= slideWidth;
+        }
+    });
+
+};
+
+module.exports = { initCarousel };
+
+},{}],12:[function(require,module,exports){
 const debugHtmlBuilder = 0;
 if(debugHtmlBuilder) console.log('debugHtmlBuilder is set to 1');
 
-const { getLanguageStrings } = require('../lang/languageManager');
-const { formatDateRange } = require('../utils/utils');
+const { formatDateRange, addDaysToDate } = require('../utils/utils');
 
 const buildHtmlOffers = (proposalsOffersArray) => {
     let html = `
-        <div class="wwo-offer-container">
-            <ul>
+        <div class="wwo-offer-container wwo-slider-wrapper">
+            <button class="wwo-slide-arrow" id="wwo-slide-arrow-prev">
+                &#8249;
+            </button>
+            <button class="wwo-slide-arrow" id="wwo-slide-arrow-next">
+                &#8250;
+            </button>
+            <ul class="wwo-slides-container" id="wwo-slides-container">
     `;
     proposalsOffersArray.forEach((item, key) => {
-        console.log('item in buildHtmlOffers', item);
 
-        let disponibilityRange = formatDateRange(item.proposal.formattedDate, item.acfItem['offer-date-end']);//, wwo_strings);
+        if (key % 3 === 0) {
+            if (key !== 0) {
+                html += `</li>`; // Close previous slide
+            }
+            html += `<li class="wwo-slide">`; // Start new slide
+        }
+
+        if(debugHtmlBuilder) console.log('item in buildHtmlOffers', item);
+        if(debugHtmlBuilder) console.log('--'+addDaysToDate(item.proposal.formattedDate, item.proposal.nbDays))
+        let disponibilityRange = formatDateRange(
+            item.proposal.formattedDate, 
+            addDaysToDate(item.proposal.formattedDate, item.proposal.nbDays)
+        );
+
+        let thisProperty = null;
+        item.offer.properties.forEach(property => {
+            if(!thisProperty) {
+                if (property.ws_establishment_id * 1 === item.proposal.propertyId * 1) {
+                    thisProperty = property;
+                }
+            }
+        });
+        if(debugHtmlBuilder) console.log('thisProperty:', thisProperty);
+
         html += `
-            <li style="border: 4px #c0c solid;margin: 0.5em 0;">
-                <div class="wwo-disponibility-dates">
-                    ${disponibilityRange}
-                </div><!-- .wwo-disponibility-dates -->
-                propertyId: ${item.proposal.propertyId}<br />
-                ${item.proposal.price.amount} ${item.proposal.price.currencyCode}<br />
-                proposalKey: ${item.proposal.proposalKey}<br />
-                nbDays: ${item.proposal.nbDays}<br />
-                date start: ${item.proposal.formattedDate}<br />
-                ${item.offer.get_the_title}<br />
-            </li>
+            <div class="wwo-offer">
+                <div class="wwo-offer-item">
+                    <div class="offer-proposal">
+                        <b>PROPOSAL</b><br />
+                        <div class="wwo-disponibility-dates">
+                            ${disponibilityRange}
+                        </div><!-- .wwo-disponibility-dates -->
+                        propertyId: ${item.proposal.propertyId}<br />
+                        ${item.proposal.price.amount} ${item.proposal.price.currencyCode}<br />
+                        proposalKey: ${item.proposal.proposalKey}<br />
+                        nbDays: ${item.proposal.nbDays}<br />
+                        date start: ${item.proposal.formattedDate}<br />
+                    </div><!-- .offer-proposal -->
+                    <div class="offer-categories" style="border: 2px #ccc solid;margin: 1em;">
+                        <b>OFFER</b><br />
+                        get_the_title: ${item.offer.get_the_title}<br />
+                        Categories: ${item.offer.offers_categories.map(category => `${category.name}`).join(', ')}<br />
+                        acf_offers_descirtion_content: ${item.offer.acf_offers_descirtion_content}<br />
+                        acf_offers_season: ${item.offer.acf_offers_season}<br />
+                    </div><!-- .offer-categories -->
+                    <div class="offer-establishment" style="border: 2px #ccc solid;margin: 1em;">
+                        <b>ESTABLISHMENT</b><br />
+                        Establishment: ${thisProperty.post_title}<br />
+                        guid: ${thisProperty.guid}<br />
+                        acf_h1_title: ${thisProperty.acf_h1_title}<br />
+                        acf_h1_subtitle: ${thisProperty.acf_h1_subtitle}<br />
+                        acf_featured_image.alt: ${thisProperty.acf_featured_image.alt}<br />
+                        acf_featured_image.caption: ${thisProperty.acf_featured_image.caption}<br />
+                        acf_featured_image.url: ${thisProperty.acf_featured_image.url}<br />
+                    </div><!-- .offer-establishment -->
+                </div><!-- .wwo-offer-item -->
+            </div><!-- .wwo-offer -->
         `;
     });
     html += `
-        </ul>
+            </li><!-- .wwo-slide -->
+        </ul><!-- .wwo-slides-container -->
     </div><!-- .wwo-offer-container -->
     `;
     return html;
 }
 
-const buildHtmlFromOffersProposalsCombinations = (proposalsOffersArray) => {
-    if (debugHtmlBuilder) console.log('proposalsOffersArray', proposalsOffersArray);
-    let html = 'ESTRUCTURA DE LAS DISPONIBILIDADES MOSTRADAS — SOLO PARA DESARROLLO:<br />';
-
-    proposalsOffersArray.forEach((item, key) => {
-        if (debugHtmlBuilder) console.log('item in buildHtmlFromOffersProposalsCombinations', item);
-        if (debugHtmlBuilder) console.log('item.offer.acf_data', item.offer.acf_data);
-        const wwo_strings = getLanguageStrings();
-        if (!wwo_strings) {
-            console.error('Failed to get language strings in graphql/graphql');
-            return;
-        }
-        //if (debugHtmlBuilder) console.log('wwo_strings', wwo_strings);
-
-        let dateStr = item.offer.acf_data[0]['offer-date-start'];
-
-        let dateParts = dateStr.split('/');
-        let date = new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`);
-
-        if (debugHtmlBuilder) wwo_strings.translation_example['dows-short'];
-        let dayOfWeek = wwo_strings['dows-short'][date.getUTCDay()];
-        html += `
-            <div class="ww-offer-container">
-                <h2>
-                    ${item.offer.get_the_title} (WP post ID: ${item.offer.ID})
-                    &nbsp;-&nbsp;
-                    From <span class="wwo-day-of-week">${dayOfWeek}</span> ${item.acfItem['offer-date-start']} to ${item.acfItem['offer-date-end']}
-                </h2>
-                <p>
-                    Se deben mostrar las disponibilidades entre las fechas indicadas en el título.<br />
-                    Que empiecen en día de la semana: ${item.acfItem['offer-day-of-week']}
-                </p>
-                <h3>Proposals:</h3>
-                <ul>
-        `;
-        if (debugHtmlBuilder) console.log('item.proposals.proposals', item.proposals.proposals);
-        item.proposals.proposals.forEach((proposal, key2) => {
-            html += `
-                    <li style="border: 1px #000 solid;margin: 0.5em 0;">
-                        propertyId: ${proposal.propertyId}<br />
-                        price.amount: ${proposal.price.amount}<br />
-                        proposalKey: ${proposal.proposalKey}<br />
-                        nbDays: ${proposal.nbDays}<br />
-                    </li>
-            `;
-        });
-
-        html += `
-                </ul>
-            </div>
-        `;
-    });
-    return html;
-}
-
-
-const buildHtmlOffersOutput = (offersProposalsList) => {
-    let html = '';
-    if(debugHtmlBuilder) console.log('offersProposalsList', offersProposalsList);
-
-    html += `
-        <div class="wwo-offer-container">
-            <ul>
-    `;
-
-    offersProposalsList.forEach((item, key) => {
-        if (debugHtmlBuilder) console.log('item', item);
-        const wwo_strings = getLanguageStrings();
-        if (!wwo_strings) {
-            console.error('Failed to get language strings in graphql/graphql.js');
-            return;
-        }
-
-
-
-
-
-        
-        let disponibilityRange = formatDateRange(item.acfItem['offer-date-start'], item.acfItem['offer-date-end']);//, wwo_strings);
-
-
-        html += `
-                <li style="border: 4px #c0c solid;margin: 0.5em 0;">
-
-
-                    <div class="wwo-disponibility-dates">
-                        ${disponibilityRange}
-                    </div><!-- .wwo-disponibility-dates -->
-
-
-
-
-                    item.offer.get_the_title: ${item.offer.get_the_title}<br />
-                    
-                    proposal propertyId: ${item.proposal.propertyId}<br />
-                    proposal price amount: ${item.proposal.price.amount}<br />
-                    proposal nbDays: ${item.proposal.nbDays}<br />
-                    proposal proposalKey: ${item.proposal.proposalKey}<br />
-                </li>
-        `;
-
-    });
-
-    html += `
-            </ul>
-        </div><!-- .wwo-offer-container -->
-    `;
-
-    return html;
-}
-
-module.exports = { 
-    buildHtmlFromOffersProposalsCombinations, 
-    buildHtmlOffersOutput,
-    buildHtmlOffers
-};
-},{"../lang/languageManager":6,"../utils/utils":10}]},{},[5])(5)
+module.exports = { buildHtmlOffers };
+},{"../utils/utils":10}]},{},[5])(5)
 });
