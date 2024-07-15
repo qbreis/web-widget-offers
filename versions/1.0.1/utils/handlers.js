@@ -129,6 +129,7 @@ const buildProposalsQuery = (sessionName, endpointData) => {
     `;
 };
 
+/*
 const offersProposalsCombinations = (proposalsData, endpointData) => {
 
 
@@ -197,7 +198,7 @@ const offersProposalsCombinations = (proposalsData, endpointData) => {
     if (debugHandlers) console.log('proposalsOffersArray:', proposalsOffersArray);
     return proposalsOffersArray;
 };
-
+*/
 
 
 
@@ -277,7 +278,7 @@ const thisOffersProposalsCombinations = (proposalsData, endpointData) => {
 
 
 
-
+/*
 const getOffersProposalsList = (proposalsOffersArray) => {
 
     if (debugHandlers) console.log('proposalsOffersArray in getOffersProposalsList', proposalsOffersArray);
@@ -306,5 +307,10 @@ const getOffersProposalsList = (proposalsOffersArray) => {
     });
     return offersProposalsArray;
 };
-
-module.exports = { buildProposalsQuery, offersProposalsCombinations, getOffersProposalsList, thisOffersProposalsCombinations };
+*/
+module.exports = { 
+    buildProposalsQuery, 
+    // offersProposalsCombinations, 
+    // getOffersProposalsList, 
+    thisOffersProposalsCombinations 
+};

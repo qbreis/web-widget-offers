@@ -84,10 +84,15 @@ const debugGraphql = 0;
 if(debugGraphql) console.log('debugGraphql is set to 1');
 
 const { fetchSessionData, fetchProposalsData } = require('../utils/api');
-const { buildProposalsQuery, offersProposalsCombinations, getOffersProposalsList, thisOffersProposalsCombinations } = require('../utils/handlers');
 const { 
-    buildHtmlFromOffersProposalsCombinations, 
-    buildHtmlOffersOutput,
+    buildProposalsQuery, 
+    //offersProposalsCombinations, 
+    //getOffersProposalsList, 
+    thisOffersProposalsCombinations 
+} = require('../utils/handlers');
+const { 
+    //buildHtmlFromOffersProposalsCombinations, 
+    //buildHtmlOffersOutput,
     buildHtmlOffers
 } = require('../views/htmlBuilder');
 
@@ -114,23 +119,11 @@ const handleSessionData = async (data, options, endpointData) => {
         const proposalsData = await fetchProposalsData(options.graphqlConfig.endpointUrl, proposalsQuery);
         if (debugGraphql) console.log('-------------------Datos recibidos getProposals de GraphQL endpoint ' + options.graphqlConfig.endpointUrl + ':', proposalsData.data);
 
-
-
-
-
-        
-
-
-
-
-
-
         if (debugGraphql) console.log('offers in endpointData:', endpointData);
 
         /*
         To create a new object that combines offers from endpointData with proposals from proposalsData, you can iterate through each offer in endpointData and then iterate through acf_data within each offer. During this process, you can match and combine relevant proposals from proposalsData. 
         */
-
 
         const proposalsOffersArray = thisOffersProposalsCombinations(proposalsData, endpointData);
         console.log('proposalsOffersArray', proposalsOffersArray);
@@ -142,21 +135,14 @@ const handleSessionData = async (data, options, endpointData) => {
             console.error(`Element with id wwo-offers-list not found.`);
         }
 
-
 //        const proposalsOffersArray = offersProposalsCombinations(proposalsData, endpointData);
 //        if (debugGraphql) console.log('proposalsOffersArray...', proposalsOffersArray);
-        
-
-
-        
 
         /*
         transform proposalsOffersArray into offersProposalsArray where each offer is paired with each proposal, you can iterate through proposalsOffersArray and create a new array offersProposalsArray with the desired structure. Here's how you can achieve this:
         */
 //        const offersProposalsList = getOffersProposalsList(proposalsOffersArray);
 //        if (debugGraphql) console.log('offersProposalsList', offersProposalsList);
-
-
 
         /*
         const htmlOffersOutput = buildHtmlOffersOutput(offersProposalsList);
@@ -167,9 +153,6 @@ const handleSessionData = async (data, options, endpointData) => {
             console.error(`Element with id wwo-offers-list not found.`);
         }
         */
-
-
-
         /*
         const htmlOffers = buildHtmlFromOffersProposalsCombinations(proposalsOffersArray);
         const containerOfers = document.getElementById('ww-offers-list');
@@ -569,6 +552,7 @@ const buildProposalsQuery = (sessionName, endpointData) => {
     `;
 };
 
+/*
 const offersProposalsCombinations = (proposalsData, endpointData) => {
 
 
@@ -637,7 +621,7 @@ const offersProposalsCombinations = (proposalsData, endpointData) => {
     if (debugHandlers) console.log('proposalsOffersArray:', proposalsOffersArray);
     return proposalsOffersArray;
 };
-
+*/
 
 
 
@@ -717,7 +701,7 @@ const thisOffersProposalsCombinations = (proposalsData, endpointData) => {
 
 
 
-
+/*
 const getOffersProposalsList = (proposalsOffersArray) => {
 
     if (debugHandlers) console.log('proposalsOffersArray in getOffersProposalsList', proposalsOffersArray);
@@ -746,8 +730,13 @@ const getOffersProposalsList = (proposalsOffersArray) => {
     });
     return offersProposalsArray;
 };
-
-module.exports = { buildProposalsQuery, offersProposalsCombinations, getOffersProposalsList, thisOffersProposalsCombinations };
+*/
+module.exports = { 
+    buildProposalsQuery, 
+    // offersProposalsCombinations, 
+    // getOffersProposalsList, 
+    thisOffersProposalsCombinations 
+};
 },{"./utils":10}],10:[function(require,module,exports){
 const { getLanguageStrings } = require('../lang/languageManager');
 
