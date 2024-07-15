@@ -56,8 +56,6 @@ const buildProposalsQuery = (sessionName, endpointData) => {
             }
             if (debugHandlers) console.log('matchingDates:', matchingDates);
 
-            console.log('matchingDates:', matchingDates);
-
             // Format the dates as "dd/mm/yyyy" strings
             let formattedDates = matchingDates.map(date => {
                 let day = String(date.getDate()).padStart(2, '0');
@@ -114,9 +112,7 @@ const buildProposalsQuery = (sessionName, endpointData) => {
             });
             if (debugHandlers) console.log('this_returnProposalsQuery', this_returnProposalsQuery);
         });
-        
     });
-
     if (debugHandlers) console.log(`
         query getProposal111{
             ${returnProposalsQuery}
@@ -128,90 +124,6 @@ const buildProposalsQuery = (sessionName, endpointData) => {
         }
     `;
 };
-
-/*
-const offersProposalsCombinations = (proposalsData, endpointData) => {
-
-
-
-
-
-
-    const transformData = (data) => {
-        const transformedData = {};
-        for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            const dateMatch = key.match(/(\d{2}_\d{2}_\d{4})/);
-            if (dateMatch) {
-              const formattedDate = dateMatch[1].replace(/_/g, '/');
-              const proposals = data[key].proposals.map(proposal => {
-                return {
-                  ...proposal,
-                  formattedDate: formattedDate
-                };
-              });
-              transformedData[key] = { proposals };
-            }
-          }
-        }
-      
-        return transformedData;
-    };
-    const transformedData = transformData(proposalsData.data);
-    console.log('transformedData', transformedData);
-
-
-
-
-
-
-
-
-
-
-
-    // Initialize the combined data array
-    const proposalsOffersArray = [];
-
-    const thisProposalsOffersArray = [];
-    if (debugHandlers) console.log('transformedData', transformedData);
-    if (debugHandlers) console.log('endpointData', endpointData);
-    // Iterate over endpointData
-    let counter = 0;
-    endpointData.forEach(thisOffer => {
-        if (debugHandlers) console.log('thisOffer:', thisOffer.acf_data);
-        console.log('thisOffer:', thisOffer.acf_data);
-        thisOffer.acf_data.forEach((acfItem, acfIndex) => {
-            const methodString = Object.keys(transformedData)[counter];
-            const combinedObject = {
-                offer: thisOffer,
-                acfItem: acfItem,
-                method: methodString,
-                proposals: transformedData[
-                    Object.keys(transformedData)[counter]
-                ]
-            };
-            proposalsOffersArray.push(combinedObject);
-        });
-        counter++;
-    });
-    if (debugHandlers) console.log('proposalsOffersArray:', proposalsOffersArray);
-    return proposalsOffersArray;
-};
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const thisOffersProposalsCombinations = (proposalsData, endpointData) => {
     const transformData = (data) => {
@@ -234,14 +146,12 @@ const thisOffersProposalsCombinations = (proposalsData, endpointData) => {
         return transformedData;
     };
     const transformedData = transformData(proposalsData.data);
-    console.log('transformedData', transformedData);
     const thisProposalsOffersArray = [];
     if (debugHandlers) console.log('transformedData', transformedData);
     if (debugHandlers) console.log('endpointData', endpointData);
     let counter = 0;
     endpointData.forEach(thisOffer => {
         if (debugHandlers) console.log('thisOffer:', thisOffer.acf_data);
-        console.log('thisOffer:', thisOffer.acf_data);
         thisOffer.acf_data.forEach((acfItem, acfIndex) => {
             for (const key in transformedData) {
                 if (transformedData.hasOwnProperty(key)) {
@@ -258,59 +168,11 @@ const thisOffersProposalsCombinations = (proposalsData, endpointData) => {
             }
         });
     });
-    console.log('thisProposalsOffersArray:', thisProposalsOffersArray);
+    if (debugHandlers) console.log('thisProposalsOffersArray:', thisProposalsOffersArray);
     return thisProposalsOffersArray;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-const getOffersProposalsList = (proposalsOffersArray) => {
-
-    if (debugHandlers) console.log('proposalsOffersArray in getOffersProposalsList', proposalsOffersArray);
-    const offersProposalsArray = [];
-    proposalsOffersArray.forEach(item => {
-        const offer = item.offer;
-        const proposals = item.proposals.proposals;
-        proposals.forEach(proposal => {
-            
-            const offerProposalPair = {
-                offer: offer,
-                acfItem: item.acfItem,
-                // formattedDate : item.formattedDate,
-                proposal: {
-                    propertyId: proposal.propertyId,
-                    proposalKey: proposal.proposalKey,
-                    price: {
-                    amount: proposal.price.amount,
-                    currencyCode: proposal.price.currencyCode
-                    },
-                    nbDays: proposal.nbDays
-                }
-            };
-            offersProposalsArray.push(offerProposalPair);
-        });
-    });
-    return offersProposalsArray;
-};
-*/
 module.exports = { 
     buildProposalsQuery, 
-    // offersProposalsCombinations, 
-    // getOffersProposalsList, 
     thisOffersProposalsCombinations 
 };
