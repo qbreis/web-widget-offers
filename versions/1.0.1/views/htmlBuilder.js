@@ -1,26 +1,48 @@
-const debugHtmlBuilder = 0;
+const debugHtmlBuilder = 1;
 if(debugHtmlBuilder) console.log('debugHtmlBuilder is set to 1');
 
 const { formatDateRange, addDaysToDate } = require('../utils/utils');
 
-const buildHtmlOffers = (proposalsOffersArray) => {
-    let html = `
-        <div class="wwo-offer-container wwo-slider-wrapper">
-            <button class="wwo-slide-arrow" id="wwo-slide-arrow-prev">
-                &#8249;
-            </button>
-            <button class="wwo-slide-arrow" id="wwo-slide-arrow-next">
-                &#8250;
-            </button>
-            <ul class="wwo-slides-container" id="wwo-slides-container">
-    `;
-    proposalsOffersArray.forEach((item, key) => {
+const buildHtmlOffers = (proposalsOffersArray, displayMode) => {
 
-        if (key % 3 === 0) {
-            if (key !== 0) {
-                html += `</li>`; // Close previous slide
-            }
-            html += `<li class="wwo-slide">`; // Start new slide
+    let html = displayMode === 'carousel' ? `
+    <div class="wwo-offer-container wwo-slider-wrapper">
+        <button class="wwo-slide-arrow" id="wwo-slide-arrow-prev">
+            &#8249;
+        </button>
+        <button class="wwo-slide-arrow" id="wwo-slide-arrow-next">
+            &#8250;
+        </button>
+        <ul class="wwo-slides-container" id="wwo-slides-container">
+    `
+    :
+    `
+    <div class="wwo-offer-container wwo-grid-wrapper">
+        <ul class="wwo-grid-container" id="wwo-grid-container">
+    `
+    ;
+    /*
+    let html = `
+    <div class="wwo-offer-container wwo-slider-wrapper">
+        <button class="wwo-slide-arrow" id="wwo-slide-arrow-prev">
+            &#8249;
+        </button>
+        <button class="wwo-slide-arrow" id="wwo-slide-arrow-next">
+            &#8250;
+        </button>
+        <ul class="wwo-slides-container" id="wwo-slides-container">
+    `;
+    */
+    proposalsOffersArray.forEach((item, key) => {
+        if (displayMode === 'carousel') {
+            if (key % 3 === 0) {
+                if (key !== 0) {
+                    html += `</li>`; // Close previous slide
+                }
+                html += `<li class="wwo-slide">`; // Start new slide
+            } 
+        } else {
+            html += `<li class="wwo-grid-item">`;
         }
 
         if(debugHtmlBuilder) console.log('item in buildHtmlOffers', item);
@@ -41,8 +63,25 @@ const buildHtmlOffers = (proposalsOffersArray) => {
         if(debugHtmlBuilder) console.log('thisProperty:', thisProperty);
 
         html += `
-            <div class="wwo-offer">
-                <div class="wwo-offer-item">
+            <div class="${displayMode === 'carousel' ? 'wwo-offer' : 'wwo-grid-element'}">
+                <div class="wwo-offer-item ${item.offer.offers_categories.map(category => `wwo-family-${category.name}`).join(', ')}">
+
+                    <div class="wwo-featured-image-wrapper">
+                        <img class="wwo-featured-image" src="${thisProperty.acf_featured_image.url}" alt="${thisProperty.acf_featured_image.alt}" />
+                    </div><!-- .wwo-featured-image-wrapper -->
+                    <div class="wwo-offer-wrapper">
+                        <div class="offer-title">
+                            ${thisProperty.post_title}
+                        </div><!-- .offer-title -->
+                        <div class="wwo-disponibility-dates">
+                            ${disponibilityRange}
+                        </div><!-- .wwo-disponibility-dates -->
+                        <div class="wwo-offer-price">
+                            <span class="wwo-offer-price-amount">${item.proposal.price.amount}</span> <span class="wwo-offer-price-currency">&euro;</span>
+                        </div><!-- .offer-price -->
+                    </div><!-- .wwo-offer-wrapper -->
+
+<div style="display: none;">
                     <div class="offer-proposal">
                         <b>PROPOSAL</b><br />
                         <div class="wwo-disponibility-dates">
@@ -71,6 +110,8 @@ const buildHtmlOffers = (proposalsOffersArray) => {
                         acf_featured_image.caption: ${thisProperty.acf_featured_image.caption}<br />
                         acf_featured_image.url: ${thisProperty.acf_featured_image.url}<br />
                     </div><!-- .offer-establishment -->
+</div>
+
                 </div><!-- .wwo-offer-item -->
             </div><!-- .wwo-offer -->
         `;

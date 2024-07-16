@@ -76,8 +76,10 @@ module.exports = {
 };
 
 },{}],2:[function(require,module,exports){
-var css = "body{font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif}#wwo-offers-list{display:flex;justify-content:center}.wwo-slider-wrapper{margin:1rem;position:relative;overflow:hidden;width:900px;height:400px}.wwo-slides-container{height:calc(100vh - 2rem);width:100%;display:flex;overflow:scroll;scroll-behavior:smooth;list-style:none;margin:0;padding:0}.wwo-offer{width:33.33%}.wwo-offer-item{background-color:#cfcfcf;margin:.5em}.wwo-slide-arrow{position:absolute;display:flex;top:0;bottom:0;margin:auto;height:4rem;background-color:#fff;border:none;width:2rem;font-size:3rem;padding:0;cursor:pointer;opacity:.5;transition:opacity .1s}.wwo-slide-arrow:focus,.wwo-slide-arrow:hover{opacity:1}#wwo-slide-arrow-prev{left:0;padding-left:.25rem;border-radius:0 2rem 2rem 0}#wwo-slide-arrow-next{right:0;padding-left:.75rem;border-radius:2rem 0 0 2rem}.wwo-slide{width:100%;height:100%;flex:1 0 100%;display:flex}.wwo-slides-container{scrollbar-width:none;-ms-overflow-style:none}.wwo-slides-container::-webkit-scrollbar{width:0;height:0}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\style.css" }, { "insertAt": "bottom" })); module.exports = css;
+var css = "#wwo-offers-list{display:flex;justify-content:center}.wwo-slider-wrapper{margin:1rem;position:relative;overflow:hidden;width:900px;height:900px}.wwo-slides-container{height:calc(100vh - 2rem);width:100%;display:flex;overflow:scroll;scroll-behavior:smooth;list-style:none;margin:0;padding:0}.wwo-offer{width:33.33%}.wwo-offer-item{background-color:#cfcfcf;margin:.5em}.wwo-slide-arrow{position:absolute;display:flex;top:0;bottom:0;margin:auto;height:4rem;background-color:#fff;border:none;width:2rem;font-size:3rem;padding:0;cursor:pointer;opacity:.5;transition:opacity .1s}.wwo-slide-arrow:focus,.wwo-slide-arrow:hover{opacity:1}#wwo-slide-arrow-prev{left:0;padding-left:.25rem;border-radius:0 2rem 2rem 0}#wwo-slide-arrow-next{right:0;padding-left:.75rem;border-radius:2rem 0 0 2rem}.wwo-slide{width:100%;height:100%;flex:1 0 100%;display:flex}.wwo-slides-container{scrollbar-width:none;-ms-overflow-style:none}.wwo-slides-container::-webkit-scrollbar{width:0;height:0}.wwo-grid-container{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap}.wwo-grid-item{width:33.33%}.wwo-grid-wrapper{margin:1rem;position:relative;width:900px}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\carousel.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":1}],3:[function(require,module,exports){
+var css = "body{font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif}.wwo-featured-image-wrapper{height:200px;overflow:hidden}.wwo-offer-wrapper{padding:.5em}.wwo-featured-image{width:100%;height:100%;object-fit:cover}.offer-title{font-weight:700;font-size:1.2em}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\style.css" }, { "insertAt": "bottom" })); module.exports = css;
+},{"browserify-css":1}],4:[function(require,module,exports){
 // graphql.js: Contains functions related to constructing and handling GraphQL queries.
 
 const debugGraphql = 0;
@@ -118,11 +120,12 @@ const handleSessionData = async (data, options, endpointData) => {
         */
 
         const proposalsOffersArray = thisOffersProposalsCombinations(proposalsData, endpointData);
-        const htmlOffersOutput = buildHtmlOffers(proposalsOffersArray);
+        const htmlOffersOutput = buildHtmlOffers(proposalsOffersArray, options.displayMode);
         const containerOffersOutput = document.getElementById('wwo-offers-list');
+        console.log('options.displayMode', options.displayMode);
         if (containerOffersOutput) {
             containerOffersOutput.innerHTML = htmlOffersOutput;
-            initCarousel();
+            if(options.displayMode === 'carousel' || options.displayMode === 'slides' || options.displayMode === 'slide') initCarousel();
         } else {
             console.error(`Element with id wwo-offers-list not found.`);
         }
@@ -132,7 +135,7 @@ const handleSessionData = async (data, options, endpointData) => {
 };
 
 module.exports = { runGraphql, handleSessionData };
-},{"../utils/api":8,"../utils/handlers":9,"../views/carousel":11,"../views/htmlBuilder":12,"./graphqlQueries":4}],4:[function(require,module,exports){
+},{"../utils/api":9,"../utils/handlers":10,"../views/carousel":12,"../views/htmlBuilder":13,"./graphqlQueries":5}],5:[function(require,module,exports){
 module.exports = {
     getSession: `
         query session($username: String! ) {
@@ -169,7 +172,7 @@ module.exports = {
     */
 };
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 const debugIndex = 0;
@@ -241,8 +244,8 @@ function initWidget(options) {
                 </ul>
                 <p>${wwo_strings.translation_example}</p>
             </div>
-            <div id="wwo-offers-list" style="border: 2px #f0c solid;"></div>
-            <div id="ww-offers-list" style="border: 2px #f0c solid;"></div>
+            <div id="wwo-offers-list"></div>
+            <div id="ww-offers-list"></div>
         </div>
     `;
 
@@ -257,7 +260,7 @@ function initWidget(options) {
 
 module.exports = { initWidget };
 
-},{"./css/style.css":2,"./graphql/graphql":3,"./lang/languageManager":6}],6:[function(require,module,exports){
+},{"./css/style.css":3,"./graphql/graphql":4,"./lang/languageManager":7}],7:[function(require,module,exports){
 // languageManager.js
 const { getString } = require('./languages');
 
@@ -285,7 +288,7 @@ function getLanguageStrings() {
 
 module.exports = { initLanguage, getLanguageStrings };
 
-},{"./languages":7}],7:[function(require,module,exports){
+},{"./languages":8}],8:[function(require,module,exports){
 function getString(wwo_languageCode){
     let wwo_translationChains = {};
     switch(wwo_languageCode){
@@ -330,7 +333,7 @@ function getString(wwo_languageCode){
     return wwo_translationChains;
 }
 module.exports = { getString };
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 // utils/api.js - Contains functions related to fetching data from APIs.
 
 // Define a function to fetch session data
@@ -385,7 +388,7 @@ const fetchProposalsData = async (endpointURL, graphqlQuery) => {
 };
 
 module.exports = { fetchSessionData, fetchProposalsData };
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 // handlers.js: Contains functions for data handling and processing functions
 
 const debugHandlers = 0;
@@ -570,7 +573,7 @@ module.exports = {
     buildProposalsQuery, 
     thisOffersProposalsCombinations 
 };
-},{"./utils":10}],10:[function(require,module,exports){
+},{"./utils":11}],11:[function(require,module,exports){
 const { getLanguageStrings } = require('../lang/languageManager');
 
 //function convertDateFormat(dateString){
@@ -635,76 +638,136 @@ const formatDateRange = (dateStartString, dateEndString) => {
     let yearStart = dateStart.getUTCFullYear();
 
     let returnDateRange = (yearStart === yearEnd) ? 
-        `${dayStart} ${monthStart} ${wwo_strings['to']} ${dayEnd} ${monthEnd} ${yearEnd}` :
-        `${dayStart} ${monthStart} ${yearStart} ${wwo_strings['to']} ${dayEnd} ${monthEnd} ${yearEnd}`;
+        `<span class="wwo-date wwo-date-start">${dayStart} ${monthStart}</span> ${wwo_strings['to']} <span class="wwo-date wwo-date-end">${dayEnd} ${monthEnd} ${yearEnd}</span>` :
+        `<span class="wwo-date wwo-date-start">${dayStart} ${monthStart}</span> ${yearStart} ${wwo_strings['to']} <span class="wwo-date wwo-date-end">${dayEnd} ${monthEnd} ${yearEnd}</span>`;
  
-    return `<span class="wwo-day-of-week">${dayOfWeek}</span> ${returnDateRange}`; //`<span class="wwo-day-of-week">${dayOfWeek}</span> ${returnDateRange}`;
-        
+    return `${wwo_strings['from']} <span class="wwo-day-of-week">${dayOfWeek}</span> ${returnDateRange}`;
 }
 
 module.exports = { convertDateFormat, formatDateRange, addDaysToDate };
-},{"../lang/languageManager":6}],11:[function(require,module,exports){
+},{"../lang/languageManager":7}],12:[function(require,module,exports){
 // versions/1.0.1/views/carousel.js
+
+const wwo_css = require('../css/carousel.css');
 
 const initCarousel = () => {
     // versions/1.0.1/views/carousel.js
 
     const wwo_slidesContainer = document.getElementById('wwo-slides-container');
-    const wwo_slides = document.querySelectorAll('.wwo-slide');
     const prevButton = document.getElementById('wwo-slide-arrow-prev');
     const nextButton = document.getElementById('wwo-slide-arrow-next');
 
+    function smoothScroll(element, target, duration) {
+        const start = element.scrollLeft;
+        const change = target - start;
+        const startTime = performance.now();
+    
+        function animateScroll(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeInOutQuad = progress * (2 - progress); // Ease-in-out effect
+            element.scrollLeft = start + change * easeInOutQuad;
+    
+            if (progress < 1) {
+                requestAnimationFrame(animateScroll);
+            }
+        }
+    
+        requestAnimationFrame(animateScroll);
+    }
+
+    
     nextButton.addEventListener('click', () => {
         const slideWidth = wwo_slidesContainer.clientWidth / 3; // One third of the container width
         const maxScrollLeft = wwo_slidesContainer.scrollWidth - wwo_slidesContainer.clientWidth;
 
+        nextButton.disabled = true;
+        
         if (wwo_slidesContainer.scrollLeft + slideWidth > maxScrollLeft) {
             // If we're at the end, loop back to the start
-            wwo_slidesContainer.scrollLeft = 0;
+            // wwo_slidesContainer.scrollLeft = 0;
+            smoothScroll(wwo_slidesContainer, 0, 10); // 500ms duration for smooth scroll
         } else {
-            wwo_slidesContainer.scrollLeft += slideWidth;
+            // wwo_slidesContainer.scrollLeft += slideWidth;
+            smoothScroll(wwo_slidesContainer, wwo_slidesContainer.scrollLeft + slideWidth, 200);
         }
+
+        // Re-enable the button after the scroll duration
+        setTimeout(() => {
+            nextButton.disabled = false;
+        }, 500); // Same duration as the smooth scroll
+
     });
 
     prevButton.addEventListener('click', () => {
         const slideWidth = wwo_slidesContainer.clientWidth / 3; // One third of the container width
 
+        nextButton.disabled = true;
+
         if (wwo_slidesContainer.scrollLeft - slideWidth < 0) {
             // If we're at the start, loop back to the end
-            wwo_slidesContainer.scrollLeft = wwo_slidesContainer.scrollWidth - wwo_slidesContainer.clientWidth;
+            // wwo_slidesContainer.scrollLeft = wwo_slidesContainer.scrollWidth - wwo_slidesContainer.clientWidth;
+            smoothScroll(wwo_slidesContainer, wwo_slidesContainer.scrollWidth - wwo_slidesContainer.clientWidth, 10);
         } else {
-            wwo_slidesContainer.scrollLeft -= slideWidth;
+            // wwo_slidesContainer.scrollLeft -= slideWidth;
+            smoothScroll(wwo_slidesContainer, wwo_slidesContainer.scrollLeft - slideWidth, 200);
         }
+        // Re-enable the button after the scroll duration
+        setTimeout(() => {
+            nextButton.disabled = false;
+        }, 500); // Same duration as the smooth scroll
     });
 
 };
 
 module.exports = { initCarousel };
 
-},{}],12:[function(require,module,exports){
-const debugHtmlBuilder = 0;
+},{"../css/carousel.css":2}],13:[function(require,module,exports){
+const debugHtmlBuilder = 1;
 if(debugHtmlBuilder) console.log('debugHtmlBuilder is set to 1');
 
 const { formatDateRange, addDaysToDate } = require('../utils/utils');
 
-const buildHtmlOffers = (proposalsOffersArray) => {
-    let html = `
-        <div class="wwo-offer-container wwo-slider-wrapper">
-            <button class="wwo-slide-arrow" id="wwo-slide-arrow-prev">
-                &#8249;
-            </button>
-            <button class="wwo-slide-arrow" id="wwo-slide-arrow-next">
-                &#8250;
-            </button>
-            <ul class="wwo-slides-container" id="wwo-slides-container">
-    `;
-    proposalsOffersArray.forEach((item, key) => {
+const buildHtmlOffers = (proposalsOffersArray, displayMode) => {
 
-        if (key % 3 === 0) {
-            if (key !== 0) {
-                html += `</li>`; // Close previous slide
-            }
-            html += `<li class="wwo-slide">`; // Start new slide
+    let html = displayMode === 'carousel' ? `
+    <div class="wwo-offer-container wwo-slider-wrapper">
+        <button class="wwo-slide-arrow" id="wwo-slide-arrow-prev">
+            &#8249;
+        </button>
+        <button class="wwo-slide-arrow" id="wwo-slide-arrow-next">
+            &#8250;
+        </button>
+        <ul class="wwo-slides-container" id="wwo-slides-container">
+    `
+    :
+    `
+    <div class="wwo-offer-container wwo-grid-wrapper">
+        <ul class="wwo-grid-container" id="wwo-grid-container">
+    `
+    ;
+    /*
+    let html = `
+    <div class="wwo-offer-container wwo-slider-wrapper">
+        <button class="wwo-slide-arrow" id="wwo-slide-arrow-prev">
+            &#8249;
+        </button>
+        <button class="wwo-slide-arrow" id="wwo-slide-arrow-next">
+            &#8250;
+        </button>
+        <ul class="wwo-slides-container" id="wwo-slides-container">
+    `;
+    */
+    proposalsOffersArray.forEach((item, key) => {
+        if (displayMode === 'carousel') {
+            if (key % 3 === 0) {
+                if (key !== 0) {
+                    html += `</li>`; // Close previous slide
+                }
+                html += `<li class="wwo-slide">`; // Start new slide
+            } 
+        } else {
+            html += `<li class="wwo-grid-item">`;
         }
 
         if(debugHtmlBuilder) console.log('item in buildHtmlOffers', item);
@@ -725,8 +788,25 @@ const buildHtmlOffers = (proposalsOffersArray) => {
         if(debugHtmlBuilder) console.log('thisProperty:', thisProperty);
 
         html += `
-            <div class="wwo-offer">
-                <div class="wwo-offer-item">
+            <div class="${displayMode === 'carousel' ? 'wwo-offer' : 'wwo-grid-element'}">
+                <div class="wwo-offer-item ${item.offer.offers_categories.map(category => `wwo-family-${category.name}`).join(', ')}">
+
+                    <div class="wwo-featured-image-wrapper">
+                        <img class="wwo-featured-image" src="${thisProperty.acf_featured_image.url}" alt="${thisProperty.acf_featured_image.alt}" />
+                    </div><!-- .wwo-featured-image-wrapper -->
+                    <div class="wwo-offer-wrapper">
+                        <div class="offer-title">
+                            ${thisProperty.post_title}
+                        </div><!-- .offer-title -->
+                        <div class="wwo-disponibility-dates">
+                            ${disponibilityRange}
+                        </div><!-- .wwo-disponibility-dates -->
+                        <div class="wwo-offer-price">
+                            <span class="wwo-offer-price-amount">${item.proposal.price.amount}</span> <span class="wwo-offer-price-currency">&euro;</span>
+                        </div><!-- .offer-price -->
+                    </div><!-- .wwo-offer-wrapper -->
+
+<div style="display: none;">
                     <div class="offer-proposal">
                         <b>PROPOSAL</b><br />
                         <div class="wwo-disponibility-dates">
@@ -755,6 +835,8 @@ const buildHtmlOffers = (proposalsOffersArray) => {
                         acf_featured_image.caption: ${thisProperty.acf_featured_image.caption}<br />
                         acf_featured_image.url: ${thisProperty.acf_featured_image.url}<br />
                     </div><!-- .offer-establishment -->
+</div>
+
                 </div><!-- .wwo-offer-item -->
             </div><!-- .wwo-offer -->
         `;
@@ -768,5 +850,5 @@ const buildHtmlOffers = (proposalsOffersArray) => {
 }
 
 module.exports = { buildHtmlOffers };
-},{"../utils/utils":10}]},{},[5])(5)
+},{"../utils/utils":11}]},{},[6])(6)
 });

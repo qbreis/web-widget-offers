@@ -69,8 +69,8 @@ function initWidget(options) {
                 </ul>
                 <p>${wwo_strings.translation_example}</p>
             </div>
-            <div id="wwo-offers-list" style="border: 2px #f0c solid;"></div>
-            <div id="ww-offers-list" style="border: 2px #f0c solid;"></div>
+            <div id="wwo-offers-list"></div>
+            <div id="ww-offers-list"></div>
         </div>
     `;
 
