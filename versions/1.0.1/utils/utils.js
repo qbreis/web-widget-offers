@@ -62,11 +62,10 @@ const formatDateRange = (dateStartString, dateEndString) => {
     let yearStart = dateStart.getUTCFullYear();
 
     let returnDateRange = (yearStart === yearEnd) ? 
-        `${dayStart} ${monthStart} ${wwo_strings['to']} ${dayEnd} ${monthEnd} ${yearEnd}` :
-        `${dayStart} ${monthStart} ${yearStart} ${wwo_strings['to']} ${dayEnd} ${monthEnd} ${yearEnd}`;
+        `<span class="wwo-date wwo-date-start">${dayStart} ${monthStart}</span> ${wwo_strings['to']} <span class="wwo-date wwo-date-end">${dayEnd} ${monthEnd} ${yearEnd}</span>` :
+        `<span class="wwo-date wwo-date-start">${dayStart} ${monthStart}</span> ${yearStart} ${wwo_strings['to']} <span class="wwo-date wwo-date-end">${dayEnd} ${monthEnd} ${yearEnd}</span>`;
  
-    return `<span class="wwo-day-of-week">${dayOfWeek}</span> ${returnDateRange}`; //`<span class="wwo-day-of-week">${dayOfWeek}</span> ${returnDateRange}`;
-        
+    return `${wwo_strings['from']} <span class="wwo-day-of-week">${dayOfWeek}</span> ${returnDateRange}`;
 }
 
 module.exports = { convertDateFormat, formatDateRange, addDaysToDate };

@@ -38,11 +38,12 @@ const handleSessionData = async (data, options, endpointData) => {
         */
 
         const proposalsOffersArray = thisOffersProposalsCombinations(proposalsData, endpointData);
-        const htmlOffersOutput = buildHtmlOffers(proposalsOffersArray);
+        const htmlOffersOutput = buildHtmlOffers(proposalsOffersArray, options.displayMode);
         const containerOffersOutput = document.getElementById('wwo-offers-list');
+        console.log('options.displayMode', options.displayMode);
         if (containerOffersOutput) {
             containerOffersOutput.innerHTML = htmlOffersOutput;
-            initCarousel();
+            if(options.displayMode === 'carousel' || options.displayMode === 'slides' || options.displayMode === 'slide') initCarousel();
         } else {
             console.error(`Element with id wwo-offers-list not found.`);
         }
