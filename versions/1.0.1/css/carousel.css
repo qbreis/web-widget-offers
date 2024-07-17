@@ -94,6 +94,7 @@ grid
     list-style: none;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 .wwo-grid-item { width: 33.33%; }
 .wwo-grid-wrapper {

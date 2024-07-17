@@ -36,11 +36,14 @@ const handleSessionData = async (data, options, endpointData) => {
         /*
         To create a new object that combines offers from endpointData with proposals from proposalsData, you can iterate through each offer in endpointData and then iterate through acf_data within each offer. During this process, you can match and combine relevant proposals from proposalsData. 
         */
-
+        //const proposalsOffersArray = thisOffersProposalsCombinations(proposalsData, endpointData);
         const proposalsOffersArray = thisOffersProposalsCombinations(proposalsData, endpointData);
+
+        //console.log('proposalsOffersArray', proposalsOffersArray);
+
         const htmlOffersOutput = buildHtmlOffers(proposalsOffersArray, options.displayMode);
         const containerOffersOutput = document.getElementById('wwo-offers-list');
-        console.log('options.displayMode', options.displayMode);
+        if (debugGraphql) console.log('options.displayMode', options.displayMode);
         if (containerOffersOutput) {
             containerOffersOutput.innerHTML = htmlOffersOutput;
             if(options.displayMode === 'carousel' || options.displayMode === 'slides' || options.displayMode === 'slide') initCarousel();
@@ -51,5 +54,22 @@ const handleSessionData = async (data, options, endpointData) => {
         console.error('Error fetching proposals data:', error);
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = { runGraphql, handleSessionData };

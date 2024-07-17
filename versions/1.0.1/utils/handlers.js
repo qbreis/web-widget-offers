@@ -135,19 +135,19 @@ const thisOffersProposalsCombinations = (proposalsData, endpointData) => {
     const transformData = (data) => {
         const transformedData = {};
         for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            const dateMatch = key.match(/(\d{2}_\d{2}_\d{4})/);
-            if (dateMatch) {
-              const formattedDate = dateMatch[1].replace(/_/g, '/');
-              const proposals = data[key].proposals.map(proposal => {
-                return {
-                  ...proposal,
-                  formattedDate: formattedDate
-                };
-              });
-              transformedData[key] = { proposals };
+            if (data.hasOwnProperty(key)) {
+                const dateMatch = key.match(/(\d{2}_\d{2}_\d{4})/);
+                if (dateMatch) {
+                    const formattedDate = dateMatch[1].replace(/_/g, '/');
+                    const proposals = data[key].proposals.map(proposal => {
+                        return {
+                            ...proposal,
+                            formattedDate: formattedDate
+                        };
+                    });
+                    transformedData[key] = { proposals };
+                }
             }
-          }
         }
         return transformedData;
     };
@@ -155,7 +155,6 @@ const thisOffersProposalsCombinations = (proposalsData, endpointData) => {
     const thisProposalsOffersArray = [];
     if (debugHandlers) console.log('transformedData', transformedData);
     if (debugHandlers) console.log('endpointData', endpointData);
-    let counter = 0;
     endpointData.forEach(thisOffer => {
         if (debugHandlers) console.log('thisOffer:', thisOffer.acf_data);
         thisOffer.acf_data.forEach((acfItem, acfIndex) => {
@@ -175,8 +174,50 @@ const thisOffersProposalsCombinations = (proposalsData, endpointData) => {
         });
     });
     if (debugHandlers) console.log('thisProposalsOffersArray:', thisProposalsOffersArray);
-    return thisProposalsOffersArray;
+
+    const uniqueProposals = removeDuplicates(thisProposalsOffersArray);
+
+    // return thisProposalsOffersArray;
+    // return removeDuplicates(thisProposalsOffersArray);
+    return groupByLowestPrice(removeDuplicates(thisProposalsOffersArray));
+    
 };
+
+// Function to remove duplicates
+function removeDuplicates(proposals) {
+    const uniqueProposals = new Map();
+
+    proposals.forEach((item) => {
+        const proposal = item.proposal;
+        const key = `${proposal.proposalKey}-${proposal.propertyId}-${proposal.nbDays}-${proposal.price.amount}-${proposal.formattedDate}-${item.offer.acf_offers_season}`;
+        if (!uniqueProposals.has(key)) {
+            uniqueProposals.set(key, item);
+        }
+    });
+
+    return Array.from(uniqueProposals.values());
+}
+
+function groupByLowestPrice(proposals) {
+    const groupedProposals = new Map();
+
+    proposals.forEach((item) => {
+        const { proposal, offer } = item;
+        const { propertyId, price } = proposal;
+        const key = `${offer.ID}-${offer.acf_offers_season}-${propertyId}`;
+
+        if (!groupedProposals.has(key)) {
+            groupedProposals.set(key, item);
+        } else {
+            const currentLowest = groupedProposals.get(key);
+            if (price.amount < currentLowest.proposal.price.amount) {
+                groupedProposals.set(key, item);
+            }
+        }
+    });
+
+    return Array.from(groupedProposals.values());
+}
 
 module.exports = { 
     buildProposalsQuery, 

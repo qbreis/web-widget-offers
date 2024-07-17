@@ -22,20 +22,6 @@ function initWidget(options) {
         console.error('Failed to initialize language strings in index.js');
         return;
     }
-    /*
-    // Fetch the corresponding language strings
-    const wwo_strings = getString(
-        // Default to 'es' if no language is specified
-        (options.language) ? options.language : 'es'
-    );
-
-    // Handle missing translations
-    if (!wwo_strings) {
-        console.error(`No language strings found for language code: ${options.language || 'es'}`);
-        return;
-    }
-    */
-
 
     if (debugIndex) console.log('Language strings:', wwo_strings);
 
