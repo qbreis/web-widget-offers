@@ -11,6 +11,7 @@ function getString(wwo_languageCode){
                 'monts-short' : ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
                 'from' : 'desde',
                 'to' : 'hasta',
+                'all' : 'Todos',
             }
             break;  
         case 'en':
@@ -23,6 +24,7 @@ function getString(wwo_languageCode){
                 'monts-short' : ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
                 'from' : 'from',
                 'to' : 'to',
+                'all' : 'All',
             }
             break;
         case 'fr':
@@ -35,6 +37,7 @@ function getString(wwo_languageCode){
                 'monts-short' : ['jan', 'fév', 'mar', 'avr', 'mai', 'juin', 'juil', 'août', 'sep', 'oct', 'nov', 'déc'],
                 'from' : 'du',
                 'to' : 'au',
+                'all' : 'Tous',
         }
         break;
         
