@@ -15,7 +15,7 @@ carousel
 }
 
 .wwo-slides-container {
-    width: 900px;width: 894px;/*100%;*/border: 3px rgba(0, 0, 0, 0) solid;
+    width: 900px;/*100%;*/border: 3px rgba(0, 0, 0, 0) solid;
     display: flex;
     overflow: scroll;
     scroll-behavior: smooth;
@@ -23,11 +23,11 @@ carousel
     margin: 0;
     padding: 0;
 }
-
+/*
 .wwo-offer {
     width: 33.33%;
 }
-
+*/
 .wwo-offer-item {
     background-color: #cfcfcf;
     margin: 0.5em;
@@ -95,7 +95,7 @@ grid
     flex-wrap: wrap;
     justify-content: center;
 }
-.wwo-grid-item { width: 33.33%; }
+.wwo-grid-item { width: 33.33%;min-width: 33.33%; }
 .wwo-grid-wrapper {
     margin: 1rem;
     position: relative;

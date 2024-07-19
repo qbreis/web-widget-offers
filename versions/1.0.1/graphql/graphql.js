@@ -37,8 +37,7 @@ const handleSessionData = async (data, options, endpointData) => {
         /*
         To create a new object that combines offers from endpointData with proposals from proposalsData, you can iterate through each offer in endpointData and then iterate through acf_data within each offer. During this process, you can match and combine relevant proposals from proposalsData. 
         */
-        //const proposalsOffersArray = proposalsTransform(proposalsData, endpointData);
-        const proposalsOffersArray = proposalsTransform(proposalsData, endpointData);
+        const proposalsOffersArray = proposalsTransform(proposalsData, endpointData, options);
 
         //console.log('proposalsOffersArray', proposalsOffersArray);
 

@@ -1,6 +1,6 @@
 // versions/1.0.1/views/carousel.js
 
-const debugCarousel = 1;
+const debugCarousel = 0;
 if(debugCarousel) console.log('debugCarousel is set to 1');
 
 const wwo_css = require('../css/carousel.css');

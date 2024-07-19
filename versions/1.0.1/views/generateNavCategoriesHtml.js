@@ -4,7 +4,7 @@
  * @returns {string} HTML string for navigation categories.
  */
 
-const debugGenerateNavCategoriesHtml = 1;
+const debugGenerateNavCategoriesHtml = 0;
 if(debugGenerateNavCategoriesHtml) console.log('debugGenerateNavCategoriesHtml is set to 1');
 
 require('../css/generateNavCategoriesHtml.css');
@@ -19,25 +19,34 @@ const generateNavCategoriesHtml = (uniqueCategoriesArray) => {
         return;
     }
 
-    let navCategoriesHtml = `
-        <ul class="wwo-categories-nav">
-            <li 
-                class="wwo-category-nav-item wwo-active"
-                data-category="all"
-                >
-                ${wwo_strings.all}
-            </li>
-    `;
+    let navCategoriesHtml = `<ul class="wwo-categories-nav">`;
+
+    if (uniqueCategoriesArray.length > 1) {
+        navCategoriesHtml += `
+            <ul class="wwo-categories-nav">
+                <li 
+                    class="wwo-category-nav-item wwo-active"
+                    data-category="all"
+                    >
+                    ${wwo_strings.all}
+                </li>
+        `;
+    }
+
     uniqueCategoriesArray.forEach((item) => {
         navCategoriesHtml += `
             <li 
-                class="wwo-category-nav-item"
+                class="
+                    wwo-category-nav-item 
+                    ${uniqueCategoriesArray.length === 1 ? 'wwo-active' : ''}
+                "
                 data-category="${item.slug}"
                 >
                 ${item.name}
             </li>
         `;
     });
+
     navCategoriesHtml += `</ul>`;
 
     // Attach event listener to handle click events

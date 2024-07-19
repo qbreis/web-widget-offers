@@ -1,6 +1,6 @@
 // handlers.js: Contains functions for data handling and processing functions
 
-const debugHandlers = 1;
+const debugHandlers = 0;
 if(debugHandlers) console.log('debugHandlers is set to 1');
 
 const { convertDateFormat } = require('./utils');
@@ -9,19 +9,32 @@ const { convertDateFormat } = require('./utils');
 const buildProposalsQuery = (sessionName, endpointData) => {
     let returnProposalsQuery = "";
     let this_returnProposalsQuery = "";
+    const today = new Date();  // Get today's date
+
     if (debugHandlers) console.log('endpointData has one item for each offer in wp data base', endpointData);
+
     endpointData.forEach((item, key) => {
         if (debugHandlers) console.log(`-----${key} will create method_${key}_X`, item);
         item.acf_data.forEach((acf, key2) => {
             if (debugHandlers) console.log('ACF Data for', item.get_the_title, ':', acf);
+            
             // To loop between the given start and end dates inclusive, starting with the specified day of the week ("0" which corresponds to Sunday)
+
             // Initialize the date strings and day of week
             let offerDateStart = convertDateFormat(acf['offer-date-start']);
             let offerDateEnd = convertDateFormat(acf['offer-date-end']);
             let offerDayOfWeek = parseInt(acf['offer-day-of-week'], 10);
+
             // Parse the date strings into Date objects
             let thisStartDate = new Date(offerDateStart.split('/').reverse().join('-'));
             let thisEndDate = new Date(offerDateEnd.split('/').reverse().join('-'));
+
+            // Ignore items with offerDateStart before today
+            if (thisStartDate < today) {
+                if (debugHandlers) console.log('Ignoring item with offerDateStart before today:', offerDateStart);
+                return;
+            }
+
             // Create an array to store the matching dates
             let matchingDates = [];
             while (thisStartDate.getDay() !== offerDayOfWeek) {

@@ -12,6 +12,7 @@ function getString(wwo_languageCode){
                 'from' : 'desde',
                 'to' : 'hasta',
                 'all' : 'Todos',
+                'no_offers' : 'No hay ofertas disponibles',
             }
             break;  
         case 'en':
@@ -25,6 +26,7 @@ function getString(wwo_languageCode){
                 'from' : 'from',
                 'to' : 'to',
                 'all' : 'All',
+                'no_offers' : 'No offers available',
             }
             break;
         case 'fr':
@@ -38,6 +40,7 @@ function getString(wwo_languageCode){
                 'from' : 'du',
                 'to' : 'au',
                 'all' : 'Tous',
+                'no_offers' : 'Aucune offre disponible',
         }
         break;
         
