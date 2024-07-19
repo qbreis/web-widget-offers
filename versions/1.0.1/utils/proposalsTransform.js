@@ -1,9 +1,10 @@
 const debugProposalsTransform = 0;
 if(debugProposalsTransform) console.log('debugProposalsTransform is set to 1');
 
-const { removeDuplicates, groupByLowestPrice } = require('./filter');
+const { removeDuplicates, groupByLowestPric, filterOffersBySeason } = require('./filter');
 
-const proposalsTransform = (proposalsData, endpointData) => {
+const proposalsTransform = (proposalsData, endpointData, options) => {
+
     const transformData = (data) => {
         const transformedData = {};
         for (const key in data) {
@@ -46,13 +47,27 @@ const proposalsTransform = (proposalsData, endpointData) => {
         });
     });
     if (debugProposalsTransform) console.log('thisProposalsOffersArray:', thisProposalsOffersArray);
+    
 
-    const uniqueProposals = removeDuplicates(thisProposalsOffersArray);
+    // const uniqueProposals = removeDuplicates(thisProposalsOffersArray);
 
     // return thisProposalsOffersArray;
     // return removeDuplicates(thisProposalsOffersArray);
+    
+    
+
+    /*
     return groupByLowestPrice(
         removeDuplicates(thisProposalsOffersArray)
+    );
+    */
+
+
+    return removeDuplicates(
+        filterOffersBySeason(
+            thisProposalsOffersArray, 
+            options.season ? options.season : 'both'
+        )
     );
     
 };

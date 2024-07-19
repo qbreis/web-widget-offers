@@ -34,7 +34,21 @@ function groupByLowestPrice(proposals) {
     return Array.from(groupedProposals.values());
 }
 
+function filterOffersBySeason(offers, optionsSeason) {
+    console.log('offers:', offers);
+    console.log('optionsSeason:', optionsSeason);
+    return offers.filter(offer => {
+        // Show all offers if optionsSeason is 'both'
+        if (optionsSeason === 'both') {
+            return true;
+        }
+        // Include offers where season is 'both' or matches the specified season
+        return offer.offer.acf_offers_season === 'both' || offer.offer.acf_offers_season === optionsSeason;
+    });
+}
+
 module.exports = { 
     removeDuplicates, 
-    groupByLowestPrice 
+    groupByLowestPrice,
+    filterOffersBySeason
 };

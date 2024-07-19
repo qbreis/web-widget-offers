@@ -21,3 +21,8 @@ body{
     font-weight: bold;
     font-size: 1.2em;
 }
+
+.wwo-no-offers {
+    text-align: center;
+    padding: 1em;
+}
