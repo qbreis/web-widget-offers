@@ -1,6 +1,6 @@
 // handlers.js: Contains functions for data handling and processing functions
 
-const debugHandlers = 0;
+const debugHandlers = 1;
 if(debugHandlers) console.log('debugHandlers is set to 1');
 
 const { convertDateFormat } = require('./utils');
@@ -14,15 +14,6 @@ const buildProposalsQuery = (sessionName, endpointData) => {
         if (debugHandlers) console.log(`-----${key} will create method_${key}_X`, item);
         item.acf_data.forEach((acf, key2) => {
             if (debugHandlers) console.log('ACF Data for', item.get_the_title, ':', acf);
-
-            // Example action: Log the start and end dates
-            // if (debugHandlers) console.log('Offer Start Date:', convertDateFormat(acf['offer-date-start'])); // 01/08/2024
-            // if (debugHandlers) console.log('Offer End Date:', acf['offer-date-end']);
-            // if (debugHandlers) console.log('Number of Days:', acf['offer-number-of-days']);
-            // if (debugHandlers) console.log('Day of week:', acf['offer-day-of-week']);
-
-            // if (debugHandlers) console.log('item.propertyIds: ', item.propertyIds);
-
             // To loop between the given start and end dates inclusive, starting with the specified day of the week ("0" which corresponds to Sunday)
             // Initialize the date strings and day of week
             let offerDateStart = convertDateFormat(acf['offer-date-start']);
@@ -131,95 +122,4 @@ const buildProposalsQuery = (sessionName, endpointData) => {
     `;
 };
 
-const thisOffersProposalsCombinations = (proposalsData, endpointData) => {
-    const transformData = (data) => {
-        const transformedData = {};
-        for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-                const dateMatch = key.match(/(\d{2}_\d{2}_\d{4})/);
-                if (dateMatch) {
-                    const formattedDate = dateMatch[1].replace(/_/g, '/');
-                    const proposals = data[key].proposals.map(proposal => {
-                        return {
-                            ...proposal,
-                            formattedDate: formattedDate
-                        };
-                    });
-                    transformedData[key] = { proposals };
-                }
-            }
-        }
-        return transformedData;
-    };
-    const transformedData = transformData(proposalsData.data);
-    const thisProposalsOffersArray = [];
-    if (debugHandlers) console.log('transformedData', transformedData);
-    if (debugHandlers) console.log('endpointData', endpointData);
-    endpointData.forEach(thisOffer => {
-        if (debugHandlers) console.log('thisOffer:', thisOffer.acf_data);
-        thisOffer.acf_data.forEach((acfItem, acfIndex) => {
-            for (const key in transformedData) {
-                if (transformedData.hasOwnProperty(key)) {
-                    transformedData[key].proposals.forEach(proposal => {
-                        const combinedObject = {
-                            offer: thisOffer,
-                            acfItem: acfItem,
-                            method: key,
-                            proposal: proposal,
-                        };
-                        thisProposalsOffersArray.push(combinedObject);
-                    });
-                }
-            }
-        });
-    });
-    if (debugHandlers) console.log('thisProposalsOffersArray:', thisProposalsOffersArray);
-
-    const uniqueProposals = removeDuplicates(thisProposalsOffersArray);
-
-    // return thisProposalsOffersArray;
-    // return removeDuplicates(thisProposalsOffersArray);
-    return groupByLowestPrice(removeDuplicates(thisProposalsOffersArray));
-    
-};
-
-// Function to remove duplicates
-function removeDuplicates(proposals) {
-    const uniqueProposals = new Map();
-
-    proposals.forEach((item) => {
-        const proposal = item.proposal;
-        const key = `${proposal.proposalKey}-${proposal.propertyId}-${proposal.nbDays}-${proposal.price.amount}-${proposal.formattedDate}-${item.offer.acf_offers_season}`;
-        if (!uniqueProposals.has(key)) {
-            uniqueProposals.set(key, item);
-        }
-    });
-
-    return Array.from(uniqueProposals.values());
-}
-
-function groupByLowestPrice(proposals) {
-    const groupedProposals = new Map();
-
-    proposals.forEach((item) => {
-        const { proposal, offer } = item;
-        const { propertyId, price } = proposal;
-        const key = `${offer.ID}-${offer.acf_offers_season}-${propertyId}`;
-
-        if (!groupedProposals.has(key)) {
-            groupedProposals.set(key, item);
-        } else {
-            const currentLowest = groupedProposals.get(key);
-            if (price.amount < currentLowest.proposal.price.amount) {
-                groupedProposals.set(key, item);
-            }
-        }
-    });
-
-    return Array.from(groupedProposals.values());
-}
-
-module.exports = { 
-    buildProposalsQuery, 
-    thisOffersProposalsCombinations 
-};
+module.exports = { buildProposalsQuery };

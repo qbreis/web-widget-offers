@@ -4,6 +4,9 @@
  * @returns {string} HTML string for navigation categories.
  */
 
+const debugGenerateNavCategoriesHtml = 1;
+if(debugGenerateNavCategoriesHtml) console.log('debugGenerateNavCategoriesHtml is set to 1');
+
 require('../css/generateNavCategoriesHtml.css');
 
 const { getLanguageStrings } = require('../lang/languageManager');

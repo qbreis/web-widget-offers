@@ -6,7 +6,6 @@ if(debugIndex) console.log('debugIndex is set to 1');
 require('./css/style.css');
 
 // Importing language strings
-// const { getString } = require('./lang/languages.js');
 const { initLanguage, getLanguageStrings } = require('./lang/languageManager');
 
 // Importing GraphQL queries and utilities
@@ -15,18 +14,14 @@ const { runGraphql } = require('./graphql/graphql');
 // Main widget initialization function
 function initWidget(options) {
     if (debugIndex) console.log('Initializing widget with options:', options);
-
     initLanguage(options);
     const wwo_strings = getLanguageStrings();
     if (!wwo_strings) {
         console.error('Failed to initialize language strings in index.js');
         return;
     }
-
     if (debugIndex) console.log('Language strings:', wwo_strings);
-
     if (debugIndex) console.log('options.endpointUrl:', options.endpointUrl);
-
     fetch(options.endpointUrl)
         .then(response => {
             if (!response.ok) {
@@ -48,10 +43,13 @@ function initWidget(options) {
             <div style="border: 2px #ccc solid;margin: 1em 0;padding: 0.5em;">
                 <h2>Widget options</h2>
                 <ul>
-                    <li>id: <strong>${options.id}</strong> &#8212; Es el id de la etiqueta HTML donde se implementa el widget.</li>
-                    <li>language: <strong>${options.language}</strong></li>
-                    <li>endpointUrl: <strong>${options.endpointUrl}</strong> &#8212; URL del punto de acceso para obtener las ofertas de WordPress.</li>
-                    <li>graphqlConfig.endpointUrl: <strong>${options.graphqlConfig.endpointUrl}</strong> &#8212; URL del punto de acceso para obtener las disponibilidades por GraphQL.</li>
+                    <li><strong>id</strong>: ${options.id} &#8212; Es el id de la etiqueta HTML donde se implementa el widget.</li>
+                    <li><strong>language</strong>: ${options.language}</li>
+                    <li><strong>endpointUrl</strong>: ${options.endpointUrl} &#8212; URL del punto de acceso para obtener las ofertas de WordPress.</li>
+                    <li><strong>graphqlConfig.endpointUrl</strong>: ${options.graphqlConfig.endpointUrl} &#8212; URL del punto de acceso para obtener las disponibilidades por GraphQL.</li>
+                    <li><strong>graphqlConfig.username</strong>: ${options.graphqlConfig.username}<br />
+                    <li><strong>season</strong>: ${options.season} &#8212; NOT FUNCTIONAL YET IN THIS VERSION (winter | summer | both)<br />
+                    <li><strong>displayMode</strong>: ${options.displayMode} &#8212; Cómo se muestran las ofertas, puede ser: grid | carousel.<br />
                 </ul>
                 <p>${wwo_strings.translation_example}</p>
             </div>

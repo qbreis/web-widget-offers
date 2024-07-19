@@ -1,5 +1,8 @@
 // versions/1.0.1/views/carousel.js
 
+const debugCarousel = 1;
+if(debugCarousel) console.log('debugCarousel is set to 1');
+
 const wwo_css = require('../css/carousel.css');
 
 const initCarousel = () => {
@@ -34,8 +37,8 @@ const initCarousel = () => {
         const maxScrollLeft = wwo_slidesContainer.scrollWidth - wwo_slidesContainer.clientWidth;
 
         nextButton.disabled = true;
-        
-        if (wwo_slidesContainer.scrollLeft + slideWidth > maxScrollLeft) {
+        if(debugCarousel) console.log('maxScrollLeft', maxScrollLeft, wwo_slidesContainer.scrollLeft + slideWidth);
+        if ((wwo_slidesContainer.scrollLeft + slideWidth - 10) > maxScrollLeft) {
             // If we're at the end, loop back to the start
             // wwo_slidesContainer.scrollLeft = 0;
             smoothScroll(wwo_slidesContainer, 0, 10); // 500ms duration for smooth scroll

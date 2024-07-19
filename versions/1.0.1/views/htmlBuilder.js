@@ -50,7 +50,7 @@ const buildHtmlOffers = (proposalsOffersArray, displayMode) => {
                     if (key !== 0) {
                         html += `</li>`; // Close previous slide
                     }
-                    html += `<li class="wwo-single-element wwo-slide wwo-active ${item.offer.offers_categories.map(category => `wwo-family-${category.slug}`).join(' ')}">`; // Start new slide
+                    html += `<li class="wwo-single-elementxxx wwo-slide wwo-active">`; // Start new slide
                 } 
             } else {
                 html += `<li class="wwo-single-element wwo-grid-item wwo-active ${item.offer.offers_categories.map(category => `wwo-family-${category.slug}`).join(' ')}">`;
@@ -63,7 +63,13 @@ const buildHtmlOffers = (proposalsOffersArray, displayMode) => {
             );
 
             html += `
-                <div class="${displayMode === 'carousel' ? 'wwo-offer' : 'wwo-grid-element'}">
+                <div class="
+                    ${displayMode === 'carousel' 
+                        ? 
+                        `wwo-offer wwo-single-element ${item.offer.offers_categories.map(category => `wwo-family-${category.slug}`).join(' ')}` 
+                        : 
+                        'wwo-grid-element'}
+                    ">
                     <div class="wwo-offer-item">
 
                         <div class="wwo-featured-image-wrapper">

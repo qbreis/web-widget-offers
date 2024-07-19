@@ -157,7 +157,7 @@ const handleSessionData = async (data, options, endpointData) => {
 
 
 module.exports = { runGraphql, handleSessionData };
-},{"../utils/api":10,"../utils/handlers":12,"../views/carousel":14,"../views/htmlBuilder":16,"./graphqlQueries":6}],6:[function(require,module,exports){
+},{"../utils/api":10,"../utils/handlers":13,"../views/carousel":15,"../views/htmlBuilder":17,"./graphqlQueries":6}],6:[function(require,module,exports){
 module.exports = {
     getSession: `
         query session($username: String! ) {
@@ -417,12 +417,54 @@ const getUniqueCategories = (proposalsOffersArray) => {
 
 module.exports = { getUniqueCategories };
 },{}],12:[function(require,module,exports){
+// Function to remove duplicates
+function removeDuplicates(proposals) {
+    const uniqueProposals = new Map();
+
+    proposals.forEach((item) => {
+        const proposal = item.proposal;
+        const key = `${proposal.proposalKey}-${proposal.propertyId}-${proposal.nbDays}-${proposal.price.amount}-${proposal.formattedDate}-${item.offer.acf_offers_season}`;
+        if (!uniqueProposals.has(key)) {
+            uniqueProposals.set(key, item);
+        }
+    });
+
+    return Array.from(uniqueProposals.values());
+}
+
+function groupByLowestPrice(proposals) {
+    const groupedProposals = new Map();
+
+    proposals.forEach((item) => {
+        const { proposal, offer } = item;
+        const { propertyId, price } = proposal;
+        const key = `${offer.ID}-${offer.acf_offers_season}-${propertyId}`;
+
+        if (!groupedProposals.has(key)) {
+            groupedProposals.set(key, item);
+        } else {
+            const currentLowest = groupedProposals.get(key);
+            if (price.amount < currentLowest.proposal.price.amount) {
+                groupedProposals.set(key, item);
+            }
+        }
+    });
+
+    return Array.from(groupedProposals.values());
+}
+
+module.exports = { 
+    removeDuplicates, 
+    groupByLowestPrice 
+};
+},{}],13:[function(require,module,exports){
 // handlers.js: Contains functions for data handling and processing functions
 
 const debugHandlers = 0;
 if(debugHandlers) console.log('debugHandlers is set to 1');
 
 const { convertDateFormat } = require('./utils');
+const { removeDuplicates, groupByLowestPrice } = require('./filter');
 
 // Function to build the proposals query string dynamically
 const buildProposalsQuery = (sessionName, endpointData) => {
@@ -598,51 +640,17 @@ const thisOffersProposalsCombinations = (proposalsData, endpointData) => {
 
     // return thisProposalsOffersArray;
     // return removeDuplicates(thisProposalsOffersArray);
-    return groupByLowestPrice(removeDuplicates(thisProposalsOffersArray));
+    return groupByLowestPrice(
+        removeDuplicates(thisProposalsOffersArray)
+    );
     
 };
-
-// Function to remove duplicates
-function removeDuplicates(proposals) {
-    const uniqueProposals = new Map();
-
-    proposals.forEach((item) => {
-        const proposal = item.proposal;
-        const key = `${proposal.proposalKey}-${proposal.propertyId}-${proposal.nbDays}-${proposal.price.amount}-${proposal.formattedDate}-${item.offer.acf_offers_season}`;
-        if (!uniqueProposals.has(key)) {
-            uniqueProposals.set(key, item);
-        }
-    });
-
-    return Array.from(uniqueProposals.values());
-}
-
-function groupByLowestPrice(proposals) {
-    const groupedProposals = new Map();
-
-    proposals.forEach((item) => {
-        const { proposal, offer } = item;
-        const { propertyId, price } = proposal;
-        const key = `${offer.ID}-${offer.acf_offers_season}-${propertyId}`;
-
-        if (!groupedProposals.has(key)) {
-            groupedProposals.set(key, item);
-        } else {
-            const currentLowest = groupedProposals.get(key);
-            if (price.amount < currentLowest.proposal.price.amount) {
-                groupedProposals.set(key, item);
-            }
-        }
-    });
-
-    return Array.from(groupedProposals.values());
-}
 
 module.exports = { 
     buildProposalsQuery, 
     thisOffersProposalsCombinations 
 };
-},{"./utils":13}],13:[function(require,module,exports){
+},{"./filter":12,"./utils":14}],14:[function(require,module,exports){
 const { getLanguageStrings } = require('../lang/languageManager');
 
 //function convertDateFormat(dateString){
@@ -714,7 +722,7 @@ const formatDateRange = (dateStartString, dateEndString) => {
 }
 
 module.exports = { convertDateFormat, formatDateRange, addDaysToDate };
-},{"../lang/languageManager":8}],14:[function(require,module,exports){
+},{"../lang/languageManager":8}],15:[function(require,module,exports){
 // versions/1.0.1/views/carousel.js
 
 const wwo_css = require('../css/carousel.css');
@@ -791,7 +799,7 @@ const initCarousel = () => {
 
 module.exports = { initCarousel };
 
-},{"../css/carousel.css":2}],15:[function(require,module,exports){
+},{"../css/carousel.css":2}],16:[function(require,module,exports){
 /**
  * Generates HTML for navigation categories.
  * @param {Array} uniqueCategoriesArray - Array of unique categories.
@@ -873,7 +881,7 @@ function updateGridOrCarouselItems(category) {
 }
 
 module.exports = { generateNavCategoriesHtml };
-},{"../css/generateNavCategoriesHtml.css":3,"../lang/languageManager":8}],16:[function(require,module,exports){
+},{"../css/generateNavCategoriesHtml.css":3,"../lang/languageManager":8}],17:[function(require,module,exports){
 const debugHtmlBuilder = 0;
 if(debugHtmlBuilder) console.log('debugHtmlBuilder is set to 1');
 
@@ -1037,5 +1045,5 @@ const buildHtmlOffers = (proposalsOffersArray, displayMode) => {
 
 
 module.exports = { buildHtmlOffers };
-},{"../utils/categoryUtils":11,"../utils/utils":13,"./generateNavCategoriesHtml":15}]},{},[7])(7)
+},{"../utils/categoryUtils":11,"../utils/utils":14,"./generateNavCategoriesHtml":16}]},{},[7])(7)
 });

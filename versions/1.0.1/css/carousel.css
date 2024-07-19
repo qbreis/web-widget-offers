@@ -12,12 +12,10 @@ carousel
     position: relative;
     overflow: hidden;
     width: 900px;
-    height: 900px;
 }
 
 .wwo-slides-container {
-    height: calc(100vh - 2rem);
-    width: 100%;
+    width: 900px;width: 894px;/*100%;*/border: 3px rgba(0, 0, 0, 0) solid;
     display: flex;
     overflow: scroll;
     scroll-behavior: smooth;
@@ -33,6 +31,7 @@ carousel
 .wwo-offer-item {
     background-color: #cfcfcf;
     margin: 0.5em;
+    height: 450px;
 }
 
 .wwo-slide-arrow {
