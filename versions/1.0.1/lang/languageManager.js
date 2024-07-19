@@ -11,8 +11,6 @@ function initLanguage(options = {}) {
         console.error(`No language strings found for language code: ${options.language || 'es'}`);
         return;
     }
-
-    if (options.debug) console.log('Language strings:', wwo_strings);
 }
 
 function getLanguageStrings() {

@@ -4,7 +4,8 @@ const debugGraphql = 0;
 if(debugGraphql) console.log('debugGraphql is set to 1');
 
 const { fetchSessionData, fetchProposalsData } = require('../utils/api');
-const { buildProposalsQuery, thisOffersProposalsCombinations } = require('../utils/handlers');
+const { buildProposalsQuery } = require('../utils/handlers');
+const { proposalsTransform } = require('../utils/proposalsTransform');
 const { buildHtmlOffers } = require('../views/htmlBuilder');
 const { initCarousel } = require('../views/carousel');
 
@@ -36,8 +37,8 @@ const handleSessionData = async (data, options, endpointData) => {
         /*
         To create a new object that combines offers from endpointData with proposals from proposalsData, you can iterate through each offer in endpointData and then iterate through acf_data within each offer. During this process, you can match and combine relevant proposals from proposalsData. 
         */
-        //const proposalsOffersArray = thisOffersProposalsCombinations(proposalsData, endpointData);
-        const proposalsOffersArray = thisOffersProposalsCombinations(proposalsData, endpointData);
+        //const proposalsOffersArray = proposalsTransform(proposalsData, endpointData);
+        const proposalsOffersArray = proposalsTransform(proposalsData, endpointData);
 
         //console.log('proposalsOffersArray', proposalsOffersArray);
 
