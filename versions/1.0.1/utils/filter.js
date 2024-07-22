@@ -1,3 +1,6 @@
+const debugFilter = 0;
+if(debugFilter) console.log('debugFilter is set to 1');
+
 // Function to remove duplicates
 function removeDuplicates(proposals) {
     const uniqueProposals = new Map();
@@ -35,8 +38,8 @@ function groupByLowestPrice(proposals) {
 }
 
 function filterOffersBySeason(offers, optionsSeason) {
-    console.log('offers:', offers);
-    console.log('optionsSeason:', optionsSeason);
+    if(debugFilter) console.log('offers:', offers);
+    if(debugFilter) console.log('optionsSeason:', optionsSeason);
     return offers.filter(offer => {
         // Show all offers if optionsSeason is 'both'
         if (optionsSeason === 'both') {

@@ -45,10 +45,10 @@ function initWidget(options) {
                 <ul>
                     <li><strong>id</strong>: ${options.id} &#8212; Es el id de la etiqueta HTML donde se implementa el widget.</li>
                     <li><strong>language</strong>: ${options.language}</li>
-                    <li><strong>endpointUrl</strong>: ${options.endpointUrl} &#8212; URL del punto de acceso para obtener las ofertas de WordPress.</li>
+                    <li><strong>endpointUrl</strong>: <a href="${options.endpointUrl}" target="_blank">${options.endpointUrl}</a> &#8212; URL del punto de acceso para obtener las ofertas de WordPress.</li>
                     <li><strong>graphqlConfig.endpointUrl</strong>: ${options.graphqlConfig.endpointUrl} &#8212; URL del punto de acceso para obtener las disponibilidades por GraphQL.</li>
                     <li><strong>graphqlConfig.username</strong>: ${options.graphqlConfig.username}<br />
-                    <li><strong>season</strong>: ${options.season} &#8212; NOT FUNCTIONAL YET IN THIS VERSION (winter | summer | both)<br />
+                    <li><strong>season</strong>: ${options.season} &#8212; winter | summer | both (default) <br />
                     <li><strong>displayMode</strong>: ${options.displayMode} &#8212; Cómo se muestran las ofertas, puede ser: grid | carousel.<br />
                 </ul>
                 <p>${wwo_strings.translation_example}</p>

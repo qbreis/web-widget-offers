@@ -23,13 +23,12 @@ const generateNavCategoriesHtml = (uniqueCategoriesArray) => {
 
     if (uniqueCategoriesArray.length > 1) {
         navCategoriesHtml += `
-            <ul class="wwo-categories-nav">
-                <li 
-                    class="wwo-category-nav-item wwo-active"
-                    data-category="all"
-                    >
-                    ${wwo_strings.all}
-                </li>
+            <li 
+                class="wwo-category-nav-item wwo-active"
+                data-category="all"
+                >
+                ${wwo_strings.all}
+            </li>
         `;
     }
 
@@ -47,7 +46,7 @@ const generateNavCategoriesHtml = (uniqueCategoriesArray) => {
         `;
     });
 
-    navCategoriesHtml += `</ul>`;
+    navCategoriesHtml += `</ul><!-- .wwo-categories-nav -->`;
 
     // Attach event listener to handle click events
     document.addEventListener('click', function(event) {

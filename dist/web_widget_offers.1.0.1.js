@@ -242,10 +242,10 @@ function initWidget(options) {
                 <ul>
                     <li><strong>id</strong>: ${options.id} &#8212; Es el id de la etiqueta HTML donde se implementa el widget.</li>
                     <li><strong>language</strong>: ${options.language}</li>
-                    <li><strong>endpointUrl</strong>: ${options.endpointUrl} &#8212; URL del punto de acceso para obtener las ofertas de WordPress.</li>
+                    <li><strong>endpointUrl</strong>: <a href="${options.endpointUrl}" target="_blank">${options.endpointUrl}</a> &#8212; URL del punto de acceso para obtener las ofertas de WordPress.</li>
                     <li><strong>graphqlConfig.endpointUrl</strong>: ${options.graphqlConfig.endpointUrl} &#8212; URL del punto de acceso para obtener las disponibilidades por GraphQL.</li>
                     <li><strong>graphqlConfig.username</strong>: ${options.graphqlConfig.username}<br />
-                    <li><strong>season</strong>: ${options.season} &#8212; NOT FUNCTIONAL YET IN THIS VERSION (winter | summer | both)<br />
+                    <li><strong>season</strong>: ${options.season} &#8212; winter | summer | both (default) <br />
                     <li><strong>displayMode</strong>: ${options.displayMode} &#8212; Cómo se muestran las ofertas, puede ser: grid | carousel.<br />
                 </ul>
                 <p>${wwo_strings.translation_example}</p>
@@ -416,6 +416,9 @@ const getUniqueCategories = (proposalsOffersArray) => {
 
 module.exports = { getUniqueCategories };
 },{}],12:[function(require,module,exports){
+const debugFilter = 0;
+if(debugFilter) console.log('debugFilter is set to 1');
+
 // Function to remove duplicates
 function removeDuplicates(proposals) {
     const uniqueProposals = new Map();
@@ -453,8 +456,8 @@ function groupByLowestPrice(proposals) {
 }
 
 function filterOffersBySeason(offers, optionsSeason) {
-    console.log('offers:', offers);
-    console.log('optionsSeason:', optionsSeason);
+    if(debugFilter) console.log('offers:', offers);
+    if(debugFilter) console.log('optionsSeason:', optionsSeason);
     return offers.filter(offer => {
         // Show all offers if optionsSeason is 'both'
         if (optionsSeason === 'both') {
@@ -544,12 +547,11 @@ const buildProposalsQuery = (sessionName, endpointData) => {
                 const this_startDate = `${day}/${month}/${year}`;
 
                 const this_nbDays = acf['offer-number-of-days'] || 7;
-                const this_nbAdults = 2;
+                const this_nbAdults = acf['offer-number-of-adults'] || 2;
                 // item.propertyIds is something like ["1", "2", "3"] we want [1, 2, 3]
                 // const propertyIds = item.propertyIds.map(Number) || [];
                 // item.propertyIds is something like {"1", "2", "3"} we want {1, 2, 3}
-                
-                
+
                 // const this_propertyIds = Object.values(item.propertyIds).map(Number);
 
                 if (debugHandlers) console.log('item.properties', item.properties);
@@ -865,13 +867,12 @@ const generateNavCategoriesHtml = (uniqueCategoriesArray) => {
 
     if (uniqueCategoriesArray.length > 1) {
         navCategoriesHtml += `
-            <ul class="wwo-categories-nav">
-                <li 
-                    class="wwo-category-nav-item wwo-active"
-                    data-category="all"
-                    >
-                    ${wwo_strings.all}
-                </li>
+            <li 
+                class="wwo-category-nav-item wwo-active"
+                data-category="all"
+                >
+                ${wwo_strings.all}
+            </li>
         `;
     }
 
@@ -889,7 +890,7 @@ const generateNavCategoriesHtml = (uniqueCategoriesArray) => {
         `;
     });
 
-    navCategoriesHtml += `</ul>`;
+    navCategoriesHtml += `</ul><!-- .wwo-categories-nav -->`;
 
     // Attach event listener to handle click events
     document.addEventListener('click', function(event) {
