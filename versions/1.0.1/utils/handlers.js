@@ -71,12 +71,11 @@ const buildProposalsQuery = (sessionName, endpointData) => {
                 const this_startDate = `${day}/${month}/${year}`;
 
                 const this_nbDays = acf['offer-number-of-days'] || 7;
-                const this_nbAdults = 2;
+                const this_nbAdults = acf['offer-number-of-adults'] || 2;
                 // item.propertyIds is something like ["1", "2", "3"] we want [1, 2, 3]
                 // const propertyIds = item.propertyIds.map(Number) || [];
                 // item.propertyIds is something like {"1", "2", "3"} we want {1, 2, 3}
-                
-                
+
                 // const this_propertyIds = Object.values(item.propertyIds).map(Number);
 
                 if (debugHandlers) console.log('item.properties', item.properties);

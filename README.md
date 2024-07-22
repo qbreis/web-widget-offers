@@ -118,7 +118,7 @@ web_widget_offers.initWidget({
 - **graphqlConfig**: Any GraphQL configuration settings.
     - **endpointUrl**: Endpoint to get availabilities via GraphQL.
     - **username**: Needed for GraphQL queries.
-- **season**: NOT FUNCTIONAL YET IN THIS VERSION (winter | summer | both). By default: both.
+- **season**: winter | summer | both (default)
 - **displayMode**: How offers are displayed, there are two options: grid | carousel.
 
 ## How to Adapt for a New Web Widget Version
