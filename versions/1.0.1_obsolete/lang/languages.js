@@ -13,10 +13,6 @@ function getString(wwo_languageCode){
                 'to' : 'hasta',
                 'all' : 'Todos',
                 'no_offers' : 'No hay ofertas disponibles',
-                'square-meters' : 'm2',
-                'people-max' : 'personas máx.',
-                'beds': 'camas',
-                'nights': 'noches',
             }
             break;  
         case 'en':
@@ -31,10 +27,6 @@ function getString(wwo_languageCode){
                 'to' : 'to',
                 'all' : 'All',
                 'no_offers' : 'No offers available',
-                'square-meters' : 'm2',
-                'people-max' : 'pers max',
-                'beds': 'beds',
-                'nights': 'nights',
             }
             break;
         case 'fr':
@@ -49,10 +41,6 @@ function getString(wwo_languageCode){
                 'to' : 'au',
                 'all' : 'Tous',
                 'no_offers' : 'Aucune offre disponible',
-                'square-meters' : 'm2',
-                'people-max' : 'pers max',
-                'beds': 'lits',
-                'nights': 'nuits',
         }
         break;
         

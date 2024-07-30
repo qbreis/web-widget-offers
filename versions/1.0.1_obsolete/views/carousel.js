@@ -3,9 +3,7 @@
 const debugCarousel = 0;
 if(debugCarousel) console.log('debugCarousel is set to 1');
 
-const wwo_css_modal = require('../css/modal.css');
-
-const wwo_css_carousel = require('../css/carousel.css');
+const wwo_css = require('../css/carousel.css');
 
 const initCarousel = () => {
     // versions/1.0.1/views/carousel.js

@@ -49,7 +49,6 @@ carousel
     cursor: pointer;
     opacity: 0.5;
     transition: opacity 100ms;
-    z-index: 1;
 }
 
 .wwo-slide-arrow:hover,
@@ -101,11 +100,4 @@ grid
     margin: 1rem;
     position: relative;
     width: 900px;
-}
-
-/*
-common
-*/
-.wwo-single-element {
-    cursor: pointer;
 }

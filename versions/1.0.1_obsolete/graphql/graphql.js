@@ -8,15 +8,12 @@ const { buildProposalsQuery } = require('../utils/handlers');
 const { proposalsTransform } = require('../utils/proposalsTransform');
 const { buildHtmlOffers } = require('../views/htmlBuilder');
 const { initCarousel } = require('../views/carousel');
-const { initModal } = require('../views/modal');
-
-const { setProposalsOffersArray } = require('../utils/proposalsOffersArray'); // Import the shared data module to store the proposalsOffersArray.
 
 const wwo_graphqlQueries = require('./graphqlQueries');
 
 const runGraphql = async (options, endpointData) => {
     // console.log('endpointData in runGraphql:', endpointData);
-    const username = options.graphqlConfig.username;
+    const username = 'web_fr';
     try {
         const sessionData = await fetchSessionData(username, options.graphqlConfig.endpointUrl, wwo_graphqlQueries.getSession);
         await handleSessionData(sessionData, options, endpointData);
@@ -42,10 +39,6 @@ const handleSessionData = async (data, options, endpointData) => {
         */
         const proposalsOffersArray = proposalsTransform(proposalsData, endpointData, options);
 
-        console.log('proposalsOffersArray', proposalsOffersArray);
-
-        setProposalsOffersArray(proposalsOffersArray); // Set the proposalsOffersArray using the shared data module
-
         //console.log('proposalsOffersArray', proposalsOffersArray);
 
         const htmlOffersOutput = buildHtmlOffers(proposalsOffersArray, options.displayMode);
@@ -57,7 +50,6 @@ const handleSessionData = async (data, options, endpointData) => {
         } else {
             console.error(`Element with id wwo-offers-list not found.`);
         }
-        initModal();
     } catch (error) {
         console.error('Error fetching proposals data:', error);
     }

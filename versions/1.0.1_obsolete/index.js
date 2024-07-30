@@ -4,7 +4,6 @@ const debugIndex = 0;
 if(debugIndex) console.log('debugIndex is set to 1');
 
 require('./css/style.css');
-// require('./css/modal.css');
 
 // Importing language strings
 const { initLanguage, getLanguageStrings } = require('./lang/languageManager');
@@ -53,20 +52,10 @@ function initWidget(options) {
                     <li><strong>displayMode</strong>: ${options.displayMode} &#8212; Cómo se muestran las ofertas, puede ser: grid | carousel.<br />
                 </ul>
                 <p>${wwo_strings.translation_example}</p>
-            </div><!-- .widget-options -->
-            <div id="wwo-offers-list"></div><!-- #wwo-offers-list -->
-            <!--
+            </div>
+            <div id="wwo-offers-list"></div>
             <div id="ww-offers-list"></div>
-            -->
-            <div id="wwo-modal" class="wwo-modal">
-                <div class="wwo-modal-content">
-                    <span class="wwo-modal-close">&times;</span>
-                    <div id="wwo-modal-container">
-                        <p>Modal content goes here...</p>
-                    </div><!-- #wwo-modal-container -->
-                </div><!-- .wwo-modal-content -->
-            </div><!-- #wwo-modal -->
-        </div><!-- #ww-main-container -->
+        </div>
     `;
 
     // Injecting the HTML into the specified container

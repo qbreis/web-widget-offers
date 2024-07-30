@@ -114,25 +114,7 @@ const buildProposalsQuery = (sessionName, endpointData) => {
                                 amount,
                                 currencyCode
                             },
-                            nbDays,
-
-                            distribution {
-                                roomTypes {
-                                    code,
-                                    propertyId
-                                    code,
-                                    categoryCode,
-                                    categoryLabel,
-                                    label,
-                                    webLabel,
-                                    paxMax,
-                                    pax,
-                                    propertyId, 
-                                    quantity
-                                }
-                                roomNumbers
-                            }
-
+                            nbDays
                         }
                     },
                 `;
