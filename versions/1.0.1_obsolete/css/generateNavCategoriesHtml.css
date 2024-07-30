@@ -19,8 +19,3 @@ ul.wwo-offers-container li.wwo-single-element,
 ul.wwo-grid-container li.wwo-single-element { /*opacity: 0;height: 0;pointer-events: none;*/display: none; }
 ul.wwo-offers-container li.wwo-single-element.wwo-active,
 ul.wwo-grid-container li.wwo-single-element.wwo-active { display: block; }
-
-
-li.wwo-single-element { opacity: .3; }
-li.wwo-single-element.wwo-lowest-price { opacity: 1; }
-
