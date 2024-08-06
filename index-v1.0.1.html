@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- /* To ensure that the JavaScript file is not loaded from cache when included, I can append current timestamp as a query parameter to the URL. This is a common technique to force the browser to fetch the file anew, bypassing any cached versions. */ -->
-    <script src='dist/web_widget_offers.1.0.2.js' ></script>
+    <script src='dist/web_widget_offers.1.0.1.js' ></script>
 </head>
 <body>
     <h1>
-        Widget de ofertas (v1.0.2)
+        Widget de ofertas (v1.0.1)
     </h1>
     <p>
         El código de este widget se encuentra en repo: <a href="https://github.com/agenciawebsqs/web-widget-offers" target="_blank">web-widget-offers</a>
@@ -21,27 +21,14 @@
     web_widget_offers.initWidget({
         id: 'web-widget-container',
         language: 'fr',
-        endpointUrl: 'https://www.karellis-reservation.com/wp-json/api-campings/v2/get_offers_v2',
-        //endpointUrl: 'http://localhost/leskarellis-2/documents/wp-json/api-campings/v2/get_offers_v2',
+        //endpointUrl: 'https://www.karellis-reservation.com/wp-json/api-campings/v2/get_offers',
+        endpointUrl: 'http://localhost/leskarellis-2/documents/wp-json/api-campings/v2/get_offers',
         graphqlConfig: {
             endpointUrl: 'https://leskarellis.resalys.com/rsl/graphql', // https://leskarellis.resalys.com/rsl/graphiql
             username: 'web_fr',
         },
-        display: {
-            mode: 'carousel',
-            upselling: { // Upselling offers
-                active: true, // Show upselling offers. By default, it is set to false
-                limit: 7 // Limit of upselling offers. By default, it is set to 30
-            },
-            crossSelling: { // Cross-selling offers
-                active: true, // Show cross-selling offers. By default, it is set to false
-                limit: 7 // Limit of cross-selling offers. By default, it is set to 30
-            }
-        },
-        proposalUrl: 'https://leskarellis.resalys.com/rsl/clickbooking?base_id=leskarellis&webuser=web_fr&tokens=ignore_token&display=reservation_content&actions=cancelReservation%3BchooseProposalFromKey&proposal_key=',
-        // Name of the cookie to store the session name string to query GraphQL
-        sessionCookieName: 'session',
         season: 'summer',
+        displayMode: 'grid',
     });
     </script>
 </body>
