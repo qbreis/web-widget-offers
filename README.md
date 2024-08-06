@@ -32,6 +32,7 @@ The project is organized into the following directory structure:
 │       ├── assets
 │       │   └── images
 │       └── utils // Utility functions.
+│           ├── cookies.js // Handle cookies (check, set, get, delete)
 │           ├── categoryUtils.js
 │           ├── filter.js // Functions needed for utils/proposalsTransform.
 │           ├── proposalsTransform.js // function needed in graphql/graphql.
@@ -42,6 +43,8 @@ The project is organized into the following directory structure:
 ├── package.json
 └── README.md
 ```
+
+> Note: The detailed structure may not be up to date with the latest files. The structure is expanding, day by day, maintaining the principles of best practices recommended and described below. This diagram is only used to have a general idea.
 
 - **/dist**: Contains the compiled JavaScript file for the current version of web widget.
 
@@ -54,7 +57,33 @@ The project is organized into the following directory structure:
 
 - **index.html**: Example HTML file to demonstrate the use of the web widget.
 
+## Principles of best practices are strongly recommended
+
+1. **Descriptive Variable Names**: 
+    - Use meaningful and descriptive names for variables, functions, and methods. 
+    - Avoid single-letter names except for loop counters or very short-lived variables.
+
+2. **Short and Focused Functions/Methods**: 
+    - Each function should perform a single task or represent a single responsibility.
+    - Avoid long functions that try to do too much; break them into smaller, more manageable pieces.
+
+3. **DRY (Don't Repeat Yourself)**: 
+    - Avoid duplicating code. If you notice the same code block appearing in multiple places, consider refactoring it into a function or module.
+
+4. **Avoid Globals**:
+    - Avoid using global variables as they can lead to hard-to-track bugs and unpredictable behavior.
+    - Use shared services or modules to manage state and data. A good example is in `versions\1.0.1\utils\proposalsOffersArray.js`.
+
+5. **Keep Console Log Clean**:
+    - Limit the use of console logs in production code. Use debug flag variables for each module to control debug logging as a practical approach instead.
+
+6. **Clear and Concise Comments**:
+    - Write comments to explain why a piece of code exists or what it is supposed to do, especially if it’s not immediately obvious.
+    - Avoid redundant comments that do not add value.
+
 ## Technologies Used
+
+> I tawt i taw a puddy teact...
 
 The project uses the following technologies:
 
@@ -106,8 +135,20 @@ web_widget_offers.initWidget({
         endpointUrl: 'https://leskarellis.resalys.com/rsl/graphql', // https://leskarellis.resalys.com/rsl/graphiql
         username: 'web_fr',
     },
+    display: {
+        mode: 'grid',
+        upselling: { // Upselling offers
+            active: true, // Show upselling offers. By default, it is set to false
+            limit: 30 // Limit of upselling offers. By default, it is set to 30
+        },
+        crossSelling: { // Cross-selling offers
+            active: false, // Show cross-selling offers. By default, it is set to false
+            limit: 0 // Limit of cross-selling offers. By default, it is set to 30
+        }
+    },
+    // Name of the cookie to store the session name string to query GraphQL
+    sessionCookieName: 'session',
     season: 'summer',
-    displayMode: 'grid',
 });
 </script>
 ```
@@ -118,7 +159,16 @@ web_widget_offers.initWidget({
 - **graphqlConfig**: Any GraphQL configuration settings.
     - **endpointUrl**: Endpoint to get availabilities via GraphQL.
     - **username**: Needed for GraphQL queries.
-- **season**: winter | summer | both (default)
+- **display**: How offers are displayed.
+    - **mode**: How offers are displayed, there are two options: grid | carousel.
+    - **upselling**: options for the upselling offers
+        - **active**: true / false - Show upselling offers. By default, it is set to false.
+        - **limit**: integer > 0 - Limit of upselling offers. By default, it is set to 30.
+    - **upselling**
+        - **active**: true / false - Show cross selling offers. By default, it is set to false.
+        - **limit**: integer > 0 - Limit of upselling offers. By default, it is set to 30.
+- **sessionCookieName**: Name of the cookie to store the session name string to query GraphQL. By default this name will be just 'session'.
+- **season**: NOT FUNCTIONAL YET IN THIS VERSION (winter | summer | both)
 - **displayMode**: How offers are displayed, there are two options: grid | carousel.
 
 ## How to Adapt for a New Web Widget Version
