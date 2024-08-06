@@ -12,33 +12,52 @@ The project is organized into the following directory structure:
 /web-widget-offers
 ├── dist
 │   └── web_widget_offers.1.0.1.js
+|
 ├── versions
 │   └── 1.0.1
-│       ├── script.js // widget.js: Contains only the main initialization function and any core widget-related logic.
+│       └── Old version, obsolete.
+|
+├────── 1.0.2
+│       ├── index.js // widget.js: Contains only the main initialization function and any core widget-related logic.
+│       ├── css
+│       │   ├── styles.css // Contains basic general CSS classes for web widget.
+│       │   ├── generateNavCategoriesHtml.css // Contains CSS classes for views/generateNavCategoriesHtml.
+│       │   ├── modal.css // Contains CSS classes for views/modal.
+│       │   └── carousel.css // Contains CSS classes for views/carousel.
+│       │
 │       ├── graphql // Contains functions related to constructing and handling GraphQL queries.
 │       │   ├── graphql.js
 │       │   └── graphqlQueries.js
+│       │
 │       ├── lang
 │       │   ├── languageManager.js // Translation languages manager.
 │       │   └── languages.js // String translations for defined languages.
+│       │
 │       ├── views // Contains  UI-related functions
 │       │   ├── htmlBuilder.js // Contains functions for building HTML based on data.
 │       │   ├── generateNavCategoriesHtml.js // Contains functions for building HTML nav menu filter dor categories.
-│       │   └── carousel.js // Contains functions for initializing the carousel.
-│       ├── css
-│       │   ├── carousel.css // Contains CSS classes for views/carousel.
-│       │   ├── generateNavCategoriesHtml.css // Contains CSS classes for views/generateNavCategoriesHtml.
-│       │   └── styles.css // Contains basic general CSS classes for web widget.
-│       ├── assets
+│       │   ├── carousel.js // Contains functions for initializing the carousel.
+│       │   ├── modal.js // Contains functions for initializing the modal.
+│       │   ├── buildModalHtml.js // Build the modal content for the selected offer.
+│       │   ├── buildAccommodationHtml.js // Builds the html for the accommodation proposal.
+│       │   ├── upselling.js // Builds the html to display the upselling offers when the user selects an offer.
+│       │   └── crossSelling.js // Builds the html to display the cross-selling offers when the user selects an offer.
+│       │
+│       ├── assets // Not used at the moment.
 │       │   └── images
+│       │
 │       └── utils // Utility functions.
-│           ├── cookies.js // Handle cookies (check, set, get, delete)
+│           ├── api.js // Contains functions related to fetching data from APIs.
+│           ├── handlers.js // Contains functions for data handling and processing functions.
+│           ├── proposalsOffersArray.js // This module is used to store the proposalsOffersArray array.
+│           ├── optionsOffers.js // This module is used to store the optionsOffers array.
+│           ├── getRooms.js // This file is used in ../views/buildAccommodationHtml.js.
 │           ├── categoryUtils.js
 │           ├── filter.js // Functions needed for utils/proposalsTransform.
 │           ├── proposalsTransform.js // function needed in graphql/graphql.
 │           ├── utils.js // Custom general functions.
-│           ├── handlers.js // Contains functions for data handling and processing functions.
-│           └── api.js // Contains functions related to fetching data from APIs.
+│           └── cookies.js // Handle cookies (check, set, get, delete).
+│
 ├── index.html // Example HTML file to demonstrate the use of the web widget.
 ├── package.json
 └── README.md
@@ -72,7 +91,7 @@ The project is organized into the following directory structure:
 
 4. **Avoid Globals**:
     - Avoid using global variables as they can lead to hard-to-track bugs and unpredictable behavior.
-    - Use shared services or modules to manage state and data. A good example is in `versions\1.0.1\utils\proposalsOffersArray.js`.
+    - Use shared services or modules to manage state and data. A good example is in `versions\1.0.2\utils\proposalsOffersArray.js` and also in `versions\1.0.2\utils\optionsOffers.js`.
 
 5. **Keep Console Log Clean**:
     - Limit the use of console logs in production code. Use debug flag variables for each module to control debug logging as a practical approach instead.
