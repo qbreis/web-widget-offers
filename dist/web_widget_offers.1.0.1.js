@@ -76,12 +76,14 @@ module.exports = {
 };
 
 },{}],2:[function(require,module,exports){
-var css = "#wwo-offers-list{display:flex;justify-content:center}.wwo-slider-wrapper{margin:1rem;position:relative;overflow:hidden;width:900px}.wwo-slides-container{width:900px;border:3px transparent solid;display:flex;overflow:scroll;scroll-behavior:smooth;list-style:none;margin:0;padding:0}.wwo-offer-item{background-color:#cfcfcf;margin:.5em;height:450px}.wwo-slide-arrow{position:absolute;display:flex;top:0;bottom:0;margin:auto;height:4rem;background-color:#fff;border:none;width:2rem;font-size:3rem;padding:0;cursor:pointer;opacity:.5;transition:opacity .1s}.wwo-slide-arrow:focus,.wwo-slide-arrow:hover{opacity:1}#wwo-slide-arrow-prev{left:0;padding-left:.25rem;border-radius:0 2rem 2rem 0}#wwo-slide-arrow-next{right:0;padding-left:.75rem;border-radius:2rem 0 0 2rem}.wwo-slide{width:100%;height:100%;flex:1 0 100%;display:flex}.wwo-slides-container{scrollbar-width:none;-ms-overflow-style:none}.wwo-slides-container::-webkit-scrollbar{width:0;height:0}.wwo-grid-container{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;justify-content:center}.wwo-grid-item{width:33.33%;min-width:33.33%}.wwo-grid-wrapper{margin:1rem;position:relative;width:900px}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\carousel.css" }, { "insertAt": "bottom" })); module.exports = css;
+var css = "#wwo-offers-list{display:flex;justify-content:center}.wwo-slider-wrapper{margin:1rem;position:relative;overflow:hidden;width:900px}.wwo-slides-container{width:900px;border:3px transparent solid;display:flex;overflow:scroll;scroll-behavior:smooth;list-style:none;margin:0;padding:0}.wwo-offer-item{background-color:#cfcfcf;margin:.5em;height:450px}.wwo-slide-arrow{position:absolute;display:flex;top:0;bottom:0;margin:auto;height:4rem;background-color:#fff;border:none;width:2rem;font-size:3rem;padding:0;cursor:pointer;opacity:.5;transition:opacity .1s;z-index:1}.wwo-slide-arrow:focus,.wwo-slide-arrow:hover{opacity:1}#wwo-slide-arrow-prev{left:0;padding-left:.25rem;border-radius:0 2rem 2rem 0}#wwo-slide-arrow-next{right:0;padding-left:.75rem;border-radius:2rem 0 0 2rem}.wwo-slide{width:100%;height:100%;flex:1 0 100%;display:flex}.wwo-slides-container{scrollbar-width:none;-ms-overflow-style:none}.wwo-slides-container::-webkit-scrollbar{width:0;height:0}.wwo-grid-container{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;justify-content:center}.wwo-grid-item{width:33.33%;min-width:33.33%}.wwo-grid-wrapper{margin:1rem;position:relative;width:900px}.wwo-single-element{cursor:pointer}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\carousel.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":1}],3:[function(require,module,exports){
-var css = "ul.wwo-categories-nav{margin:0;padding:0;list-style:none;display:flex;justify-content:center}ul.wwo-categories-nav li.wwo-category-nav-item{background-color:#ddd;padding:.5em;margin:.5em;cursor:pointer;transition:all .35s}ul.wwo-categories-nav li.wwo-category-nav-item.wwo-active,ul.wwo-categories-nav li.wwo-category-nav-item:hover{background-color:#aaa}ul.wwo-grid-container li.wwo-single-element,ul.wwo-offers-container li.wwo-single-element{display:none}ul.wwo-grid-container li.wwo-single-element.wwo-active,ul.wwo-offers-container li.wwo-single-element.wwo-active{display:block}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\generateNavCategoriesHtml.css" }, { "insertAt": "bottom" })); module.exports = css;
+var css = "ul.wwo-categories-nav{margin:0;padding:0;list-style:none;display:flex;justify-content:center}ul.wwo-categories-nav li.wwo-category-nav-item{background-color:#ddd;padding:.5em;margin:.5em;cursor:pointer;transition:all .35s}ul.wwo-categories-nav li.wwo-category-nav-item.wwo-active,ul.wwo-categories-nav li.wwo-category-nav-item:hover{background-color:#aaa}ul.wwo-grid-container li.wwo-single-element,ul.wwo-offers-container li.wwo-single-element{display:none}ul.wwo-grid-container li.wwo-single-element.wwo-active,ul.wwo-offers-container li.wwo-single-element.wwo-active{display:block}li.wwo-single-element{opacity:.3}li.wwo-single-element.wwo-lowest-price{opacity:1}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\generateNavCategoriesHtml.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":1}],4:[function(require,module,exports){
-var css = "body{font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif}.wwo-featured-image-wrapper{height:200px;overflow:hidden}.wwo-offer-wrapper{padding:.5em}.wwo-featured-image{width:100%;height:100%;object-fit:cover}.offer-title{font-weight:700;font-size:1.2em}.wwo-no-offers{text-align:center;padding:1em}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\style.css" }, { "insertAt": "bottom" })); module.exports = css;
+var css = ".wwo-modal{background-color:rgba(0,0,0,.8);position:fixed;width:100vw;height:100vh;top:0;left:0;opacity:0;pointer-events:none;transition:all .35s}.wwo-modal.wwo-active{opacity:1;pointer-events:auto}.wwo-modal .wwo-modal-content{background-color:#fff;width:50%;height:100%;overflow-y:auto;position:absolute;top:0;right:-50%;transition:all .35s}.wwo-modal.wwo-active .wwo-modal-content{right:15px}.wwo-modal-close{cursor:pointer;position:absolute;top:0;right:0;font-size:2em;width:50px;height:50px;display:flex;justify-content:center;align-items:center}#wwo-modal-container{padding:1em;padding-top:0;margin-top:50px}.wwo-establishment-proposal,.wwo-room-type-proposal{background-color:#cfcfcf;padding:1em;margin:1em 0;border-radius:20px}.wwo-proposals-counter{background-color:rgba(0,0,0,.5);border-radius:10px;padding:.2em .4em;margin:0 .2em 0 0;color:#fff}.wwo-room-quantity-1{background-color:#e1e1e1;color:#000}.wwo-price{font-size:2em;background-color:rgba(0,0,0,.5);border-radius:10px;padding:.2em .4em;margin:0 .2em 0 0;color:#fff;margin:.5em 0;display:flex;align-items:center}.wwo-price .wwo-number-of-days{font-size:1rem;padding:1em}.wwo-accommodation-details{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:center}.wwo-accommodation-details li{background-color:#e1e1e1;border-radius:5px;padding:.2em .4em;margin:0 .5em 0 0}.wwo-disponibility-dates,.wwo-disponibility-range{color:rgba(0,0,0,.5);padding:.5em 0}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\modal.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":1}],5:[function(require,module,exports){
+var css = "body{font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif}.wwo-featured-image-wrapper{height:200px;overflow:hidden}.wwo-offer-wrapper{padding:.5em}.wwo-featured-image{width:100%;height:100%;object-fit:cover}.offer-title{font-weight:700;font-size:1.2em}.wwo-no-offers{text-align:center;padding:1em}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.1\\css\\style.css" }, { "insertAt": "bottom" })); module.exports = css;
+},{"browserify-css":1}],6:[function(require,module,exports){
 // graphql.js: Contains functions related to constructing and handling GraphQL queries.
 
 const debugGraphql = 0;
@@ -92,12 +94,15 @@ const { buildProposalsQuery } = require('../utils/handlers');
 const { proposalsTransform } = require('../utils/proposalsTransform');
 const { buildHtmlOffers } = require('../views/htmlBuilder');
 const { initCarousel } = require('../views/carousel');
+const { initModal } = require('../views/modal');
+
+const { setProposalsOffersArray } = require('../utils/proposalsOffersArray'); // Import the shared data module to store the proposalsOffersArray.
 
 const wwo_graphqlQueries = require('./graphqlQueries');
 
 const runGraphql = async (options, endpointData) => {
     // console.log('endpointData in runGraphql:', endpointData);
-    const username = 'web_fr';
+    const username = options.graphqlConfig.username;
     try {
         const sessionData = await fetchSessionData(username, options.graphqlConfig.endpointUrl, wwo_graphqlQueries.getSession);
         await handleSessionData(sessionData, options, endpointData);
@@ -123,6 +128,10 @@ const handleSessionData = async (data, options, endpointData) => {
         */
         const proposalsOffersArray = proposalsTransform(proposalsData, endpointData, options);
 
+        console.log('proposalsOffersArray', proposalsOffersArray);
+
+        setProposalsOffersArray(proposalsOffersArray); // Set the proposalsOffersArray using the shared data module
+
         //console.log('proposalsOffersArray', proposalsOffersArray);
 
         const htmlOffersOutput = buildHtmlOffers(proposalsOffersArray, options.displayMode);
@@ -134,6 +143,7 @@ const handleSessionData = async (data, options, endpointData) => {
         } else {
             console.error(`Element with id wwo-offers-list not found.`);
         }
+        initModal();
     } catch (error) {
         console.error('Error fetching proposals data:', error);
     }
@@ -157,7 +167,7 @@ const handleSessionData = async (data, options, endpointData) => {
 
 
 module.exports = { runGraphql, handleSessionData };
-},{"../utils/api":10,"../utils/handlers":13,"../utils/proposalsTransform":14,"../views/carousel":16,"../views/htmlBuilder":18,"./graphqlQueries":6}],6:[function(require,module,exports){
+},{"../utils/api":11,"../utils/handlers":15,"../utils/proposalsOffersArray":16,"../utils/proposalsTransform":17,"../views/carousel":20,"../views/htmlBuilder":22,"../views/modal":23,"./graphqlQueries":7}],7:[function(require,module,exports){
 module.exports = {
     getSession: `
         query session($username: String! ) {
@@ -194,13 +204,14 @@ module.exports = {
     */
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 const debugIndex = 0;
 if(debugIndex) console.log('debugIndex is set to 1');
 
 require('./css/style.css');
+// require('./css/modal.css');
 
 // Importing language strings
 const { initLanguage, getLanguageStrings } = require('./lang/languageManager');
@@ -249,10 +260,20 @@ function initWidget(options) {
                     <li><strong>displayMode</strong>: ${options.displayMode} &#8212; Cómo se muestran las ofertas, puede ser: grid | carousel.<br />
                 </ul>
                 <p>${wwo_strings.translation_example}</p>
-            </div>
-            <div id="wwo-offers-list"></div>
+            </div><!-- .widget-options -->
+            <div id="wwo-offers-list"></div><!-- #wwo-offers-list -->
+            <!--
             <div id="ww-offers-list"></div>
-        </div>
+            -->
+            <div id="wwo-modal" class="wwo-modal">
+                <div class="wwo-modal-content">
+                    <span class="wwo-modal-close">&times;</span>
+                    <div id="wwo-modal-container">
+                        <p>Modal content goes here...</p>
+                    </div><!-- #wwo-modal-container -->
+                </div><!-- .wwo-modal-content -->
+            </div><!-- #wwo-modal -->
+        </div><!-- #ww-main-container -->
     `;
 
     // Injecting the HTML into the specified container
@@ -266,7 +287,7 @@ function initWidget(options) {
 
 module.exports = { initWidget };
 
-},{"./css/style.css":4,"./graphql/graphql":5,"./lang/languageManager":8}],8:[function(require,module,exports){
+},{"./css/style.css":5,"./graphql/graphql":6,"./lang/languageManager":9}],9:[function(require,module,exports){
 // languageManager.js
 const { getString } = require('./languages');
 
@@ -292,7 +313,7 @@ function getLanguageStrings() {
 
 module.exports = { initLanguage, getLanguageStrings };
 
-},{"./languages":9}],9:[function(require,module,exports){
+},{"./languages":10}],10:[function(require,module,exports){
 function getString(wwo_languageCode){
     let wwo_translationChains = {};
     switch(wwo_languageCode){
@@ -308,6 +329,10 @@ function getString(wwo_languageCode){
                 'to' : 'hasta',
                 'all' : 'Todos',
                 'no_offers' : 'No hay ofertas disponibles',
+                'square-meters' : 'm2',
+                'people-max' : 'personas máx.',
+                'beds': 'camas',
+                'nights': 'noches',
             }
             break;  
         case 'en':
@@ -322,6 +347,10 @@ function getString(wwo_languageCode){
                 'to' : 'to',
                 'all' : 'All',
                 'no_offers' : 'No offers available',
+                'square-meters' : 'm2',
+                'people-max' : 'pers max',
+                'beds': 'beds',
+                'nights': 'nights',
             }
             break;
         case 'fr':
@@ -336,6 +365,10 @@ function getString(wwo_languageCode){
                 'to' : 'au',
                 'all' : 'Tous',
                 'no_offers' : 'Aucune offre disponible',
+                'square-meters' : 'm2',
+                'people-max' : 'pers max',
+                'beds': 'lits',
+                'nights': 'nuits',
         }
         break;
         
@@ -343,7 +376,7 @@ function getString(wwo_languageCode){
     return wwo_translationChains;
 }
 module.exports = { getString };
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 // utils/api.js - Contains functions related to fetching data from APIs.
 
 // Define a function to fetch session data
@@ -398,7 +431,7 @@ const fetchProposalsData = async (endpointURL, graphqlQuery) => {
 };
 
 module.exports = { fetchSessionData, fetchProposalsData };
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /**
  * Extracts unique categories from an array of proposal offers.
  * @param {Array} proposalsOffersArray - Array of proposal offers.
@@ -415,7 +448,7 @@ const getUniqueCategories = (proposalsOffersArray) => {
 };
 
 module.exports = { getUniqueCategories };
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 const debugFilter = 0;
 if(debugFilter) console.log('debugFilter is set to 1');
 
@@ -434,27 +467,6 @@ function removeDuplicates(proposals) {
     return Array.from(uniqueProposals.values());
 }
 
-function groupByLowestPrice(proposals) {
-    const groupedProposals = new Map();
-
-    proposals.forEach((item) => {
-        const { proposal, offer } = item;
-        const { propertyId, price } = proposal;
-        const key = `${offer.ID}-${offer.acf_offers_season}-${propertyId}`;
-
-        if (!groupedProposals.has(key)) {
-            groupedProposals.set(key, item);
-        } else {
-            const currentLowest = groupedProposals.get(key);
-            if (price.amount < currentLowest.proposal.price.amount) {
-                groupedProposals.set(key, item);
-            }
-        }
-    });
-
-    return Array.from(groupedProposals.values());
-}
-
 function filterOffersBySeason(offers, optionsSeason) {
     if(debugFilter) console.log('offers:', offers);
     if(debugFilter) console.log('optionsSeason:', optionsSeason);
@@ -468,12 +480,111 @@ function filterOffersBySeason(offers, optionsSeason) {
     });
 }
 
+const getPropertyForProposal = (item) => {
+    for (const property of item.offer.properties) {
+        if (property.ws_establishment_id * 1 === item.proposal.propertyId * 1) {
+            return property;
+        }
+    }
+    if (debugHtmlBuilder) console.log('No property found for proposal:', item.proposal);
+    return null;
+};
+
+/*
+function markLowestPriceOffers(offers) {
+    // Step 1: Find the minimum price
+    const minPrice = Math.min(...offers.map(offer => offer.proposal.price.amount));
+  
+    // Step 2: Mark the offers with the minimum price
+    offers.forEach(offer => {
+      offer['lowest-price'] = (offer.proposal.price.amount === minPrice);
+    });
+  
+    return offers;
+}
+*/
+
+function markLowestPriceOffers(offers) {
+    // Step 1: Group offers by method and propertyId
+    const groupedOffers = offers.reduce((acc, offer) => {
+      const key = `${offer.method}_${offer.proposal.propertyId}`;
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(offer);
+      return acc;
+    }, {});
+  
+    // Step 2: Iterate over each group to find the minimum price and mark the lowest price offer
+    for (const key in groupedOffers) {
+      const group = groupedOffers[key];
+      const minPrice = Math.min(...group.map(offer => offer.proposal.price.amount));
+  
+      let lowestPriceMarked = false;
+  
+      group.forEach(offer => {
+        if (offer.proposal.price.amount === minPrice && !lowestPriceMarked) {
+          offer["lowest-price"] = true;
+          lowestPriceMarked = true;
+        } else {
+          offer["lowest-price"] = false;
+        }
+      });
+    }
+  
+    return offers;
+  }
+
 module.exports = { 
     removeDuplicates, 
-    groupByLowestPrice,
-    filterOffersBySeason
+    filterOffersBySeason,
+    getPropertyForProposal,
+    markLowestPriceOffers
 };
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
+// utils/getRooms.js
+
+const debugGetRooms = 0;
+if(debugGetRooms) console.log('debugGetRooms is set to 1');
+
+const getRooms = (proposalDistribution, endpointData) => {
+    if(debugGetRooms) console.log('debugGetRooms endpointData[0].properties', endpointData[0].properties);
+    if(debugGetRooms) console.log('debugGetRooms proposalDistribution.distribution.roomTypes', proposalDistribution.distribution.roomTypes);
+
+    // extract all accommodation codes from the roomTypes array
+    //const accommodationCodes = proposalDistribution.distribution.roomTypes.map(room => room.code);
+    //if(debugGetRooms) console.log('debugGetRooms accommodationCodes', accommodationCodes);
+    if(debugGetRooms) console.log('proposalDistribution.propertyId', proposalDistribution.propertyId);
+
+    let filteredAccommodations = [];
+    for (const propertyData of endpointData[0].properties) {
+        // console.log('---'+propertyData.ws_establishment_id+' compared with '+proposalDistribution.propertyId);
+        if(Number(propertyData.ws_establishment_id) == Number(proposalDistribution.propertyId)) {
+            if(debugGetRooms) console.log('propertyData.accommodations', propertyData.accommodations);
+            if(propertyData.accommodations) {
+                for (const propertyAccommodations of propertyData.accommodations) {
+                    // Check if the current accommodation code is in the roomTypes array
+                    const accommodationCode = propertyAccommodations.webservice.ws_accommodation_code;
+                    const roomTypeMatch = proposalDistribution.distribution.roomTypes.find(room => room.code === accommodationCode);
+                    
+                    if (roomTypeMatch) {
+                        for (const proposalDistributionItem of proposalDistribution.distribution.roomTypes) {
+                            if(roomTypeMatch.code === proposalDistributionItem.code) {
+                                propertyAccommodations.roomQuantity = proposalDistributionItem.quantity;
+                            }
+                        }
+                        filteredAccommodations.push(propertyAccommodations);
+                    }
+                }
+            }
+        }
+    }
+    return filteredAccommodations;
+};
+
+module.exports = getRooms;
+
+},{}],15:[function(require,module,exports){
 // handlers.js: Contains functions for data handling and processing functions
 
 const debugHandlers = 0;
@@ -590,7 +701,25 @@ const buildProposalsQuery = (sessionName, endpointData) => {
                                 amount,
                                 currencyCode
                             },
-                            nbDays
+                            nbDays,
+
+                            distribution {
+                                roomTypes {
+                                    code,
+                                    propertyId
+                                    code,
+                                    categoryCode,
+                                    categoryLabel,
+                                    label,
+                                    webLabel,
+                                    paxMax,
+                                    pax,
+                                    propertyId, 
+                                    quantity
+                                }
+                                roomNumbers
+                            }
+
                         }
                     },
                 `;
@@ -611,49 +740,75 @@ const buildProposalsQuery = (sessionName, endpointData) => {
 };
 
 module.exports = { buildProposalsQuery };
-},{"./utils":15}],14:[function(require,module,exports){
+},{"./utils":19}],16:[function(require,module,exports){
+// sharedData.js
+
+const { markLowestPriceOffers } = require('../utils/filter');
+
+/*
+To access the proposalsOffersArray in the modal.js component when an element is clicked, you'll need to make proposalsOffersArray available to modal.js. There are a few ways to achieve this:
+
+    - Using a global variable: This is the simplest but least recommended way because it can lead to potential issues with global state.
+
+    - Passing data via a shared service/module: This is a better approach where you use a shared service or module to store and retrieve data.
+
+    - Event-driven approach: Emitting events and passing data through event listeners.
+
+Here's an example of how you can use a shared service/module to store and retrieve the proposalsOffersArray:
+*/
+
+let proposalsOffersArray = [];
+
+const setProposalsOffersArray = (data) => {
+
+    proposalsOffersArray = markLowestPriceOffers(data);
+};
+
+const getProposalsOffersArray = () => {
+    return proposalsOffersArray;
+};
+
+module.exports = {
+    setProposalsOffersArray,
+    getProposalsOffersArray
+};
+
+},{"../utils/filter":13}],17:[function(require,module,exports){
+// utils/proposalsTransform.js
+
+const { removeDuplicates, filterOffersBySeason } = require('./filter');
+const transformData = require('./transformData');
+const getRooms = require('./getRooms');
+
 const debugProposalsTransform = 0;
 if(debugProposalsTransform) console.log('debugProposalsTransform is set to 1');
 
-const { removeDuplicates, groupByLowestPric, filterOffersBySeason } = require('./filter');
-
 const proposalsTransform = (proposalsData, endpointData, options) => {
 
-    const transformData = (data) => {
-        const transformedData = {};
-        for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-                const dateMatch = key.match(/(\d{2}_\d{2}_\d{4})/);
-                if (dateMatch) {
-                    const formattedDate = dateMatch[1].replace(/_/g, '/');
-                    const proposals = data[key].proposals.map(proposal => {
-                        return {
-                            ...proposal,
-                            formattedDate: formattedDate
-                        };
-                    });
-                    transformedData[key] = { proposals };
-                }
-            }
-        }
-        return transformedData;
-    };
     const transformedData = transformData(proposalsData.data);
     const thisProposalsOffersArray = [];
     if (debugProposalsTransform) console.log('transformedData', transformedData);
     if (debugProposalsTransform) console.log('endpointData', endpointData);
+    
     endpointData.forEach(thisOffer => {
         if (debugProposalsTransform) console.log('thisOffer:', thisOffer.acf_data);
         thisOffer.acf_data.forEach((acfItem, acfIndex) => {
             for (const key in transformedData) {
                 if (transformedData.hasOwnProperty(key)) {
                     transformedData[key].proposals.forEach(proposal => {
+                        if (debugProposalsTransform) console.log('proposal', proposal);
+                        if (debugProposalsTransform) console.log('proposal.distribution[\'roomTypes\'][0]', proposal.distribution['roomTypes'][0]);
+                        if (debugProposalsTransform) console.log('proposal.distribution[\'roomTypes\'][0].code', proposal.distribution['roomTypes'][0].code);
+
+                        let accommodations = getRooms(proposal, endpointData);
                         const combinedObject = {
                             offer: thisOffer,
                             acfItem: acfItem,
                             method: key,
                             proposal: proposal,
+                            accommodation: accommodations,
                         };
+                        if (debugProposalsTransform) console.log('add combinedObject:', combinedObject);
                         thisProposalsOffersArray.push(combinedObject);
                     });
                 }
@@ -661,21 +816,15 @@ const proposalsTransform = (proposalsData, endpointData, options) => {
         });
     });
     if (debugProposalsTransform) console.log('thisProposalsOffersArray:', thisProposalsOffersArray);
-    
 
-    // const uniqueProposals = removeDuplicates(thisProposalsOffersArray);
-
-    // return thisProposalsOffersArray;
-    // return removeDuplicates(thisProposalsOffersArray);
-    
-    
-
-    /*
-    return groupByLowestPrice(
-        removeDuplicates(thisProposalsOffersArray)
-    );
-    */
-
+    if (debugProposalsTransform) console.log('returning removeDuplicates',
+        removeDuplicates(
+            filterOffersBySeason(
+                thisProposalsOffersArray, 
+                options.season ? options.season : 'both'
+            )
+        )
+    )
 
     return removeDuplicates(
         filterOffersBySeason(
@@ -683,13 +832,83 @@ const proposalsTransform = (proposalsData, endpointData, options) => {
             options.season ? options.season : 'both'
         )
     );
-    
 };
 
 module.exports = { 
     proposalsTransform
 };
-},{"./filter":12}],15:[function(require,module,exports){
+
+},{"./filter":13,"./getRooms":14,"./transformData":18}],18:[function(require,module,exports){
+// utils/transformData.js
+
+/**
+ * The transformData function is designed to process and transform an input data object by identifying specific keys that match a date pattern,
+ * formatting the dates, and then embedding these formatted dates into the associated proposals.
+ * 
+ * The function iterates over the keys of the input data object, checks if they match a date pattern in the format dd_mm_yyyy, and if so,
+ * converts the underscores in the date to slashes to reformat it to dd/mm/yyyy. It then adds this formatted date to each proposal
+ * under the same key.
+ * 
+ * @param {Object} data - The input data object containing proposals, with keys potentially in the format of dates (dd_mm_yyyy).
+ * @returns {Object} transformedData - The transformed data object with proposals including the formatted date.
+ * 
+ * Example input:
+ *  {
+ *     '01_01_2021': {
+ *        proposals: [
+ *          { id: 1, price: 100 },
+ *          { id: 2, price: 200 }
+ *        ]
+ *     },
+ *     '02_01_2021': {
+ *        proposals: [
+ *           { id: 3, price: 300 },
+ *           { id: 4, price: 400 }
+ *        ]
+ *     }
+ *  }
+ * 
+ * Example output:
+ *  {
+ *     '01_01_2021': {
+ *        proposals: [
+ *           { id: 1, price: 100, formattedDate: '01/01/2021' },
+ *           { id: 2, price: 200, formattedDate: '01/01/2021' }
+ *        ]
+ *  },
+ *     '02_01_2021': {
+ *        proposals: [
+ *           { id: 3, price: 300, formattedDate: '02/01/2021' },
+ *           { id: 4, price: 400, formattedDate: '02/01/2021' }
+ *        ]
+ *     }
+ *  }
+ * 
+ */
+
+const transformData = (data) => {
+    const transformedData = {};
+    for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+            const dateMatch = key.match(/(\d{2}_\d{2}_\d{4})/);
+            if (dateMatch) {
+                const formattedDate = dateMatch[1].replace(/_/g, '/');
+                const proposals = data[key].proposals.map(proposal => {
+                    return {
+                        ...proposal,
+                        formattedDate: formattedDate
+                    };
+                });
+                transformedData[key] = { proposals };
+            }
+        }
+    }
+    return transformedData;
+};
+
+module.exports = transformData;
+
+},{}],19:[function(require,module,exports){
 const { getLanguageStrings } = require('../lang/languageManager');
 
 //function convertDateFormat(dateString){
@@ -761,13 +980,15 @@ const formatDateRange = (dateStartString, dateEndString) => {
 }
 
 module.exports = { convertDateFormat, formatDateRange, addDaysToDate };
-},{"../lang/languageManager":8}],16:[function(require,module,exports){
+},{"../lang/languageManager":9}],20:[function(require,module,exports){
 // versions/1.0.1/views/carousel.js
 
 const debugCarousel = 0;
 if(debugCarousel) console.log('debugCarousel is set to 1');
 
-const wwo_css = require('../css/carousel.css');
+const wwo_css_modal = require('../css/modal.css');
+
+const wwo_css_carousel = require('../css/carousel.css');
 
 const initCarousel = () => {
     // versions/1.0.1/views/carousel.js
@@ -841,7 +1062,7 @@ const initCarousel = () => {
 
 module.exports = { initCarousel };
 
-},{"../css/carousel.css":2}],17:[function(require,module,exports){
+},{"../css/carousel.css":2,"../css/modal.css":4}],21:[function(require,module,exports){
 /**
  * Generates HTML for navigation categories.
  * @param {Array} uniqueCategoriesArray - Array of unique categories.
@@ -934,7 +1155,7 @@ function updateGridOrCarouselItems(category) {
 }
 
 module.exports = { generateNavCategoriesHtml };
-},{"../css/generateNavCategoriesHtml.css":3,"../lang/languageManager":8}],18:[function(require,module,exports){
+},{"../css/generateNavCategoriesHtml.css":3,"../lang/languageManager":9}],22:[function(require,module,exports){
 const debugHtmlBuilder = 0;
 if (debugHtmlBuilder) console.log('debugHtmlBuilder is set to 1');
 
@@ -942,10 +1163,35 @@ const { formatDateRange, addDaysToDate } = require('../utils/utils');
 const { getUniqueCategories } = require('../utils/categoryUtils');
 const { generateNavCategoriesHtml } = require('./generateNavCategoriesHtml');
 const { getLanguageStrings } = require('../lang/languageManager');
+const { getPropertyForProposal } = require('../utils/filter');
 
-const buildHtmlOffers = (proposalsOffersArray, displayMode) => {
+/**
+ * Function to build the HTML string for the offers.
+ * 
+ * @param {*} proposalsOffersArray - Array of proposals and offers. Each item in the array is an object with the following structure:
+ * {
+ *    offer: { ID, acf_offers_season, offers_categories },
+ *    acfItem: { offer-date-start, offer-date-end, offer-day-of-week },
+ *    method: key,
+ *    proposal: { proposalKey, propertyId, price, formattedDate, nbDays },
+ *    accommodation: [ { post_title, post_content, post_excerpt, ID } ]
+ * }
+ * 
+ * Each proposal has a propertyId that matches the ID of a property in the offer.properties array.
+ * 
+ * Each property in the offer.properties array has the following structure:
+ * {
+ *   ws_establishment_id,
+ *   post_title,
+ *   acf_featured_image: { url, alt }
+ * }
+ * 
+ * @param {*} displayMode - Display mode for the offers. Can be 'carousel' or 'grid'.
+ * @param {*} displayAllOffers - If true, all offers are displayed. If false, only the lowest price offer for each property is displayed. Default is false.
+ * @returns - HTML string with the offers.
+ */
+const buildHtmlOffers = (proposalsOffersArray, displayMode, displayAllOffers = true) => {
     if (debugHtmlBuilder) console.log('proposalsOffersArray in buildHtmlOffers function', proposalsOffersArray);
-
     if (!proposalsOffersArray || proposalsOffersArray.length === 0) {
         const wwo_strings = getLanguageStrings();
         if (!wwo_strings) {
@@ -954,19 +1200,18 @@ const buildHtmlOffers = (proposalsOffersArray, displayMode) => {
         }
         return `<div class="wwo-offer-container wwo-slider-wrapper wwo-no-offers">${wwo_strings.no_offers}</div>`;
     }
-
     const uniqueCategoriesArray = getUniqueCategories(proposalsOffersArray);
     const navCategoriesHtml = generateNavCategoriesHtml(uniqueCategoriesArray);
-
     let html = generateContainerStartHtml(displayMode, navCategoriesHtml);
-    
+
     proposalsOffersArray.forEach((item) => {
         const thisProperty = getPropertyForProposal(item);
         if (thisProperty) {
-            html += generateOfferHtml(item, thisProperty, displayMode);
+            if (item['lowest-price'] || displayAllOffers) {
+                html += generateOfferHtml(item, thisProperty, displayMode, item['lowest-price']);
+            }
         }
     });
-
     html += generateContainerEndHtml(displayMode);
     return html;
 };
@@ -975,6 +1220,7 @@ const generateContainerStartHtml = (displayMode, navCategoriesHtml) => {
     return displayMode === 'carousel' ? `
         <div class="wwo-offer-container wwo-slider-wrapper">
             ${navCategoriesHtml}
+            <p>Only for development purposes, showing all offers highlightint the lowest prices only.</p>
             <button class="wwo-slide-arrow" id="wwo-slide-arrow-prev">
                 &#8249;
             </button>
@@ -998,25 +1244,19 @@ const generateContainerEndHtml = (displayMode) => {
     `;
 };
 
-const getPropertyForProposal = (item) => {
-    for (const property of item.offer.properties) {
-        if (property.ws_establishment_id * 1 === item.proposal.propertyId * 1) {
-            return property;
-        }
-    }
-    if (debugHtmlBuilder) console.log('No property found for proposal:', item.proposal);
-    return null;
-};
-
-const generateOfferHtml = (item, property, displayMode) => {
+const generateOfferHtml = (item, property, displayMode, lowestPrice) => {
     const categoryClasses = item.offer.offers_categories.map(category => `wwo-family-${category.slug}`).join(' ');
     const disponibilityRange = formatDateRange(
         item.proposal.formattedDate,
         addDaysToDate(item.proposal.formattedDate, item.proposal.nbDays)
     );
-
+    const lowestPriceClasses = lowestPrice ? 'wwo-lowest-price' : '';
     return `
-        <li class="wwo-single-element wwo-grid-item wwo-active ${categoryClasses}">
+        <li 
+            class="wwo-single-element wwo-grid-item wwo-active ${categoryClasses} ${lowestPriceClasses}"
+            data-proposal-key="${item.proposal.proposalKey}"
+            data-method="${item.method}"
+            >
             <div class="${displayMode === 'carousel' ? `wwo-offer wwo-single-element ${categoryClasses}` : 'wwo-grid-element'}">
                 <div class="wwo-offer-item">
                     <div class="wwo-featured-image-wrapper">
@@ -1042,6 +1282,12 @@ const generateOfferHtml = (item, property, displayMode) => {
 
 const generateDebugHtml = (item, property, categoryClasses) => {
     // if (!debugHtmlBuilder) return '';
+    let accommodations = '<ul>';
+    for (const element of item.accommodation) {
+        accommodations += `<li>${element.post_title}</li>`;
+    }
+    accommodations += `</ul>`;
+
     return `
         <div style="border: 1px #000 solid;font-size: 0.7em;padding: 0.2em;">
             <span style="background-color: #000;color: #fff;">offers_categories</span>
@@ -1056,10 +1302,180 @@ const generateDebugHtml = (item, property, categoryClasses) => {
             offer.acf_offers_season: ${item.offer.acf_offers_season}<br />
             proposal.propertyId: ${item.proposal.propertyId}<br />
         </div>
+        <div style="border: 1px #000 solid;font-size: 0.7em;padding: 0.2em;">
+            <span style="background-color: #000;color: #fff;">accommodations</span>
+            ${accommodations}
+        </div>
+        
     `;
 };
 
 module.exports = { buildHtmlOffers };
 
-},{"../lang/languageManager":8,"../utils/categoryUtils":11,"../utils/utils":15,"./generateNavCategoriesHtml":17}]},{},[7])(7)
+},{"../lang/languageManager":9,"../utils/categoryUtils":12,"../utils/filter":13,"../utils/utils":19,"./generateNavCategoriesHtml":21}],23:[function(require,module,exports){
+// versions/1.0.1/views/modal.js
+
+const { getProposalsOffersArray } = require('../utils/proposalsOffersArray'); // Import the shared data module to retrieve the proposalsOffersArray.
+const { getLanguageStrings } = require('../lang/languageManager');
+const { formatDateRange, addDaysToDate } = require('../utils/utils');
+const { getPropertyForProposal } = require('../utils/filter');
+
+const debugModal = 0;
+if(debugModal) console.log('debugModal is set to 1');
+
+const initModal = () => {
+    if(debugModal) console.log('Initializing modal.js');
+    const wwoSingleElement = document.querySelectorAll('.wwo-single-element');
+    const modalElement = document.getElementById('wwo-modal');
+    const closeButton = document.querySelector('.wwo-modal-close');
+    wwoSingleElement.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            const itemDataSet = item.dataset;
+            if(debugModal) console.log(`Proposal Key: ${itemDataSet.proposalKey}`);
+            if(debugModal) console.log(`method: ${itemDataSet.method}`);
+
+            const proposalsOffersArray = getProposalsOffersArray();
+            if(debugModal) console.log('proposalsOffersArray:', proposalsOffersArray);
+
+            // Filter the proposalsOffersArray based on the method
+            const filteredOffers = proposalsOffersArray.filter(offer => offer.method === itemDataSet.method);
+            if (debugModal) console.log('Filtered Offers:', filteredOffers);
+
+            // Find the offer with the matching proposalKey
+            const selectedOffer = filteredOffers.find(offer => offer.proposal.proposalKey === itemDataSet.proposalKey);
+            if (debugModal) console.log('Selected Offer:', selectedOffer);
+
+            if (debugModal) console.log('selectedOffer.proposal.distribution:', selectedOffer.proposal.distribution);
+
+            if (debugModal) console.log('price is ' + selectedOffer.proposal.price.amount);
+
+            if (debugModal) console.log('proposalKey is ' + selectedOffer.proposal.proposalKey);
+
+            if (debugModal) console.log('formattedDate is ' + selectedOffer.proposal.formattedDate);
+            if (debugModal) console.log('nbDays is ' + selectedOffer.proposal.nbDays);
+
+            if (debugModal) console.log('propertyId is ' + selectedOffer.proposal.propertyId);
+
+            const disponibilityRange = formatDateRange(
+                selectedOffer.proposal.formattedDate,
+                addDaysToDate(selectedOffer.proposal.formattedDate, selectedOffer.proposal.nbDays)
+            );
+            console.log('disponibilityRange:', disponibilityRange);
+
+            const wwo_strings = getLanguageStrings();
+            if (!wwo_strings) {
+                console.error('Failed to get language strings in graphql/graphql');
+                return;
+            }
+
+
+
+            let htmlBuffer = '';
+
+
+
+
+
+            
+            const thisProperty = getPropertyForProposal(selectedOffer);
+            console.log('thisProperty:', thisProperty);
+            console.log('acf_featured_image:', thisProperty.acf_featured_image);
+            
+            htmlBuffer += `
+                <div class="wwo-establishment-proposal">
+                    <h2>
+                        ${thisProperty.post_title}
+                    </h2>
+                    <div class="wwo-disponibility-dates">
+                        ${disponibilityRange}
+                    </div>
+                    <div class="wwo-establishment-featured-image">
+                        <img src="${thisProperty.acf_featured_image.sizes['ud-thumb-500']}" alt="${thisProperty.acf_featured_image.alt}" width="200" height="200" />
+                    </div>
+                    <div class="wwo-price">
+                        <span class="wwo-offer-price-amount">
+                            ${selectedOffer.proposal.price.amount}
+                        </span>
+                        &nbsp;
+                        <span class="wwo-offer-price-currency">
+                            &euro;
+                        </span>
+                        <span class="wwo-number-of-days">
+                            ${selectedOffer.proposal.nbDays} ${wwo_strings.nights}
+                        </span>
+                    </div>
+                </div><!-- .wwo-establishment-proposal -->
+                `;
+
+
+
+            
+            selectedOffer.accommodation.forEach((item) => {
+                if (debugModal) console.log('item', item);
+                htmlBuffer += `
+                <div class="wwo-room-type-proposal">
+                    <h2>
+                        <span class="wwo-proposals-counter wwo-room-quantity-${item.roomQuantity}">
+                            ${item.roomQuantity} x
+                        </span>
+                        ${item.post_title}
+                    </h2>
+                    <div class="wwo-disponibility-range">
+                        ${disponibilityRange}
+                    </div>
+                    <ul class="wwo-accommodation-details">
+                        <li class="wwo-capacity">${item.webservice.ws_accommodation_pax_max} ${wwo_strings['beds']}</li>
+                        <li class="wwo-beds">${item.webservice.ws_accommodation_nb_beds} ${wwo_strings['people-max']}</li>
+                        <li class="wwo-size">${item.webservice.ws_accommodation_size_area} ${wwo_strings['square-meters']}</li>
+                    </ul>
+                    <div class="wwo-price">
+                        ${selectedOffer.proposal.price.amount} €
+                        <span class="wwo-number-of-days">${selectedOffer.proposal.nbDays} ${wwo_strings.nights}</span>
+                    </div>
+                    <div class="wwo-accommodation-featured-image">
+                        <img src="${item.acf_featured_image.sizes['ud-thumb-500']}" alt="${item.acf_featured_image.alt}" width="200" height="200" />
+                    </div>
+                </div>
+                `;
+            });
+            // Display the selected offer in the modal
+            document.getElementById('wwo-modal-container').innerHTML = htmlBuffer;
+
+
+
+
+            // Show the modal by adding the wwo-active class
+            if (modalElement) {
+                modalElement.classList.toggle('wwo-active');
+            } else {
+                console.error('Element with id wwo-modal not found.');
+            }
+        });
+    });
+
+    // Add event listener to the modal element to close it when clicking outside the modal content
+    if (modalElement) {
+        modalElement.addEventListener('click', (event) => {
+            // Check if the clicked element is the modal itself and not the modal content
+            if (event.target === modalElement) {
+                modalElement.classList.remove('wwo-active');
+            }
+        });
+    } else {
+        console.error('Element with id wwo-modal not found.');
+    }
+
+    // Add event listener to the close button to close the modal when clicked
+    if (closeButton) {
+        closeButton.addEventListener('click', () => {
+            modalElement.classList.remove('wwo-active');
+        });
+    } else {
+        console.error('Element with class wwo-modal-close not found.');
+    }
+};
+
+module.exports = { initModal };
+
+},{"../lang/languageManager":9,"../utils/filter":13,"../utils/proposalsOffersArray":16,"../utils/utils":19}]},{},[8])(8)
 });
