@@ -161,10 +161,10 @@ web_widget_offers.initWidget({
     - **username**: Needed for GraphQL queries.
 - **display**: How offers are displayed.
     - **mode**: How offers are displayed, there are two options: grid | carousel.
-    - **upselling**: options for the upselling offers
+    - **upselling**: options for the upselling offers.
         - **active**: true / false - Show upselling offers. By default, it is set to false.
         - **limit**: integer > 0 - Limit of upselling offers. By default, it is set to 30.
-    - **upselling**
+    - **crossSelling**: options for the cross-selling offers.
         - **active**: true / false - Show cross selling offers. By default, it is set to false.
         - **limit**: integer > 0 - Limit of upselling offers. By default, it is set to 30.
 - **sessionCookieName**: Name of the cookie to store the session name string to query GraphQL. By default this name will be just 'session'.
