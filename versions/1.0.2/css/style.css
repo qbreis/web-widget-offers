@@ -1,5 +1,12 @@
-body{
+#web-widget-container, #wwo-modal { 
     font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.wwo-offer-container.wwo-environment-preproduction .wwo-debug-container,
+.wwo-offer-container.wwo-environment-preprod .wwo-debug-container,
+.wwo-offer-container.wwo-environment-production .wwo-debug-container,
+.wwo-offer-container.wwo-environment-prod .wwo-debug-container {
+    display: none !important;
 }
 
 .wwo-featured-image-wrapper {

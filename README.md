@@ -47,16 +47,16 @@ The project is organized into the following directory structure:
 │       │   └── images
 │       │
 │       └── utils // Utility functions.
-│           ├── api.js // Contains functions related to fetching data from APIs.
-│           ├── handlers.js // Contains functions for data handling and processing functions.
-│           ├── proposalsOffersArray.js // This module is used to store the proposalsOffersArray array.
-│           ├── optionsOffers.js // This module is used to store the optionsOffers array.
-│           ├── getRooms.js // This file is used in ../views/buildAccommodationHtml.js.
-│           ├── categoryUtils.js
-│           ├── filter.js // Functions needed for utils/proposalsTransform.
-│           ├── proposalsTransform.js // function needed in graphql/graphql.
 │           ├── utils.js // Custom general functions.
-│           └── cookies.js // Handle cookies (check, set, get, delete).
+│           ├── api.js // Contains functions related to fetching data from APIs. // Used in ../graphql/graphql
+│           ├── cookies.js // Handle cookies (check, set, get, delete). // Used in ../graphql/graphql and ./api.js
+│           ├── handlers.js // Contains functions for data handling and processing functions. // Used in ../graphql/graphql
+│           ├── proposalsOffersArray.js // This module is used to store the proposalsOffersArray array. // Used in ../graphql/graphql and ../views/modals.js
+│           ├── optionsOffers.js // This module is used to store the optionsOffers array. // Used in ../views/modals.js and ../index.js
+│           ├── proposalsTransform.js // Used in ../graphql/graphql
+│           ├── getRooms.js // This file is used in ./proposalsTransform.
+│           ├── transformData.js // This module is used in ./proposalsTransform.
+│           └── filter.js // Functions needed for ./proposalsTransform, ./proposalsOffersArray.js, ../views/buildModalHtml.js and ../views/htmlBuilder.js.
 │
 ├── index.html // Example HTML file to demonstrate the use of the web widget.
 ├── package.json
@@ -168,6 +168,7 @@ web_widget_offers.initWidget({
     // Name of the cookie to store the session name string to query GraphQL
     sessionCookieName: 'session',
     season: 'summer',
+    environment: 'dev',
 });
 </script>
 ```
@@ -188,7 +189,7 @@ web_widget_offers.initWidget({
         - **limit**: integer > 0 - Limit of upselling offers. By default, it is set to 30.
 - **sessionCookieName**: Name of the cookie to store the session name string to query GraphQL. By default this name will be just 'session'.
 - **season**: NOT FUNCTIONAL YET IN THIS VERSION (winter | summer | both)
-- **displayMode**: How offers are displayed, there are two options: grid | carousel.
+- **environment**: dev (default) | preprod | prod.
 
 ## How to Adapt for a New Web Widget Version
 

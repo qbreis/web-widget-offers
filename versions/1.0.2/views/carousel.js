@@ -32,8 +32,19 @@ const initCarousel = () => {
         requestAnimationFrame(animateScroll);
     }
 
+    function getSlideWidth() {
+        const containerWidth = wwo_slidesContainer.clientWidth;
+        if (window.innerWidth > 1000) {
+            return containerWidth / 3;
+        } else if (window.innerWidth > 700) {
+            return containerWidth / 2;
+        } else {
+            return containerWidth / 1;
+        }
+    }
+
     nextButton.addEventListener('click', () => {
-        const slideWidth = wwo_slidesContainer.clientWidth / 3; // One third of the container width
+        const slideWidth = getSlideWidth();//wwo_slidesContainer.clientWidth / 3; // One third of the container width
         const maxScrollLeft = wwo_slidesContainer.scrollWidth - wwo_slidesContainer.clientWidth;
 
         nextButton.disabled = true;
@@ -55,7 +66,7 @@ const initCarousel = () => {
     });
 
     prevButton.addEventListener('click', () => {
-        const slideWidth = wwo_slidesContainer.clientWidth / 3; // One third of the container width
+        const slideWidth = getSlideWidth();//wwo_slidesContainer.clientWidth / 3; // One third of the container width
 
         nextButton.disabled = true;
 
