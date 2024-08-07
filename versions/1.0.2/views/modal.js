@@ -12,6 +12,20 @@ if (debugModal) console.log('debugModal is set to 1');
 
 const initModal = () => {
     if (debugModal) console.log('Initializing modal.js');
+
+    // Inject the modal HTML into the body
+    const modalHtml = `
+        <div id="wwo-modal" class="wwo-modal">
+            <div class="wwo-modal-content">
+                <span class="wwo-modal-close">&times;</span>
+                <div id="wwo-modal-container">
+                    <p>Modal content goes here...</p>
+                </div><!-- #wwo-modal-container -->
+            </div><!-- .wwo-modal-content -->
+        </div><!-- #wwo-modal -->
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+
     const wwoSingleElement = document.querySelectorAll('.wwo-single-element');
     const modalElement = document.getElementById('wwo-modal');
     const closeButton = document.querySelector('.wwo-modal-close');

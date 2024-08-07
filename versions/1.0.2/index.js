@@ -1,10 +1,9 @@
 'use strict';
 
 const debugIndex = 0;
-if(debugIndex) console.log('debugIndex is set to 1');
+if (debugIndex) console.log('debugIndex is set to 1');
 
 const { setOptionsOffers } = require('./utils/optionsOffers');
-
 require('./css/style.css');
 // require('./css/modal.css');
 
@@ -13,6 +12,9 @@ const { initLanguage, getLanguageStrings } = require('./lang/languageManager');
 
 // Importing GraphQL queries and utilities
 const { runGraphql } = require('./graphql/graphql');
+
+// Importing modal initialization
+const { initModal } = require('./views/modal');
 
 // Main widget initialization function
 function initWidget(options) {
@@ -27,23 +29,24 @@ function initWidget(options) {
     if (debugIndex) console.log('Language strings:', wwo_strings);
     if (debugIndex) console.log('options.endpointUrl:', options.endpointUrl);
     fetch(options.endpointUrl)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Error fetching the data');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (debugIndex) console.log('Data from WP endpoint ' + options.endpointUrl + ':', data);
-        runGraphql(options, data); // versions\1.0.2\graphql\graphql.js
-    })
-    .catch(error => {
-        console.error('Error fetching data from options.endpointUrl:', error);
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error fetching the data');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (debugIndex) console.log('Data from WP endpoint ' + options.endpointUrl + ':', data);
+            runGraphql(options, data); // versions\1.0.2\graphql\graphql.js
+        })
+        .catch(error => {
+            console.error('Error fetching data from options.endpointUrl:', error);
+        });
 
     // Building the widget's HTML
-    let html = `
-        <div id="ww-main-container">
+    let html = `<div id="ww-main-container">`;
+    if (['development', 'dev'].includes(options.environment)) {
+        html += `
             <div style="border: 2px #ccc solid;margin: 1em 0;padding: 0.5em;">
                 <h2>Widget options (v. 1.0.2)</h2>
                 <ul>
@@ -61,28 +64,28 @@ function initWidget(options) {
                     <li><strong>display.upselling.limit</strong>: ${options.display.crossSelling?.limit} &#8212; How many offers must be shown. By default 30.<br />
                 </ul>
             </div><!-- .widget-options -->
-            <div id="wwo-offers-list"></div><!-- #wwo-offers-list -->
-            <!--
-            <div id="ww-offers-list"></div>
-            -->
-            <div id="wwo-modal" class="wwo-modal">
-                <div class="wwo-modal-content">
-                    <span class="wwo-modal-close">&times;</span>
-                    <div id="wwo-modal-container">
-                        <p>Modal content goes here...</p>
-                    </div><!-- #wwo-modal-container -->
-                </div><!-- .wwo-modal-content -->
-            </div><!-- #wwo-modal -->
-        </div><!-- #ww-main-container -->
+        `;
+    }
+
+    html += `
+        <div id="wwo-offers-list"></div><!-- #wwo-offers-list -->
+        <!--
+        <div id="ww-offers-list"></div>
+        -->
     `;
 
-    // Injecting the HTML into the specified container
+    html += `</div><!-- #ww-main-container -->`;
+
+    // Injecting the main widget HTML into the specified container
     const container = document.getElementById(options.id);
     if (container) {
         container.innerHTML = html;
     } else {
         console.error(`Element with id ${options.id} not found.`);
     }
+
+    // Initialize the modal
+    initModal();
 }
 
 module.exports = { initWidget };

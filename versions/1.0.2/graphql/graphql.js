@@ -123,7 +123,7 @@ const handleSessionData = async (sessionString, options, endpointData) => {
 
         setProposalsOffersArray(proposalsOffersArray); // Set the proposalsOffersArray using the shared data module
 
-        const htmlOffersOutput = buildHtmlOffers(proposalsOffersArray, options.display.mode, endpointData);
+        const htmlOffersOutput = buildHtmlOffers(proposalsOffersArray, options, endpointData);
         
         const containerOffersOutput = document.getElementById('wwo-offers-list');
         if (debugGraphql) console.log('options.display.mode', options.display.mode);

@@ -22,6 +22,7 @@ carousel
     list-style: none;
     margin: 0;
     padding: 0;
+    width: 100%;
 }
 /*
 .wwo-offer {
@@ -110,4 +111,12 @@ common
 */
 .wwo-single-element {
     cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+    .wwo-grid-item { width: 50%;min-width: 50%; }
+}
+
+@media screen and (max-width: 700px) {
+    .wwo-grid-item { width: 100%;min-width: 100%; }
 }

@@ -24,6 +24,8 @@ function getString(wwo_languageCode){
                 'upselling-title': 'Ofertas filtradas para mismas fechas y misma categoría',
                 'cross-selling-title': 'Ofertas filtradas para otras fechas y misma categoría',
                 'no-offers-found': 'No se han encontrado ofertas para las fechas seleccionadas.',
+                'priceFrom': 'Desde',
+                'seeOffer': 'Reservar',
             }
             break;  
         case 'en':
@@ -49,6 +51,8 @@ function getString(wwo_languageCode){
                 'upselling-title': 'Filtered Offers for same range of dates and same category',
                 'cross-selling-title': 'Filtered Offers for other range of dates and same category',
                 'no-offers-found': 'No offers found for the selected dates.',
+                'priceFrom': 'From',
+                'seeOffer': 'Book',
             }
             break;
         case 'fr':
@@ -74,6 +78,8 @@ function getString(wwo_languageCode){
                 'upselling-title': 'Offres filtrées pour mêmes dates et même catégorie',
                 'cross-selling-title': 'Offres filtrées pour d\'autres dates et même catégorie',
                 'no-offers-found': 'Aucune offre trouvée pour les dates sélectionnées.',
+                'priceFrom': 'À partir de',
+                'seeOffer': 'Réservez',
         }
         break;
         
