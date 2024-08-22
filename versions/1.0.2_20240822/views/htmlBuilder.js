@@ -113,9 +113,7 @@ const generateOfferHtml = (item, property, options, lowestPrice, firstCategorySe
             <div class="${options.display.mode === 'carousel' ? `wwo-offer wwo-single-element ${categoryClasses}` : 'wwo-grid-element'}">
                 <div class="wwo-offer-item">
                     <div class="wwo-featured-image-wrapper">
-                        ${property.acf_featured_image ? `
-                            <img class="wwo-featured-image" src="${property.acf_featured_image.url}" alt="${property.acf_featured_image.alt}" />
-                        ` : ''}
+                        <img class="wwo-featured-image" src="${property.acf_featured_image.url}" alt="${property.acf_featured_image.alt}" />
                     </div>
                     <div class="wwo-offer-wrapper">
                         <div class="offer-title">

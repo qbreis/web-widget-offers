@@ -25,7 +25,7 @@ const addDaysToDate = (startDate, nbDays) => {
     let date = new Date(parts[2], parts[1] - 1, parts[0]); // year, month, day
 
     // Add the number of days
-    date.setDate(date.getDate() + parseInt(nbDays, 10));
+    date.setDate(date.getDate() + nbDays);
 
     // Format the new date as "dd/MM/yyyy"
     let newDate = ('0' + date.getDate()).slice(-2) + '/' + 

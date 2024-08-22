@@ -9,8 +9,6 @@
     display: none !important;
 }
 
-.wwo-offer-container.wwo-environment-dev .wwo-offer-item { height: 800px; }
-
 .wwo-featured-image-wrapper {
     height: 200px;
     overflow: hidden;
