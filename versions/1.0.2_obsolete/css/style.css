@@ -1,0 +1,28 @@
+body{
+    font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.wwo-featured-image-wrapper {
+    height: 200px;
+    overflow: hidden;
+}
+
+.wwo-offer-wrapper {
+    padding: 0.5em;
+}
+
+.wwo-featured-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.offer-title {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.wwo-no-offers {
+    text-align: center;
+    padding: 1em;
+}

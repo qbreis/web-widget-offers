@@ -25,7 +25,7 @@ const addDaysToDate = (startDate, nbDays) => {
     let date = new Date(parts[2], parts[1] - 1, parts[0]); // year, month, day
 
     // Add the number of days
-    date.setDate(date.getDate() + parseInt(nbDays, 10));
+    date.setDate(date.getDate() + nbDays);
 
     // Format the new date as "dd/MM/yyyy"
     let newDate = ('0' + date.getDate()).slice(-2) + '/' + 
@@ -62,10 +62,10 @@ const formatDateRange = (dateStartString, dateEndString) => {
     let yearStart = dateStart.getUTCFullYear();
 
     let returnDateRange = (yearStart === yearEnd) ? 
-        `<span class="wwo-date wwo-date-start">${dayStart} ${monthStart}</span> <span class="wwo-to">${wwo_strings['to']}</span> <span class="wwo-date wwo-date-end">${dayEnd} ${monthEnd} ${yearEnd}</span>` :
-        `<span class="wwo-date wwo-date-start">${dayStart} ${monthStart}</span> ${yearStart} <span class="wwo-to">${wwo_strings['to']}</span> <span class="wwo-date wwo-date-end">${dayEnd} ${monthEnd} ${yearEnd}</span>`;
+        `<span class="wwo-date wwo-date-start">${dayStart} ${monthStart}</span> ${wwo_strings['to']} <span class="wwo-date wwo-date-end">${dayEnd} ${monthEnd} ${yearEnd}</span>` :
+        `<span class="wwo-date wwo-date-start">${dayStart} ${monthStart}</span> ${yearStart} ${wwo_strings['to']} <span class="wwo-date wwo-date-end">${dayEnd} ${monthEnd} ${yearEnd}</span>`;
  
-    return `<span class="wwo-from">${wwo_strings['from']}</span> <span class="wwo-day-of-week">${dayOfWeek}</span> ${returnDateRange}`;
+    return `${wwo_strings['from']} <span class="wwo-day-of-week">${dayOfWeek}</span> ${returnDateRange}`;
 }
 
 /**

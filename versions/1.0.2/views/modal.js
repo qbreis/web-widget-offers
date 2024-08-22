@@ -4,6 +4,7 @@ const { getProposalsOffersArray } = require('../utils/proposalsOffersArray'); //
 const { getLanguageStrings } = require('../lang/languageManager');
 const { getUpselling } = require('./upselling');
 const { getCrossSelling } = require('./crossSelling');
+// const { getCrossSellingOld } = require('./crossSellingOld');
 const { buildModalHtml } = require('./buildModalHtml');
 const { getOptionsOffers } = require('../utils/optionsOffers');
 
@@ -78,10 +79,81 @@ const handleItemClick = (item) => {
     }
     if(widgetDisplayCrossSellingOptions.active) {
         htmlBuffer += getCrossSelling(proposalsOffersArray, selectedOffer, wwo_strings, widgetDisplayCrossSellingOptions, widgetOptions.proposalUrl);
+        // htmlBuffer += getCrossSellingOld(proposalsOffersArray, selectedOffer, wwo_strings, widgetDisplayCrossSellingOptions, widgetOptions.proposalUrl);
     }
 
     document.getElementById('wwo-modal-container').innerHTML = htmlBuffer;
     document.getElementById('wwo-modal').classList.toggle('wwo-active');
+
+    // TODO: Move following code to a separate file and import it where needed as it has nothing to do directly with "modal" functionality but with "offers" functionality PLUS refactor function itself couple o times...
+    // Attach event listeners for the toggle buttons and the title
+    const toggleButtons = document.querySelectorAll('.wwo-open-close-disponibilities');
+    const toggleTitles = document.querySelectorAll('.wwo-offers-togle-title');
+
+    // Add event listeners to toggle buttons
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', handleToggleOffersList);
+    });
+
+    // Add event listeners to toggle titles
+    toggleTitles.forEach(title => {
+        title.addEventListener('click', handleToggleOffersList);
+    });
+
+    // Function to toggle offers list
+    function handleToggleOffersList(event) {
+        let container;
+        let moreOffersBtn;
+        let lessOffersBtn;
+
+        // Check if the clicked element is a title
+        if (event.currentTarget.classList.contains('wwo-offers-togle-title')) {
+            // Find the closest `.wwo-list-of-offers` after the title
+            container = event.currentTarget.nextElementSibling;
+            // Find the `.wwo-open-close-disponibilities` inside the title
+            moreOffersBtn = event.currentTarget.querySelector('.wwo-more-offers');
+            lessOffersBtn = event.currentTarget.querySelector('.wwo-less-offers');
+
+            container.nextElementSibling.querySelector('.wwo-more-offers').classList.toggle('active');
+            container.nextElementSibling.querySelector('.wwo-less-offers').classList.toggle('active');
+        } else {
+            console.log('Click on more!!!');
+            // If not a title, find the previous sibling which should be `.wwo-list-of-offers`
+            container = event.currentTarget.previousElementSibling;
+            moreOffersBtn = event.currentTarget.querySelector('.wwo-more-offers');
+            lessOffersBtn = event.currentTarget.querySelector('.wwo-less-offers');
+
+            container.previousElementSibling.querySelector('.wwo-more-offers').classList.toggle('active');
+            container.previousElementSibling.querySelector('.wwo-less-offers').classList.toggle('active');
+        }
+
+        // If the container is not found, exit the function
+        if (!container) {
+            console.error('Container element not found.');
+            return;
+        }
+
+        // Get all the <li> elements within this container
+        const listItems = container.querySelectorAll('.offer-item');
+
+        // Loop through each <li> element
+        listItems.forEach((item, index) => {
+            if (index === 0) {
+                // Always keep the first <li> active
+                item.classList.add('active');
+            } else {
+                // Toggle the 'active' class for other <li> elements
+                item.classList.toggle('active');
+            }
+        });
+
+        // Toggle the visibility of more/less offers buttons
+        if (moreOffersBtn && lessOffersBtn) {
+            moreOffersBtn.classList.toggle('active');
+            lessOffersBtn.classList.toggle('active');
+        }
+    }
+
 };
 
 const handleModalClick = (event, modalElement) => {
@@ -115,5 +187,46 @@ const findSelectedOffer = (proposalsOffersArray, itemDataSet) => {
     if (debugModal) console.log('Selected Offer:', selectedOffer);
     return selectedOffer;
 };
+
+// TODO: I can move this function to separate file and import it where needed as it has nothing to do directly with "modal" functionality but with "offers" functionality
+/*
+function handleToggleOffersList() {
+    console.log('Toggle offers list');
+
+    // Get the closest parent container of the clicked element
+    const container = this.closest('.wwo-open-close-disponibilities').previousElementSibling;
+
+    // Get all the <li> elements within this container
+    const listItems = container.querySelectorAll('.offer-item');
+
+    // Loop through each <li> element
+    listItems.forEach((item, index) => {
+        if (index === 0) {
+            // Always keep the first <li> active
+            item.classList.add('active');
+        } else {
+            // Toggle the 'active' class for other <li> elements
+            item.classList.toggle('active');
+        }
+    });
+
+    // Toggle the visibility of more/less offers buttons
+    const moreOffersBtn = this.closest('.wwo-open-close-disponibilities').querySelector('.wwo-more-offers');
+    const lessOffersBtn = this.closest('.wwo-open-close-disponibilities').querySelector('.wwo-less-offers');
+    moreOffersBtn.classList.toggle('active');
+    lessOffersBtn.classList.toggle('active');
+}
+
+// Ensure the function is available globally
+window.handleToggleOffersList = handleToggleOffersList; // Expose the function to the global scope
+*/
+
+
+
+
+
+
+
+
 
 module.exports = { initModal };

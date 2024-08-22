@@ -61,7 +61,7 @@ function initWidget(options) {
                     <li><strong>display.upselling.active</strong>: ${options.display.upselling?.active} &#8212; If "upselling" offers are displayed. By default they are not shown.<br />
                     <li><strong>display.upselling.limit</strong>: ${options.display.upselling?.limit} &#8212; How many offers must be shown. By default 30.<br />
                     <li><strong>display.crossSelling.active</strong>: ${options.display.crossSelling?.active} &#8212; If "cross-selling" offers are displayed. By default they are not shown.<br />
-                    <li><strong>display.upselling.limit</strong>: ${options.display.crossSelling?.limit} &#8212; How many offers must be shown. Limit of cross-selling offers for each range of dates, this is different from upselling limit, which is for the same only one range of dates. By default, it is set to 30.<br />
+                    <li><strong>display.upselling.limit</strong>: ${options.display.crossSelling?.limit} &#8212; How many offers must be shown. By default 30.<br />
                 </ul>
             </div><!-- .widget-options -->
         `;

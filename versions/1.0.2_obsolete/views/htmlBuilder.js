@@ -30,23 +30,22 @@ const { getPropertyForProposal } = require('../utils/filter');
  *   acf_featured_image: { url, alt }
  * }
  * 
- * @param {*} options - Display mode for the offers. Can be 'carousel' or 'grid'. it is in options.display.mode.
+ * @param {*} displayMode - Display mode for the offers. Can be 'carousel' or 'grid'.
  * @param {*} displayAllOffers - If true, all offers are displayed. If false, only the lowest price offer for each property is displayed. Default is false.
  * @returns - HTML string with the offers.
  */
-const buildHtmlOffers = (proposalsOffersArray, options, endpointData, displayAllOffers = onlyDev) => {
+const buildHtmlOffers = (proposalsOffersArray, displayMode, endpointData, displayAllOffers = onlyDev) => {
     if (debugHtmlBuilder) console.log('proposalsOffersArray in buildHtmlOffers function', proposalsOffersArray);
-
-    const wwo_strings = getLanguageStrings();
-    if (!wwo_strings) {
-        console.error('Failed to get language strings in graphql/graphql');
-        return;
-    }
     if (!proposalsOffersArray || proposalsOffersArray.length === 0) {
+        const wwo_strings = getLanguageStrings();
+        if (!wwo_strings) {
+            console.error('Failed to get language strings in graphql/graphql');
+            return;
+        }
         return `<div class="wwo-offer-container wwo-slider-wrapper wwo-no-offers">${wwo_strings.no_offers}</div>`;
     }
     const navCategoriesHtml = generateNavCategoriesHtml(endpointData);
-    let html = generateContainerStartHtml(options, navCategoriesHtml);
+    let html = generateContainerStartHtml(displayMode, navCategoriesHtml);
     proposalsOffersArray.forEach((item) => {
         const thisProperty = getPropertyForProposal(item);
         if (thisProperty) {
@@ -54,22 +53,21 @@ const buildHtmlOffers = (proposalsOffersArray, options, endpointData, displayAll
                 html += generateOfferHtml(
                     item, 
                     thisProperty, 
-                    options, 
+                    displayMode, 
                     item['lowest-price'], 
-                    endpointData[0].post_name, // We want to know which is the first active category selected.
-                    wwo_strings,
+                    endpointData[0].post_name // We want to know which is the first active category selected.
                 );
             }
         }
 
     });
-    html += generateContainerEndHtml();
+    html += generateContainerEndHtml(displayMode);
     return html;
 };
 
-const generateContainerStartHtml = (options, navCategoriesHtml) => {
-    return options.display.mode === 'carousel' ? `
-        <div class="wwo-offer-container wwo-slider-wrapper wwo-environment-${options.environment}">
+const generateContainerStartHtml = (displayMode, navCategoriesHtml) => {
+    return displayMode === 'carousel' ? `
+        <div class="wwo-offer-container wwo-slider-wrapper">
             ${navCategoriesHtml}
             <button class="wwo-slide-arrow" id="wwo-slide-arrow-prev">
                 &#8249;
@@ -87,14 +85,14 @@ const generateContainerStartHtml = (options, navCategoriesHtml) => {
         `;
 };
 
-const generateContainerEndHtml = () => {
+const generateContainerEndHtml = (displayMode) => {
     return `
-            </ul>
+            </ul><!-- .${displayMode === 'carousel' ? 'wwo-slides-container' : 'wwo-grid-container'} -->
         </div><!-- .wwo-offer-container -->
     `;
 };
 
-const generateOfferHtml = (item, property, options, lowestPrice, firstCategorySelected, wwo_strings) => {
+const generateOfferHtml = (item, property, displayMode, lowestPrice, firstCategorySelected) => {
     const categoryClasses = item.offer.post_name;//offers_categories.map(category => `wwo-family-${category.slug}`).join(' ');
     const disponibilityRange = formatDateRange(
         item.proposal.formattedDate,
@@ -110,12 +108,10 @@ const generateOfferHtml = (item, property, options, lowestPrice, firstCategorySe
             data-method="${item.method}"
             data-offer-id="${item.offer.ID}"
             >
-            <div class="${options.display.mode === 'carousel' ? `wwo-offer wwo-single-element ${categoryClasses}` : 'wwo-grid-element'}">
+            <div class="${displayMode === 'carousel' ? `wwo-offer wwo-single-element ${categoryClasses}` : 'wwo-grid-element'}">
                 <div class="wwo-offer-item">
                     <div class="wwo-featured-image-wrapper">
-                        ${property.acf_featured_image ? `
-                            <img class="wwo-featured-image" src="${property.acf_featured_image.url}" alt="${property.acf_featured_image.alt}" />
-                        ` : ''}
+                        <img class="wwo-featured-image" src="${property.acf_featured_image.url}" alt="${property.acf_featured_image.alt}" />
                     </div>
                     <div class="wwo-offer-wrapper">
                         <div class="offer-title">
@@ -124,26 +120,18 @@ const generateOfferHtml = (item, property, options, lowestPrice, firstCategorySe
                         <div class="wwo-disponibility-dates">
                             ${disponibilityRange}
                         </div>
-                        <div class="wwo-offer-footer">
-                            <div class="wwo-offer-description">
-                                ${wwo_strings.priceFrom}
-                            </div><!-- .wwo-offer-description -->
-                            <div class="wwo-offer-price">
-                                <span class="wwo-offer-price-amount">${item.proposal.price.amount}</span> <span class="wwo-offer-price-currency">&euro;</span>
-                            </div><!-- .wwo-offer-price -->
-                            <div class="wwo-offer-button">
-                                <button class="wwo-offer-button-text">${wwo_strings.seeOffer}</button>
-                            </div><!-- .wwo-offer-button -->
-                        </div><!-- .wwo-offer-footer -->
-                    </div><!-- .wwo-offer-wrapper -->
-                    ${generateDebugHtml(item, categoryClasses)}
+                        <div class="wwo-offer-price">
+                            <span class="wwo-offer-price-amount">${item.proposal.price.amount}</span> <span class="wwo-offer-price-currency">&euro;</span>
+                        </div>
+                    </div>
+                    ${generateDebugHtml(item, property.ws_establishment_id, categoryClasses)}
                 </div>
             </div>
         </li>
     `;
 };
 
-const generateDebugHtml = (item, categoryClasses) => {
+const generateDebugHtml = (item, property, categoryClasses) => {
 
     let accommodations = '<ul>';
     for (const element of item.accommodation) {
@@ -152,28 +140,26 @@ const generateDebugHtml = (item, categoryClasses) => {
     accommodations += `</ul>`;
 
     return `
-        <div class="wwo-debug-container">
-            <div style="border: 1px #000 solid;font-size: 0.7em;padding: 0.2em;">
-                <span style="background-color: #000;color: #fff;">offers_categories</span>
-                ${categoryClasses}
-            </div>
-            <div style="border: 1px #000 solid;font-size: 0.7em;padding: 0.2em;">
-                <span style="background-color: #000;color: #fff;">proposalKey</span>
-                ${item.proposal.proposalKey}
-            </div>
-            <div style="border: 1px #000 solid;font-size: 0.7em;padding: 0.2em;">
-                offer.ID: ${item.offer.ID}<br />
-                proposal.propertyId: ${item.proposal.propertyId}<br />
-                offer.acf_offers_season: ${item.offer.acf_offers_season}<br />
-                offer-children: ${item.acfItem['offer-children'].length}<br />
-                offer-number-of-adults: ${item.acfItem['offer-number-of-adults']}<br />
-                offer-number-of-days: ${item.acfItem['offer-number-of-days']}<br />
-            </div>
-            <div style="border: 1px #000 solid;font-size: 0.7em;padding: 0.2em;">
-                <span style="background-color: #000;color: #fff;">accommodations</span>
-                ${accommodations}
-            </div>
-        </div><!-- .wwo-debug-container -->
+        <div style="border: 1px #000 solid;font-size: 0.7em;padding: 0.2em;">
+            <span style="background-color: #000;color: #fff;">offers_categories</span>
+            ${categoryClasses}
+        </div>
+        <div style="border: 1px #000 solid;font-size: 0.7em;padding: 0.2em;">
+            <span style="background-color: #000;color: #fff;">proposalKey</span>
+            ${item.proposal.proposalKey}
+        </div>
+        <div style="border: 1px #000 solid;font-size: 0.7em;padding: 0.2em;">
+            offer.ID: ${item.offer.ID}<br />
+            proposal.propertyId: ${item.proposal.propertyId}<br />
+            offer.acf_offers_season: ${item.offer.acf_offers_season}<br />
+            offer-children: ${item.acfItem['offer-children'].length}<br />
+            offer-number-of-adults: ${item.acfItem['offer-number-of-adults']}<br />
+            offer-number-of-days: ${item.acfItem['offer-number-of-days']}<br />
+        </div>
+        <div style="border: 1px #000 solid;font-size: 0.7em;padding: 0.2em;">
+            <span style="background-color: #000;color: #fff;">accommodations</span>
+            ${accommodations}
+        </div>
     `;
 };
 

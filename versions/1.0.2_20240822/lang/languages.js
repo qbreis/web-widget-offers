@@ -26,11 +26,6 @@ function getString(wwo_languageCode){
                 'no-offers-found': 'No se han encontrado ofertas para las fechas seleccionadas.',
                 'priceFrom': 'Desde',
                 'seeOffer': 'Reservar',
-                'mySelection': 'Mi selección',
-                'viewAvailabilityFrom': 'Ver Disponibilidad del',
-                'fromPrice': 'Desde',
-                'moreOffers': 'Más ofertas',
-                'lessOffers': 'Menos ofertas',
             }
             break;  
         case 'en':
@@ -58,11 +53,6 @@ function getString(wwo_languageCode){
                 'no-offers-found': 'No offers found for the selected dates.',
                 'priceFrom': 'From',
                 'seeOffer': 'Book',
-                'mySelection': 'My selection',
-                'viewAvailabilityFrom': 'View Availability from',
-                'fromPrice': 'From',
-                'moreOffers': 'More offers',
-                'lessOffers': 'Less offers',
             }
             break;
         case 'fr':
@@ -85,16 +75,11 @@ function getString(wwo_languageCode){
                 'children': 'enfants',
                 'summer': 'été',
                 'winter': 'hiver',
-                'upselling-title': 'Autres hébergements Disponibilités sur ces dates',
+                'upselling-title': 'Offres filtrées pour mêmes dates et même catégorie',
                 'cross-selling-title': 'Offres filtrées pour d\'autres dates et même catégorie',
                 'no-offers-found': 'Aucune offre trouvée pour les dates sélectionnées.',
                 'priceFrom': 'À partir de',
                 'seeOffer': 'Réservez',
-                'mySelection': 'Ma sélection',
-                'viewAvailabilityFrom': 'Voir Les Disponibilités du',
-                'fromPrice': 'A partir de',
-                'moreOffers': 'Plus d\'offres',
-                'lessOffers': 'Moins d\'offres',
         }
         break;
         

@@ -2,8 +2,13 @@ const debugUpselling = 0;
 if (debugUpselling) console.log('debugUpselling is set to 1');
 
 const { formatDateRange, addDaysToDate, getRoomsQuantity } = require('../utils/utils');
+const { getOptionsOffers } = require('../utils/optionsOffers');
 
 const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_strings, widgetDisplayOptions, proposalUrl) => {
+
+    // TODO: Params widgetDisplayOptions and proposalUrl are contained in the widgetOptions object!!!
+
+    const widgetOptions = getOptionsOffers();
 
     let widgetDisplayLimit = widgetDisplayOptions.limit ? widgetDisplayOptions.limit : 30;
     if (debugUpselling) console.log('widgetDisplayOptions:', widgetDisplayOptions);
@@ -31,18 +36,19 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
 
     // List all the offers that have the same range of dates and the same category except the selected offer
     let listOfOffersUpselling = '<ul class="wwo-list-of-offers">';
-    let counter = 0;
+    let counter = -1;
     orderedOffers.forEach((offerItem) => {
         if ( offerItem.proposal.proposalKey !== selectedOffer.proposal.proposalKey && counter < widgetDisplayLimit ) {
             if (debugUpselling) console.log('offerItem:', offerItem);
             if( selectedOffer.proposal.propertyId === offerItem.proposal.propertyId ) {
                 counter++;
                 let listOfOffersUpsellingAccommodations = `
-                <div class="wwo-list-of-accommodations">
+                    <div class="wwo-list-of-accommodations">
                 `;
 
                 if (debugUpselling) listOfOffersUpsellingAccommodations += '<pre>'+JSON.stringify(offerItem.proposal.distribution, null, 2)+'</pre>';
 
+                listOfOffersUpsellingAccommodations += `<div class="wwo-accommodation-items">`;
                 offerItem.accommodation.forEach((accommodationItem) => {
 
                     let quantity = getRoomsQuantity(offerItem.proposal.distribution.roomTypes, accommodationItem.acf_ws_accommodation_code);
@@ -50,41 +56,89 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
                     /* Dev note: To print accommodation code you can insert this code in the returned template
                     `<strong>${accommodationItem.post_title} (${accommodationItem['acf_ws_accommodation_code']})</strong>`
                     */
+
+
+
+
+                
                     listOfOffersUpsellingAccommodations += `
                     <div class="wwo-accommodation-item">
                         <span class="wwo-proposals-counter wwo-room-quantity-${quantity}">
                             ${quantity} x
                         </span>
                         
-                        <strong>${accommodationItem.post_title}</strong> (${accommodationItem.acf_ws_accommodation_nb_beds} ${wwo_strings.beds}, ${accommodationItem.acf_ws_accommodation_pax_max} ${wwo_strings['people-max']}, ${accommodationItem.acf_ws_accommodation_size_area} ${wwo_strings['square-meters']})<br />
-                    </div>
+                        <strong>${accommodationItem.post_title}</strong>
+                        <div class="wwo-accommodation-data">
+                            (${accommodationItem.acf_ws_accommodation_nb_beds} ${wwo_strings.beds}, ${accommodationItem.acf_ws_accommodation_pax_max} ${wwo_strings['people-max']}, ${accommodationItem.acf_ws_accommodation_size_area} ${wwo_strings['square-meters']})
+                        </div><!-- .wwo-accommodation-data -->
+                    </div><!-- .wwo-accommodation-item -->
                     `;
                 });
+                listOfOffersUpsellingAccommodations += `</div><!-- .wwo-accommodation-items -->`;
+                
+
                 listOfOffersUpsellingAccommodations += `
-                    <span style="font-size: 0.5em;">
-                        <a 
-                            href="${proposalUrl}${offerItem.proposal.proposalKey}"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                                ${offerItem.proposal.proposalKey}
-                        </a><br />
-                    </span>
-                </div><!-- .wwo-list-of-accommodations -->
-                `;
-
-
-                listOfOffersUpselling += `
-                <li>
                     <div class="wwo-price-amount">
                         ${offerItem.proposal.price.amount} &euro;
-                    </div>
-                    ${listOfOffersUpsellingAccommodations}
-                </li>
+                    </div><!-- .wwo-price-amount -->
+                `;
+
+                const numberOfChildrenDisplay = offerItem.acfItem['offer-children'].length !== undefined ? 
+                    `${offerItem.acfItem['offer-children'].length} ${wwo_strings.children}` : '';
+                listOfOffersUpsellingAccommodations += `
+                    <div class="wwo-disponibility-extract">
+                        <div class="wwo-disponibility-range">
+                            ${disponibilityRange}
+                        </div><!-- .wwo-disponibility-range -->
+                        <div class="wwo-disponibility-details">
+
+                            <div class="wwo-date-range-description">
+                                <span class="wwo-details wwo-number-of-days">
+                                    ${offerItem.proposal.nbDays} ${wwo_strings.nights}
+                                </span>
+                                <span class="wwo-details wwo-number-of-adults">
+                                    ${offerItem.acfItem['offer-number-of-adults']} ${wwo_strings.adults}
+                                </span>
+                                ${numberOfChildrenDisplay ? `
+                                    <span class="wwo-details wwo-number-of-adults">
+                                        ${numberOfChildrenDisplay}
+                                    </span>
+                                ` : ''}
+                            </div><!-- .wwo-date-range-description -->
+
+                        </div><!-- .wwo-disponibility-details -->
+
+                        <button 
+                            class="wwo-offer-button-text" 
+                            onclick="window.open('${proposalUrl}${offerItem.proposal.proposalKey}', '_blank', 'noopener noreferrer')"
+                            >
+                            ${wwo_strings.seeOffer}
+                        </button>
+                        
+                    </div><!-- .wwo-disponibility-extract -->
+                `;
+
+                listOfOffersUpsellingAccommodations += `
+                    </div><!-- .wwo-list-of-accommodations -->
+                `;
+
+                const activeClass = counter === 0 ? 'active' : '';
+                listOfOffersUpselling += `
+                    <li class="offer-item offer-item-${counter} ${activeClass}">
+                        ${listOfOffersUpsellingAccommodations}
+                    </li>
                 `;
             }
         }
     });
     listOfOffersUpselling += '</ul>';
+    listOfOffersUpselling += `
+        <div class="wwo-open-close-disponibilities">
+            <span class="wwo-more-offers active">${wwo_strings.moreOffers}</span>
+            <span class="wwo-less-offers">${wwo_strings.lessOffers}</span>
+        </div>
+    `;
+
     if( counter === 0 ) {
         listOfOffersCrossSelling = `
         <ul class="wwo-list-of-offers no-offers-found">
@@ -95,12 +149,24 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
         `;
     }
     return `
-        <h2>${wwo_strings['upselling-title']}:</h2>
-        ${selectedOffer.offer.get_the_title}<br />
-        ${selectedOffer.proposal.formattedDate} to ${addDaysToDate(selectedOffer.proposal.formattedDate, selectedOffer.proposal.nbDays)}<br />
-        ${disponibilityRange}<br />
-        ${listOfOffersUpselling}
-        `;
+        <div class="wwo-offers-list-section">
+            <div class="wwo-offers-togle-title">
+                ${wwo_strings['upselling-title']}
+                <div class="wwo-open-close-disponibilities">
+                    <span class="wwo-more-offers active">Plus d'offres</span>
+                    <span class="wwo-less-offers"">Moins d'offres</span>
+                </div><!-- .wwo-open-close-disponibilities -->
+            </div><!-- .wwo-offers-togle-title -->
+            ${widgetOptions.display.upselling.header ? `
+                <div class="wwo-upselling-info">
+                    ${selectedOffer.offer.get_the_title}<br />
+                    ${selectedOffer.proposal.formattedDate} to ${addDaysToDate(selectedOffer.proposal.formattedDate, selectedOffer.proposal.nbDays)}<br />
+                    ${disponibilityRange}<br />
+                </div><!-- .wwo-upselling-info -->
+            ` : ''}
+            ${listOfOffersUpselling}
+        </div><!-- .wwo-offers-list-section -->
+    `;
 
 };
 
