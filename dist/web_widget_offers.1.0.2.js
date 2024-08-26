@@ -194,11 +194,13 @@ const handleSessionData = async (sessionString, options, endpointData) => {
         if (debugGraphql) console.log('Datos recibidos getProposals de GraphQL endpoint ' + options.graphqlConfig.endpointUrl + ':', proposalsData.data);
 
         if (proposalsData.errors && proposalsData.errors.length > 0) {
-            if (debugGraphql) console.log('proposalsData.errors', proposalsData.errors);
+            console.log('proposalsData.errors', proposalsData.errors);
             // If there are errors, delete the session cookie and run the query again
-            // doing this when there is an error in the proposals query it will result in an infinite loop!!!
-            // deleteCookie(options.sessionCookieName);
-            // runGraphql(options, endpointData);
+            if(proposalsData.errors[0].message === 'Session expirée') {
+                // doing this when there is an error in the proposals query it can result in an infinite loop!!!
+                deleteCookie(options.sessionCookieName);
+                runGraphql(options, endpointData);
+            }
             return;
         }
 
