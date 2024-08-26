@@ -131,6 +131,12 @@ const buildProposalsQuery = (sessionName, endpointData) => {
                                 amount,
                                 currencyCode
                             },
+
+                            priceWithoutDiscount {
+                                amount
+                                currencyCode
+                            },
+
                             nbDays,
 
                             distribution {

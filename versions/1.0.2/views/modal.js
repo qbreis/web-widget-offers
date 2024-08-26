@@ -64,6 +64,8 @@ const handleItemClick = (item) => {
     const proposalsOffersArray = getProposalsOffersArray();
     if (debugModal) console.log('proposalsOffersArray:', proposalsOffersArray);
 
+    // console.log('proposalsOffersArray:', proposalsOffersArray);
+
     const selectedOffer = findSelectedOffer(proposalsOffersArray, itemDataSet);
     if (!selectedOffer) return;
 
@@ -117,7 +119,7 @@ const handleItemClick = (item) => {
             container.nextElementSibling.querySelector('.wwo-more-offers').classList.toggle('active');
             container.nextElementSibling.querySelector('.wwo-less-offers').classList.toggle('active');
         } else {
-            console.log('Click on more!!!');
+            // console.log('Click on more!!!');
             // If not a title, find the previous sibling which should be `.wwo-list-of-offers`
             container = event.currentTarget.previousElementSibling;
             moreOffersBtn = event.currentTarget.querySelector('.wwo-more-offers');
@@ -153,6 +155,54 @@ const handleItemClick = (item) => {
             lessOffersBtn.classList.toggle('active');
         }
     }
+
+
+
+    document.querySelectorAll('.wwo-room-type-proposal-switch').forEach(button => {
+        button.addEventListener('click', handleToggleRoomTypeProposal);
+    });
+    function handleToggleRoomTypeProposal(event) {
+        // console.log('Toggle room type proposal');
+        document.querySelectorAll('.wwo-room-type-proposal').forEach(element => {
+            element.classList.remove('active');
+
+            // Select the corresponding .wwo-room-type-proposal element
+            const proposalElement = document.querySelector(
+                `.wwo-room-type-proposal[data-accommodation-code="${event.currentTarget.dataset.accommodationCode}"]`
+            );
+            // Add the 'active' class to the selected element
+            if (proposalElement) {
+                proposalElement.classList.add('active');
+            }
+        });
+    }
+
+
+    document.querySelectorAll('.wwo-room-type-description-switch').forEach(button => {
+        button.addEventListener('click', handleToggleRoomTypeDescription);
+    });
+    function handleToggleRoomTypeDescription(event) {
+        // console.log('Toggle handleToggleRoomTypeDescription');
+
+        // Find the closest .wwo-room-type-description element to the clicked button
+        const descriptionElement = event.currentTarget.closest('.wwo-room-type-description-toggle').previousElementSibling;
+
+        if (descriptionElement) {
+            // Toggle the 'active' class on the .wwo-room-type-description element
+            descriptionElement.classList.toggle('active');
+        }
+
+        // Toggle the button text between "Plus d'infos" and "Moins d'infos"
+        const button = event.currentTarget;
+        if (descriptionElement.classList.contains('active')) {
+            button.textContent = wwo_strings['less-info'];
+        } else {
+            button.textContent = wwo_strings['more-info'];
+        }
+
+        
+    }
+
 
 };
 

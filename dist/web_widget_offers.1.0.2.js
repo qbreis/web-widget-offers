@@ -80,9 +80,9 @@ var css = "#wwo-offers-list{display:flex;justify-content:center}.wwo-slider-wrap
 },{"browserify-css":1}],3:[function(require,module,exports){
 var css = "ul.wwo-categories-nav{margin:0;padding:0;list-style:none;display:flex;justify-content:center}ul.wwo-categories-nav li.wwo-category-nav-item{background-color:#ddd;padding:.5em;margin:.5em;cursor:pointer;transition:all .35s}ul.wwo-categories-nav li.wwo-category-nav-item.wwo-active,ul.wwo-categories-nav li.wwo-category-nav-item:hover{background-color:#aaa}ul.wwo-grid-container li.wwo-single-element,ul.wwo-offers-container li.wwo-single-element{display:none}ul.wwo-grid-container li.wwo-single-element.wwo-active,ul.wwo-offers-container li.wwo-single-element.wwo-active{display:block}li.wwo-single-element{opacity:.3}li.wwo-single-element.wwo-lowest-price{opacity:1}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.2\\css\\generateNavCategoriesHtml.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":1}],4:[function(require,module,exports){
-var css = ".wwo-modal{background-color:rgba(0,0,0,.8);position:fixed;z-index:100;width:100vw;height:100vh;top:0;left:0;opacity:0;pointer-events:none;transition:all .35s}.wwo-modal.wwo-active{opacity:1;pointer-events:auto}.wwo-modal .wwo-modal-content{background-color:#fff;width:50%;height:100%;overflow-y:auto;position:absolute;top:0;right:-50%;transition:all .35s}.wwo-modal.wwo-active .wwo-modal-content{right:0}.wwo-modal-close{cursor:pointer;position:fixed;top:0;right:.5em;font-size:2em;width:50px;height:50px;display:flex;justify-content:center;align-items:center}#wwo-modal-container{padding:1em;padding-top:0;margin-top:50px}.wwo-establishment-proposal,.wwo-room-type-proposal{background-color:#cfcfcf;padding:1em;margin:1em 0;border-radius:20px}.wwo-room-type-data,.wwo-room-type-info{padding:1em}.wwo-room-type-data .wwo-my-selection-title{font-weight:700;font-size:1.1em;padding:1em 0}.wwo-room-type-data .wwo-my-selection-room-title{font-weight:700}.wwo-proposals-counter{background-color:rgba(0,0,0,.5);border-radius:10px;padding:.2em .4em;margin:0 .2em 0 0;color:#fff}.wwo-room-quantity-1{background-color:#e1e1e1;color:#000}.wwo-price{font-size:2em;background-color:rgba(0,0,0,.5);border-radius:10px;padding:.2em .4em;margin:0 .2em 0 0;color:#fff;margin:.5em 0;text-align:center}.wwo-offer-button-text,.wwo-room-type-proposal-link{background-color:#e1e1e1;border:0;border-radius:5px;text-transform:uppercase;font-weight:700;width:100%;padding:.5em;cursor:pointer}.wwo-details{font-size:1rem}.wwo-details:after{content:', '}.wwo-details:last-child:after{content:''}.wwo-accommodation-details{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:center}.wwo-accommodation-details li{background-color:#e1e1e1;border-radius:5px;padding:.2em .4em;margin:0 .5em 0 0}.wwo-disponibility-dates,.wwo-disponibility-range{color:rgba(0,0,0,.5);padding:.5em 0}.wwo-modal-header{display:flex;align-items:center;padding:1em}.wwo-offer-season,.wwo-offer-title{font-size:1.5em;font-weight:700;padding:.5em 0}.wwo-offer-season{text-transform:capitalize}.wwo-list-of-offers{list-style:none;padding:0;margin:0}.wwo-list-of-offers .wwo-list-of-accommodations .wwo-accommodation-item{padding:.2em 0;margin-bottom:.5em}.wwo-list-of-offers li{background-color:#cfcfcf;padding:1em;border-bottom:1px solid #e1e1e1}.wwo-offers-togle-title{font-size:1.1em;font-weight:700;background-color:#cfcfcf;padding:.5em;cursor:pointer;border-bottom:1px solid #e1e1e1}.wwo-offers-list-section{margin:1em 0}.wwo-price-amount{font-size:1.5em;font-weight:700}.wwo-image-gallery{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:center}.wwo-image-gallery li{height:200px;width:50%;background-color:rgba(255,0,0,.5)}.wwo-image-gallery li:nth-child(n+4){display:none}@media screen and (max-width:1000px){.wwo-modal-content{width:65%!important}}@media screen and (max-width:700px){.wwo-modal-content{width:100%!important}}.wwo-room-type-proposal{display:flex;align-items:center;justify-content:center}.wwo-list-of-offers li .wwo-list-of-accommodations{display:flex;align-items:center;justify-content:space-between}.wwo-list-of-offers li .wwo-list-of-accommodations .wwo-accommodation-items{width:40%}.wwo-list-of-offers li .wwo-list-of-accommodations .wwo-price-amount{width:20%;text-align:center}.wwo-list-of-offers li .wwo-list-of-accommodations .wwo-disponibility-extract{width:40%}.wwo-accommodation-items .wwo-accommodation-item .wwo-accommodation-data{display:none}.wwo-list-of-offers .offer-item{opacity:.5;height:0;overflow:hidden;padding:0 1em;transition:all .2s;border-bottom:0}.wwo-list-of-offers .offer-item.active{opacity:1;height:auto;padding:1em;border-bottom:1px solid #e1e1e1}.wwo-open-close-disponibilities{display:flex;justify-content:center;align-items:center;color:#fff;padding:.5em;cursor:pointer;background-color:rgba(0,0,0,.5)}.wwo-open-close-disponibilities span{display:none}.wwo-open-close-disponibilities span.active{display:block}.wwo-offers-togle-title{position:relative;padding-right:calc(40px + .5em)}.wwo-offers-togle-title .wwo-open-close-disponibilities{position:absolute;right:0;top:0;display:block;justify-content:center;align-items:center;color:#fff;padding:0;cursor:pointer;background-color:rgba(0,0,0,.5)}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-less-offers,.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-more-offers{width:40px;height:40px;overflow:hidden;text-indent:45px;white-space:nowrap}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-less-offers:after,.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-more-offers:after{position:absolute;right:10px;top:5px;font-size:1.5em}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-more-offers:after{content:'+'}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-less-offers:after{content:'-';right:15px;top:2px}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.2\\css\\modal.css" }, { "insertAt": "bottom" })); module.exports = css;
+var css = ".wwo-modal{background-color:rgba(0,0,0,.8);position:fixed;z-index:100;width:100vw;height:100vh;top:0;left:0;opacity:0;pointer-events:none;transition:all .35s}.wwo-modal.wwo-active{opacity:1;pointer-events:auto}.wwo-modal .wwo-modal-content{background-color:#fff;width:80%;height:100%;overflow-y:auto;position:absolute;top:0;right:-80%;transition:all .35s}.wwo-modal.wwo-active .wwo-modal-content{right:0}.wwo-modal-close{cursor:pointer;position:fixed;top:0;right:.5em;font-size:2em;width:50px;height:50px;display:flex;justify-content:center;align-items:center}#wwo-modal-container{padding:1em;padding-top:0;margin-top:50px}.wwo-establishment-proposal,.wwo-room-type-proposal{background-color:#cfcfcf;padding:1em;margin:1em 0;border-radius:20px}.wwo-room-type-data .wwo-my-selection-title{font-weight:700;font-size:1.1em;padding:1em 0}.wwo-room-type-data .wwo-my-selection-room-title{font-weight:700}.wwo-room-type-data .wwo-my-selection-room-title ul li{margin-bottom:.5em}.wwo-room-type-info{width:60%}.wwo-room-type-data{width:40%}.wwo-proposals-counter{background-color:rgba(0,0,0,.5);border-radius:10px;padding:.2em .4em;margin:0 .2em 0 0;color:#fff}.wwo-room-quantity-1{background-color:#e1e1e1;color:#000}.wwo-price{font-size:2em;background-color:rgba(0,0,0,.5);border-radius:10px;padding:.2em .4em;margin:0 .2em 0 0;color:#fff;margin:.5em 0;text-align:center}.wwo-offer-button-text,.wwo-room-type-proposal-link{background-color:#e1e1e1;border:0;border-radius:5px;text-transform:uppercase;font-weight:700;width:100%;padding:.5em;cursor:pointer}.wwo-details{font-size:1rem}.wwo-details:after{content:', '}.wwo-details:last-child:after{content:''}.wwo-accommodation-details{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:center}.wwo-accommodation-details li{background-color:#e1e1e1;border-radius:5px;padding:.2em .4em;margin:0 .5em 0 0}.wwo-disponibility-dates,.wwo-disponibility-range{color:rgba(0,0,0,.5);padding:.5em 0}.wwo-modal-header{display:flex;align-items:center;padding:1em}.wwo-offer-season,.wwo-offer-title{font-size:1.5em;font-weight:700;padding:.5em 0}.wwo-offer-season{text-transform:capitalize}.wwo-list-of-offers{list-style:none;padding:0;margin:0}.wwo-list-of-offers .wwo-list-of-accommodations .wwo-accommodation-item{padding:.2em 0;margin-bottom:.5em}.wwo-list-of-offers li{background-color:#cfcfcf;padding:1em;border-bottom:1px solid #e1e1e1}.wwo-offers-togle-title{font-size:1.1em;font-weight:700;background-color:#cfcfcf;padding:.5em;cursor:pointer;border-bottom:1px solid #e1e1e1}.wwo-offers-list-section{margin:1em 0}.wwo-price-amount{font-size:1.5em;font-weight:700}.wwo-image-gallery{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:50% 50%;gap:1em;height:400px}.wwo-image-gallery li{height:200px;width:100%;margin:0!important}.wwo-image-gallery li img{width:100%;height:100%;object-fit:cover}.wwo-image-gallery li:first-child{grid-column:1/2;grid-row:1/3;height:100%;width:100%}.wwo-image-gallery li:nth-child(n+4){display:none;opacity:.2}@media screen and (max-width:1000px){.wwo-modal-content{width:65%!important}}@media screen and (max-width:700px){.wwo-modal-content{width:100%!important}}.wwo-room-type-proposal{display:flex;align-items:center;justify-content:center;flex-wrap:wrap}.wwo-list-of-offers li .wwo-list-of-accommodations{display:flex;align-items:center;justify-content:space-between}.wwo-list-of-offers li .wwo-list-of-accommodations .wwo-accommodation-items{width:40%}.wwo-list-of-offers li .wwo-list-of-accommodations .wwo-price-amount{width:20%;text-align:center}.wwo-list-of-offers li .wwo-list-of-accommodations .wwo-disponibility-extract{width:40%}.wwo-accommodation-items .wwo-accommodation-item .wwo-accommodation-data{display:none}.wwo-list-of-offers .offer-item{opacity:.5;height:0;overflow:hidden;padding:0 1em;transition:all .2s;border-bottom:0}.wwo-list-of-offers .offer-item.active{opacity:1;height:auto;padding:1em;border-bottom:1px solid #e1e1e1}.wwo-open-close-disponibilities{display:flex;justify-content:center;align-items:center;color:#fff;padding:.5em;cursor:pointer;background-color:rgba(0,0,0,.5)}.wwo-open-close-disponibilities span{display:none}.wwo-open-close-disponibilities span.active{display:block}.wwo-offers-togle-title{position:relative;padding-right:calc(40px + .5em)}.wwo-offers-togle-title .wwo-open-close-disponibilities{position:absolute;right:0;top:0;display:block;justify-content:center;align-items:center;color:#fff;padding:0;cursor:pointer;background-color:rgba(0,0,0,.5)}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-less-offers,.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-more-offers{width:40px;height:40px;overflow:hidden;text-indent:45px;white-space:nowrap}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-less-offers:after,.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-more-offers:after{position:absolute;right:10px;top:5px;font-size:1.5em}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-more-offers:after{content:'+'}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-less-offers:after{content:'-';right:15px;top:2px}.wwo-room-type-description{width:100%;padding:1em;height:0;overflow:hidden;padding:0}.wwo-accommodation-details-list{list-style:none;padding:0}.wwo-room-type-description.active{height:auto;padding:1em}.wwo-room-type-description-toggle{padding:1em}.wwo-room-type-description-toggle .wwo-room-type-description-switch{cursor:pointer}.wwo-detail-type.wwo-type-chambres{margin-bottom:1em}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.2\\css\\modal.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":1}],5:[function(require,module,exports){
-var css = "#web-widget-container,#wwo-modal{font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif}.wwo-offer-container.wwo-environment-preprod .wwo-debug-container,.wwo-offer-container.wwo-environment-preproduction .wwo-debug-container,.wwo-offer-container.wwo-environment-prod .wwo-debug-container,.wwo-offer-container.wwo-environment-production .wwo-debug-container{display:none!important}.wwo-offer-container.wwo-environment-dev .wwo-offer-item{height:800px}.wwo-featured-image-wrapper{height:200px;overflow:hidden}.wwo-offer-wrapper{padding:.5em}.wwo-featured-image{width:100%;height:100%;object-fit:cover}.offer-title{font-weight:700;font-size:1.2em}.wwo-no-offers{text-align:center;padding:1em}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.2\\css\\style.css" }, { "insertAt": "bottom" })); module.exports = css;
+var css = "#web-widget-container,#wwo-modal{font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif}.wwo-offer-container.wwo-environment-preprod .wwo-debug-container,.wwo-offer-container.wwo-environment-preproduction .wwo-debug-container,.wwo-offer-container.wwo-environment-prod .wwo-debug-container,.wwo-offer-container.wwo-environment-production .wwo-debug-container{display:none!important}.wwo-offer-container.wwo-environment-dev .wwo-offer-item{height:800px}.wwo-featured-image-wrapper{height:200px;overflow:hidden}.wwo-offer-wrapper{padding:.5em}.wwo-featured-image{width:100%;height:100%;object-fit:cover}.offer-title{font-weight:700;font-size:1.2em}.wwo-no-offers{text-align:center;padding:1em}.wwo-price-without-discount{text-decoration:line-through;text-align:center;font-size:initial;font-weight:initial}.wwo-accommodation-code{display:none}.wwo-room-type-data ul{list-style-type:none;padding:0}.wwo-room-type-proposal{opacity:.2;overflow:hidden;height:0;padding:0!important;margin:0!important}.wwo-room-type-proposal.active{opacity:1;height:auto}.wwo-room-type-proposal-switch{cursor:pointer}.wwo-wrapper{padding:1em}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.2\\css\\style.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":1}],6:[function(require,module,exports){
 // graphql.js: Contains functions related to constructing and handling GraphQL queries.
 
@@ -179,7 +179,7 @@ endpointData:
 const runGraphql = async (options, endpointData) => {
     try {
         const sessionString = await fetchSessionData(options, wwo_graphqlQueries.getSession);
-        if (debugGraphql) console.log('sessionString', sessionString);
+        if (debugGraphql) console.log('sessionString:', sessionString);
         await handleSessionData(sessionString, options, endpointData);
     } catch (error) {
         console.error('Error en runGraphql:', error);
@@ -189,14 +189,16 @@ const runGraphql = async (options, endpointData) => {
 const handleSessionData = async (sessionString, options, endpointData) => {
     const proposalsQuery = buildProposalsQuery(sessionString, endpointData);
     try {
+        if(debugGraphql) console.log('proposalsQuery', proposalsQuery);
         let proposalsData = await fetchProposalsData(options.graphqlConfig.endpointUrl, proposalsQuery);
         if (debugGraphql) console.log('Datos recibidos getProposals de GraphQL endpoint ' + options.graphqlConfig.endpointUrl + ':', proposalsData.data);
 
         if (proposalsData.errors && proposalsData.errors.length > 0) {
             if (debugGraphql) console.log('proposalsData.errors', proposalsData.errors);
-            
-            deleteCookie(options.sessionCookieName);
-            runGraphql(options, endpointData);
+            // If there are errors, delete the session cookie and run the query again
+            // doing this when there is an error in the proposals query it will result in an infinite loop!!!
+            // deleteCookie(options.sessionCookieName);
+            // runGraphql(options, endpointData);
             return;
         }
 
@@ -417,6 +419,8 @@ function getString(wwo_languageCode){
                 'fromPrice': 'Desde',
                 'moreOffers': 'Más ofertas',
                 'lessOffers': 'Menos ofertas',
+                'more-info': 'Más información',
+                'less-info': 'Menos información',
             }
             break;  
         case 'en':
@@ -449,6 +453,8 @@ function getString(wwo_languageCode){
                 'fromPrice': 'From',
                 'moreOffers': 'More offers',
                 'lessOffers': 'Less offers',
+                'more-info': 'More info',
+                'less-info': 'Less info',
             }
             break;
         case 'fr':
@@ -481,6 +487,8 @@ function getString(wwo_languageCode){
                 'fromPrice': 'A partir de',
                 'moreOffers': 'Plus d\'offres',
                 'lessOffers': 'Moins d\'offres',
+                'more-info': 'Plus d\'infos',
+                'less-info': 'Moins d\'infos',
         }
         break;
         
@@ -495,37 +503,42 @@ const { checkCookieExistence, setCookie, getCookie } = require('../utils/cookies
 
 // Define a function to fetch session data as asynchronous function designed to fetch session data for a given username from a specified GraphQL endpoint
 const fetchSessionData = async (options, graphqlQuery) => {
+    // console.log('fetchSessionData');
     try {
         let sessionCookieName = options.sessionCookieName || 'session';
 
         if (checkCookieExistence(sessionCookieName)) { 
+            // console.log(`there is cookie '${sessionCookieName}' then get the value of the cookie (${getCookie(sessionCookieName)}) and return it.`);
             // if there is cookie 'session' then get the value of the cookie and return it.
             return getCookie(sessionCookieName);
+        } else {
+
+            // console.log(`when there is not cookie '${sessionCookieName}' then fetch data.`);
+
+            // Fetch data if 'session' cookie is not found
+            const response = await fetch(options.graphqlConfig.endpointUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    query: graphqlQuery,
+                    variables: { username: options.graphqlConfig.username },
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al realizar la solicitud HTTP a getSession');
+            }
+
+            const data = await response.json();
+            const sessionNameValue = data.data.getSession.name;
+
+            // Store the session value in a cookie 'session, so next time we do not need to fetch it again.
+            setCookie(sessionCookieName, sessionNameValue, 1);
+
+            return sessionNameValue;
         }
-
-        // Fetch data if 'session' cookie is not found
-        const response = await fetch(options.graphqlConfig.endpointUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                query: graphqlQuery,
-                variables: { username: options.graphqlConfig.username },
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error('Error al realizar la solicitud HTTP a getSession');
-        }
-
-        const data = await response.json();
-        const sessionNameValue = data.data.getSession.name;
-
-        // Store the session value in a cookie 'session, so next time we do not need to fetch it again.
-        setCookie(sessionCookieName, sessionNameValue, 1);
-
-        return sessionNameValue;
     } catch (error) {
         console.error('Error getSession:', error);
         throw error;
@@ -848,6 +861,12 @@ const buildProposalsQuery = (sessionName, endpointData) => {
                                 amount,
                                 currencyCode
                             },
+
+                            priceWithoutDiscount {
+                                amount
+                                currencyCode
+                            },
+
                             nbDays,
 
                             distribution {
@@ -1198,11 +1217,14 @@ module.exports = { convertDateFormat, formatDateRange, addDaysToDate, getRoomsQu
 const { getRoomsQuantity } = require('../utils/utils');
 const { getOptionsOffers } = require('../utils/optionsOffers');
 
-const buildAccommodationHtml = (item, disponibilityRange, selectedOffer, wwo_strings, numberOfChildrenDisplay) => {
-
+const buildAccommodationHtml = (item, disponibilityRange, selectedOffer, wwo_strings, numberOfChildrenDisplay, counter) => {
+    // console.log('counter', counter);
+    // console.log('selectedOffer', selectedOffer);
     const widgetOptions = getOptionsOffers();
 
     let quantity = getRoomsQuantity(selectedOffer.proposal.distribution.roomTypes, item.acf_ws_accommodation_code);
+
+    
 
     /* Dev note: To print object in html insert this code in the returned template
     <pre>${JSON.stringify(selectedOffer.proposal.distribution, null, 2)}</pre>
@@ -1215,66 +1237,120 @@ const buildAccommodationHtml = (item, disponibilityRange, selectedOffer, wwo_str
     // console.log('acf_accommodation_details: ', item.acf_accommodation_details);
     // console.log('acf_accommodation_image_gallery: ', item.acf_accommodation_image_gallery);
 
-    return `
-        <div class="wwo-room-type-proposal">
-            <div class="wwo-room-type-info">
-                <h2>
-                    <span class="wwo-proposals-counter wwo-room-quantity-${quantity}">
-                        ${quantity} x
+    let proposalsRoomsList = `
+        <ul>
+            ${selectedOffer.accommodation.map((itemRoom, index) => `
+                <li>
+                    <span 
+                        class="
+                        wwo-proposals-counter 
+                        wwo-room-quantity-${getRoomsQuantity(selectedOffer.proposal.distribution.roomTypes, itemRoom.acf_ws_accommodation_code)}
+                        ">
+                        ${getRoomsQuantity(selectedOffer.proposal.distribution.roomTypes, itemRoom.acf_ws_accommodation_code)} x
                     </span>
-                    ${item.post_title}
-                </h2>
-                <ul class="wwo-accommodation-details">
-                    <li class="wwo-size">${item.acf_ws_accommodation_size_area} ${wwo_strings['square-meters']}</li>
-                    <li class="wwo-capacity">${item.acf_ws_accommodation_pax_max} ${wwo_strings['beds']}</li>
-                    <li class="wwo-beds">${item.acf_ws_accommodation_nb_beds} ${wwo_strings['people-max']}</li>
-                </ul>
-                <div class="wwo-accommodation-featured-image">
-                    ${item.acf_featured_image ? `
-                        <img src="${item.acf_featured_image.sizes['ud-thumb-500']}" alt="${item.acf_featured_image.alt}" width="200" height="200" />
+                    ${itemRoom.post_title}
+                    <span class="wwo-accommodation-code"> (${itemRoom.acf_ws_accommodation_code})</span>
+                    ${
+                        itemRoom.acf_ws_accommodation_code !== item.acf_ws_accommodation_code 
+                        ? 
+                        `
+                        <button class="wwo-room-type-proposal-switch" data-accommodation-code="${itemRoom.acf_ws_accommodation_code}">
+                            + info
+                        </button>
+                        ` 
+                        : ''
+                    }
+                </li>
+            `).join('')}
+        </ul>
+    `;
+
+    return `
+        <div class="wwo-room-type-proposal ${counter === 1 ? 'active' : ''}" data-accommodation-code="${item['acf_ws_accommodation_code']}">
+            <div class="wwo-room-type-info">
+                <div class="wwo-wrapper">
+                    <h2>
+                        <span class="wwo-proposals-counter wwo-room-quantity-${quantity}">
+                            ${quantity} x
+                        </span>
+                        ${item.post_title}
+                        <span class="wwo-accommodation-code"> (${item['acf_ws_accommodation_code']})</span>
+                    </h2>
+                    <ul class="wwo-accommodation-details">
+                        <li class="wwo-size">${item.acf_ws_accommodation_size_area} ${wwo_strings['square-meters']}</li>
+                        <li class="wwo-capacity">${item.acf_ws_accommodation_pax_max} ${wwo_strings['beds']}</li>
+                        <li class="wwo-beds">${item.acf_ws_accommodation_nb_beds} ${wwo_strings['people-max']}</li>
+                    </ul>
+                    ${widgetOptions.display.modal.featuredImage ? `
+                        <div class="wwo-accommodation-featured-image">
+                            ${item.acf_featured_image ? `
+                                <img src="${item.acf_featured_image.sizes['ud-thumb-500']}" alt="${item.acf_featured_image.alt}" width="200" height="200" />
+                            ` : ''}
+                        </div>
                     ` : ''}
-                </div>
-                ${widgetOptions.display.modal.imageGallery ? buildImageGalleryHtml(item.acf_accommodation_image_gallery) : ''}
-                ${widgetOptions.display.modal.accommodationDetails ? buildAccommodationDetailsHtml(item.acf_accommodation_details) : ''}
+                    ${widgetOptions.display.modal.imageGallery ? buildImageGalleryHtml(item.acf_accommodation_image_gallery) : ''}
+                </div><!-- .wwo-wrapper -->
             </div><!-- .wwo-room-type-info -->
             <div class="wwo-room-type-data">
-                <div class="wwo-my-selection-title">
-                    ${wwo_strings.mySelection}
-                </div>
-                <div class="wwo-my-selection-room-title">
-                    ${item.post_title}
-                </div>
-                <div class="wwo-disponibility-range">
-                    ${disponibilityRange}
-                </div>
-                <div class="wwo-date-range-description">
-                    <span class="wwo-details wwo-number-of-days">
-                        ${selectedOffer.proposal.nbDays} ${wwo_strings.nights}
-                    </span>
-                    <span class="wwo-details wwo-number-of-adults">
-                        ${selectedOffer.acfItem['offer-number-of-adults']} ${wwo_strings.adults}
-                    </span>
-                    ${numberOfChildrenDisplay ? `
-                        <span class="wwo-details wwo-number-of-adults">
-                            ${numberOfChildrenDisplay}
+                <div class="wwo-wrapper">
+                    <div class="wwo-my-selection-title">
+                        ${wwo_strings.mySelection}
+                    </div>
+                    <div class="wwo-my-selection-room-title">
+
+                        ${proposalsRoomsList}
+
+                    </div>
+                    <div class="wwo-disponibility-range">
+                        ${disponibilityRange}
+                    </div>
+                    <div class="wwo-date-range-description">
+                        <span class="wwo-details wwo-number-of-days">
+                            ${selectedOffer.proposal.nbDays} ${wwo_strings.nights}
                         </span>
-                    ` : ''}
-                </div>
-                <div class="wwo-price">
-                    ${selectedOffer.proposal.price.amount} €
-                </div>
-                <button 
-                    class="wwo-room-type-proposal-link"
-                    onclick="window.open('${widgetOptions.proposalUrl}${selectedOffer.proposal.proposalKey}', '_blank')"
-                    >
-                    ${wwo_strings.seeOffer}
-                </button>
+                        <span class="wwo-details wwo-number-of-adults">
+                            ${selectedOffer.acfItem['offer-number-of-adults']} ${wwo_strings.adults}
+                        </span>
+                        ${numberOfChildrenDisplay ? `
+                            <span class="wwo-details wwo-number-of-adults">
+                                ${numberOfChildrenDisplay}
+                            </span>
+                        ` : ''}
+                    </div>
+                    ${selectedOffer.proposal.priceWithoutDiscount.amount !== selectedOffer.proposal.price.amount ? `
+                        <div class="wwo-price-without-discount">
+                            <span class="wwo-offer-price-amount">
+                                ${selectedOffer.proposal.priceWithoutDiscount.amount}
+                            </span> <span class="wwo-offer-price-currency">&euro;</span>
+                        </div>
+                    ` : ``}
+                    <div class="wwo-price">
+                        ${selectedOffer.proposal.price.amount} €
+                    </div>
+                    <button 
+                        class="wwo-room-type-proposal-link"
+                        onclick="window.open('${widgetOptions.proposalUrl}${selectedOffer.proposal.proposalKey}', '_blank')"
+                        >
+                        ${wwo_strings.seeOffer}
+                    </button>
+                </div><!-- .wwo-wrapper -->
             </div><!-- .wwo-room-type-data -->
+            <div class="wwo-room-type-description">
+                ${widgetOptions.display.modal.accommodationDetails ? buildAccommodationDetailsHtml(item.acf_accommodation_details) : ''}
+            </div>
+            <div class="wwo-room-type-description-toggle">
+                <button class="wwo-room-type-description-switch">
+                    ${wwo_strings['more-info']}
+                </button>
+            </div><!-- .wwo-room-type-description-toggle -->
         </div><!-- .wwo-room-type-proposal -->
     `;
 };
 
 const buildImageGalleryHtml = (imageGallery) => {
+    if (!Array.isArray(imageGallery) || imageGallery.length === 0) {
+        return '';
+    }
     let codeHtml = '<ul class="wwo-image-gallery">';
     imageGallery.forEach((item) => {
         codeHtml += `<li><img src="${item.sizes['ud-thumb-500']}" alt="${item.alt || item.name}" width="200" height="200" /></li>`;
@@ -1284,12 +1360,15 @@ const buildImageGalleryHtml = (imageGallery) => {
 };
 
 const buildAccommodationDetailsHtml = (details) => {
+    if (!Array.isArray(details) || details.length === 0) {
+        return '';
+    }
     let codeHtml = '<ul class="wwo-accommodation-details-list">';
     details.forEach((item) => {
         codeHtml += `
             <li class="wwo-detail-type wwo-type-${item.tipo_de_detalle}">
                 <span class="wwo-detail-type-name">${item.tipo_de_detalle}</span>
-                <div class="wwo-details-description" style="border: 2px #000 solid;">
+                <div class="wwo-details-description">
                     ${item.alojamiento_especificaciones_tecnicas_descripcion}
                 </div>
             </li>
@@ -1378,10 +1457,16 @@ const buildModalHtml = (selectedOffer, wwo_strings) => {
         ` : ''}
     `;
 
+    htmlBuffer += `<div class="wwo-room-types-container" data-accommodation-length="${selectedOffer.accommodation.length}">`;
+
+    let counter = 0;
     selectedOffer.accommodation.forEach((item) => {
         // if (debugModal) console.log('item', item);
-        htmlBuffer += buildAccommodationHtml(item, disponibilityRange, selectedOffer, wwo_strings, numberOfChildrenDisplay);
+        counter ++;
+        htmlBuffer += buildAccommodationHtml(item, disponibilityRange, selectedOffer, wwo_strings, numberOfChildrenDisplay, counter);
     });
+
+    htmlBuffer += '</div><!-- .wwo-room-types-container -->';
 
     return htmlBuffer;
 };
@@ -1619,6 +1704,13 @@ const getCrossSelling = (proposalsOffersArray, selectedOffer, wwo_strings, widge
                 `;
                 listOfOffersCrossSellingOutput += `
                         <div class="wwo-price-amount">
+                            ${offerItem.proposal.priceWithoutDiscount.amount !== offerItem.proposal.price.amount ? `
+                                <div class="wwo-price-without-discount">
+                                    <span class="wwo-offer-price-amount">
+                                        ${offerItem.proposal.priceWithoutDiscount.amount}
+                                    </span> <span class="wwo-offer-price-currency">&euro;</span>
+                                </div>
+                            ` : ``}
                             ${offerItem.proposal.price.amount} &euro;
                         </div><!-- .wwo-price-amount -->
                 `;
@@ -1901,6 +1993,13 @@ const generateOfferHtml = (item, property, options, lowestPrice, firstCategorySe
                                 ${wwo_strings.priceFrom}
                             </div><!-- .wwo-offer-description -->
                             <div class="wwo-offer-price">
+                                ${item.proposal.priceWithoutDiscount.amount !== item.proposal.price.amount ? `
+                                    <div class="wwo-price-without-discount">
+                                        <span class="wwo-offer-price-amount">
+                                            ${item.proposal.priceWithoutDiscount.amount}
+                                        </span> <span class="wwo-offer-price-currency">&euro;</span>
+                                    </div>
+                                ` : ``}
                                 <span class="wwo-offer-price-amount">${item.proposal.price.amount}</span> <span class="wwo-offer-price-currency">&euro;</span>
                             </div><!-- .wwo-offer-price -->
                             <div class="wwo-offer-button">
@@ -2018,6 +2117,8 @@ const handleItemClick = (item) => {
     const proposalsOffersArray = getProposalsOffersArray();
     if (debugModal) console.log('proposalsOffersArray:', proposalsOffersArray);
 
+    // console.log('proposalsOffersArray:', proposalsOffersArray);
+
     const selectedOffer = findSelectedOffer(proposalsOffersArray, itemDataSet);
     if (!selectedOffer) return;
 
@@ -2071,7 +2172,7 @@ const handleItemClick = (item) => {
             container.nextElementSibling.querySelector('.wwo-more-offers').classList.toggle('active');
             container.nextElementSibling.querySelector('.wwo-less-offers').classList.toggle('active');
         } else {
-            console.log('Click on more!!!');
+            // console.log('Click on more!!!');
             // If not a title, find the previous sibling which should be `.wwo-list-of-offers`
             container = event.currentTarget.previousElementSibling;
             moreOffersBtn = event.currentTarget.querySelector('.wwo-more-offers');
@@ -2107,6 +2208,54 @@ const handleItemClick = (item) => {
             lessOffersBtn.classList.toggle('active');
         }
     }
+
+
+
+    document.querySelectorAll('.wwo-room-type-proposal-switch').forEach(button => {
+        button.addEventListener('click', handleToggleRoomTypeProposal);
+    });
+    function handleToggleRoomTypeProposal(event) {
+        // console.log('Toggle room type proposal');
+        document.querySelectorAll('.wwo-room-type-proposal').forEach(element => {
+            element.classList.remove('active');
+
+            // Select the corresponding .wwo-room-type-proposal element
+            const proposalElement = document.querySelector(
+                `.wwo-room-type-proposal[data-accommodation-code="${event.currentTarget.dataset.accommodationCode}"]`
+            );
+            // Add the 'active' class to the selected element
+            if (proposalElement) {
+                proposalElement.classList.add('active');
+            }
+        });
+    }
+
+
+    document.querySelectorAll('.wwo-room-type-description-switch').forEach(button => {
+        button.addEventListener('click', handleToggleRoomTypeDescription);
+    });
+    function handleToggleRoomTypeDescription(event) {
+        // console.log('Toggle handleToggleRoomTypeDescription');
+
+        // Find the closest .wwo-room-type-description element to the clicked button
+        const descriptionElement = event.currentTarget.closest('.wwo-room-type-description-toggle').previousElementSibling;
+
+        if (descriptionElement) {
+            // Toggle the 'active' class on the .wwo-room-type-description element
+            descriptionElement.classList.toggle('active');
+        }
+
+        // Toggle the button text between "Plus d'infos" and "Moins d'infos"
+        const button = event.currentTarget;
+        if (descriptionElement.classList.contains('active')) {
+            button.textContent = wwo_strings['less-info'];
+        } else {
+            button.textContent = wwo_strings['more-info'];
+        }
+
+        
+    }
+
 
 };
 
@@ -2216,6 +2365,8 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
     const orderedOffers = uniqueFilteredOffers.sort((a, b) => a.proposal.price.amount - b.proposal.price.amount);
     if (debugUpselling) console.log('orderedOffers:', orderedOffers);
 
+    // console.log('orderedOffers:', orderedOffers);
+    
     const disponibilityRange = formatDateRange(
         selectedOffer.proposal.formattedDate,
         addDaysToDate(selectedOffer.proposal.formattedDate, selectedOffer.proposal.nbDays)
@@ -2224,8 +2375,14 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
     // List all the offers that have the same range of dates and the same category except the selected offer
     let listOfOffersUpselling = '<ul class="wwo-list-of-offers">';
     let counter = -1;
+
+
+
+
+
     orderedOffers.forEach((offerItem) => {
         if ( offerItem.proposal.proposalKey !== selectedOffer.proposal.proposalKey && counter < widgetDisplayLimit ) {
+            // console.log('offerItem.accommodation.length:', offerItem.accommodation.length);
             if (debugUpselling) console.log('offerItem:', offerItem);
             if( selectedOffer.proposal.propertyId === offerItem.proposal.propertyId ) {
                 counter++;
@@ -2236,8 +2393,10 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
                 if (debugUpselling) listOfOffersUpsellingAccommodations += '<pre>'+JSON.stringify(offerItem.proposal.distribution, null, 2)+'</pre>';
 
                 listOfOffersUpsellingAccommodations += `<div class="wwo-accommodation-items">`;
+                // console.log('offerItem:', offerItem);
+                // console.log('offerItem.accommodation:', offerItem.accommodation);
                 offerItem.accommodation.forEach((accommodationItem) => {
-
+                    // console.log('accommodationItem:', accommodationItem);
                     let quantity = getRoomsQuantity(offerItem.proposal.distribution.roomTypes, accommodationItem.acf_ws_accommodation_code);
 
                     /* Dev note: To print accommodation code you can insert this code in the returned template
@@ -2254,7 +2413,14 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
                             ${quantity} x
                         </span>
                         
-                        <strong>${accommodationItem.post_title}</strong>
+                        <strong>
+                            ${accommodationItem.post_title}
+                            <span class="wwo-accommodation-code"> (${accommodationItem['acf_ws_accommodation_code']})</span>
+                        </strong>
+                        <button class="" data-accommodation-code="">
+                            + info
+                        </button>
+
                         <div class="wwo-accommodation-data">
                             (${accommodationItem.acf_ws_accommodation_nb_beds} ${wwo_strings.beds}, ${accommodationItem.acf_ws_accommodation_pax_max} ${wwo_strings['people-max']}, ${accommodationItem.acf_ws_accommodation_size_area} ${wwo_strings['square-meters']})
                         </div><!-- .wwo-accommodation-data -->
@@ -2266,6 +2432,13 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
 
                 listOfOffersUpsellingAccommodations += `
                     <div class="wwo-price-amount">
+                        ${offerItem.proposal.priceWithoutDiscount.amount !== offerItem.proposal.price.amount ? `
+                            <div class="wwo-price-without-discount">
+                                <span class="wwo-offer-price-amount">
+                                    ${offerItem.proposal.priceWithoutDiscount.amount}
+                                </span> <span class="wwo-offer-price-currency">&euro;</span>
+                            </div>
+                        ` : ``}
                         ${offerItem.proposal.price.amount} &euro;
                     </div><!-- .wwo-price-amount -->
                 `;

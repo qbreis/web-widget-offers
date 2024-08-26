@@ -29,6 +29,8 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
     const orderedOffers = uniqueFilteredOffers.sort((a, b) => a.proposal.price.amount - b.proposal.price.amount);
     if (debugUpselling) console.log('orderedOffers:', orderedOffers);
 
+    // console.log('orderedOffers:', orderedOffers);
+    
     const disponibilityRange = formatDateRange(
         selectedOffer.proposal.formattedDate,
         addDaysToDate(selectedOffer.proposal.formattedDate, selectedOffer.proposal.nbDays)
@@ -37,8 +39,14 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
     // List all the offers that have the same range of dates and the same category except the selected offer
     let listOfOffersUpselling = '<ul class="wwo-list-of-offers">';
     let counter = -1;
+
+
+
+
+
     orderedOffers.forEach((offerItem) => {
         if ( offerItem.proposal.proposalKey !== selectedOffer.proposal.proposalKey && counter < widgetDisplayLimit ) {
+            // console.log('offerItem.accommodation.length:', offerItem.accommodation.length);
             if (debugUpselling) console.log('offerItem:', offerItem);
             if( selectedOffer.proposal.propertyId === offerItem.proposal.propertyId ) {
                 counter++;
@@ -49,8 +57,10 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
                 if (debugUpselling) listOfOffersUpsellingAccommodations += '<pre>'+JSON.stringify(offerItem.proposal.distribution, null, 2)+'</pre>';
 
                 listOfOffersUpsellingAccommodations += `<div class="wwo-accommodation-items">`;
+                // console.log('offerItem:', offerItem);
+                // console.log('offerItem.accommodation:', offerItem.accommodation);
                 offerItem.accommodation.forEach((accommodationItem) => {
-
+                    // console.log('accommodationItem:', accommodationItem);
                     let quantity = getRoomsQuantity(offerItem.proposal.distribution.roomTypes, accommodationItem.acf_ws_accommodation_code);
 
                     /* Dev note: To print accommodation code you can insert this code in the returned template
@@ -67,7 +77,14 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
                             ${quantity} x
                         </span>
                         
-                        <strong>${accommodationItem.post_title}</strong>
+                        <strong>
+                            ${accommodationItem.post_title}
+                            <span class="wwo-accommodation-code"> (${accommodationItem['acf_ws_accommodation_code']})</span>
+                        </strong>
+                        <button class="" data-accommodation-code="">
+                            + info
+                        </button>
+
                         <div class="wwo-accommodation-data">
                             (${accommodationItem.acf_ws_accommodation_nb_beds} ${wwo_strings.beds}, ${accommodationItem.acf_ws_accommodation_pax_max} ${wwo_strings['people-max']}, ${accommodationItem.acf_ws_accommodation_size_area} ${wwo_strings['square-meters']})
                         </div><!-- .wwo-accommodation-data -->
@@ -79,6 +96,13 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
 
                 listOfOffersUpsellingAccommodations += `
                     <div class="wwo-price-amount">
+                        ${offerItem.proposal.priceWithoutDiscount.amount !== offerItem.proposal.price.amount ? `
+                            <div class="wwo-price-without-discount">
+                                <span class="wwo-offer-price-amount">
+                                    ${offerItem.proposal.priceWithoutDiscount.amount}
+                                </span> <span class="wwo-offer-price-currency">&euro;</span>
+                            </div>
+                        ` : ``}
                         ${offerItem.proposal.price.amount} &euro;
                     </div><!-- .wwo-price-amount -->
                 `;

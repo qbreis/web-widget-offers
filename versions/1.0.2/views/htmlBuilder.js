@@ -129,6 +129,13 @@ const generateOfferHtml = (item, property, options, lowestPrice, firstCategorySe
                                 ${wwo_strings.priceFrom}
                             </div><!-- .wwo-offer-description -->
                             <div class="wwo-offer-price">
+                                ${item.proposal.priceWithoutDiscount.amount !== item.proposal.price.amount ? `
+                                    <div class="wwo-price-without-discount">
+                                        <span class="wwo-offer-price-amount">
+                                            ${item.proposal.priceWithoutDiscount.amount}
+                                        </span> <span class="wwo-offer-price-currency">&euro;</span>
+                                    </div>
+                                ` : ``}
                                 <span class="wwo-offer-price-amount">${item.proposal.price.amount}</span> <span class="wwo-offer-price-currency">&euro;</span>
                             </div><!-- .wwo-offer-price -->
                             <div class="wwo-offer-button">

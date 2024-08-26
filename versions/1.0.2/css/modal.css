@@ -18,12 +18,12 @@
 
 .wwo-modal .wwo-modal-content {
     background-color: #ffffff;
-    width: 50%;
+    width: 80%;
     height: 100%;
     overflow-y: auto;
     position: absolute;
     top: 0;
-    right: -50%;
+    right: -80%;
     transition: all 0.35s;
 }
 
@@ -54,10 +54,17 @@
 .wwo-room-type-proposal {
     background-color: #cfcfcf;padding: 1em;margin: 1em 0;border-radius: 20px;
 }
+/*
 .wwo-room-type-info,
 .wwo-room-type-data { padding: 1em;}
+*/
 .wwo-room-type-data .wwo-my-selection-title { font-weight: bold;font-size: 1.1em;padding: 1em 0; }
 .wwo-room-type-data .wwo-my-selection-room-title { font-weight: bold; }
+
+.wwo-room-type-data .wwo-my-selection-room-title ul li { margin-bottom: .5em; }
+
+.wwo-room-type-info { width: 60%; }
+.wwo-room-type-data { width: 40%; }
 
 .wwo-proposals-counter {
     background-color: rgba(0, 0, 0, 0.5);
@@ -162,13 +169,30 @@
 .wwo-image-gallery {
     list-style: none;
     padding: 0;
+    /*
     margin: 0;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 50% 50%;
+    gap: 1em;
+    height: 400px;
 }
-.wwo-image-gallery li {height: 200px;width: 50%;background-color: rgba(255,0,0,.5); }
-.wwo-image-gallery li:nth-child(n+4) { display: none; }
+
+.wwo-image-gallery li { height: 200px;width: 100%;margin: 0!important; }
+.wwo-image-gallery li img { width: 100%;height: 100%;object-fit: cover; }
+.wwo-image-gallery li:first-child { 
+    /*height: 200px;width: 50%;*/
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    height: 100%;
+    width: 100%;
+}
+.wwo-image-gallery li:nth-child(n+4) { display: none;opacity: 0.2; }
+
 /*
 .wwo-image-gallery li { float: left;height: 200px; }
 .wwo-image-gallery li:nth-child(n+4) { display: none; }
@@ -186,6 +210,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .wwo-list-of-offers li .wwo-list-of-accommodations {
@@ -249,3 +274,22 @@
 .wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-more-offers:after { position: absolute;right: 10px;top: 5px;font-size: 1.5em; }
 .wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-more-offers:after { content: '+'; }
 .wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-less-offers:after { content: '-';right: 15px;top: 2px; }
+
+.wwo-room-type-description { 
+    width: 100%;padding: 1em;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+}
+.wwo-accommodation-details-list { list-style: none;padding: 0; }
+.wwo-room-type-description.active { 
+    height: auto;
+    padding: 1em;
+}
+
+.wwo-room-type-description-toggle { padding: 1em; }
+.wwo-room-type-description-toggle .wwo-room-type-description-switch { cursor: pointer; }
+
+.wwo-detail-type.wwo-type-chambres {
+    margin-bottom: 1em;
+}
