@@ -31,6 +31,8 @@ function getString(wwo_languageCode){
                 'fromPrice': 'Desde',
                 'moreOffers': 'Más ofertas',
                 'lessOffers': 'Menos ofertas',
+                'more-info': 'Más información',
+                'less-info': 'Menos información',
             }
             break;  
         case 'en':
@@ -63,6 +65,8 @@ function getString(wwo_languageCode){
                 'fromPrice': 'From',
                 'moreOffers': 'More offers',
                 'lessOffers': 'Less offers',
+                'more-info': 'More info',
+                'less-info': 'Less info',
             }
             break;
         case 'fr':
@@ -95,6 +99,8 @@ function getString(wwo_languageCode){
                 'fromPrice': 'A partir de',
                 'moreOffers': 'Plus d\'offres',
                 'lessOffers': 'Moins d\'offres',
+                'more-info': 'Plus d\'infos',
+                'less-info': 'Moins d\'infos',
         }
         break;
         

@@ -35,3 +35,32 @@
     text-align: center;
     padding: 1em;
 }
+
+.wwo-price-without-discount { 
+    text-decoration: line-through;
+    text-align: center;
+    font-size: initial;
+    font-weight: initial;
+}
+
+.wwo-accommodation-code { display: none; }
+
+.wwo-room-types-container { }
+.wwo-room-type-data ul {
+    list-style-type: none;
+    padding: 0;
+}
+.wwo-room-type-proposal { 
+    opacity: 0.2;
+    overflow: hidden;
+    height: 0;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.wwo-room-type-proposal.active { 
+    opacity: 1;
+    height: auto;
+}
+.wwo-room-type-proposal-switch {cursor: pointer; }
+
+.wwo-wrapper { padding: 1em; }

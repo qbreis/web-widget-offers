@@ -139,6 +139,13 @@ const getCrossSelling = (proposalsOffersArray, selectedOffer, wwo_strings, widge
                 `;
                 listOfOffersCrossSellingOutput += `
                         <div class="wwo-price-amount">
+                            ${offerItem.proposal.priceWithoutDiscount.amount !== offerItem.proposal.price.amount ? `
+                                <div class="wwo-price-without-discount">
+                                    <span class="wwo-offer-price-amount">
+                                        ${offerItem.proposal.priceWithoutDiscount.amount}
+                                    </span> <span class="wwo-offer-price-currency">&euro;</span>
+                                </div>
+                            ` : ``}
                             ${offerItem.proposal.price.amount} &euro;
                         </div><!-- .wwo-price-amount -->
                 `;

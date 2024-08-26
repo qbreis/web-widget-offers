@@ -74,10 +74,16 @@ const buildModalHtml = (selectedOffer, wwo_strings) => {
         ` : ''}
     `;
 
+    htmlBuffer += `<div class="wwo-room-types-container" data-accommodation-length="${selectedOffer.accommodation.length}">`;
+
+    let counter = 0;
     selectedOffer.accommodation.forEach((item) => {
         // if (debugModal) console.log('item', item);
-        htmlBuffer += buildAccommodationHtml(item, disponibilityRange, selectedOffer, wwo_strings, numberOfChildrenDisplay);
+        counter ++;
+        htmlBuffer += buildAccommodationHtml(item, disponibilityRange, selectedOffer, wwo_strings, numberOfChildrenDisplay, counter);
     });
+
+    htmlBuffer += '</div><!-- .wwo-room-types-container -->';
 
     return htmlBuffer;
 };

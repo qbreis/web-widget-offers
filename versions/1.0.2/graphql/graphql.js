@@ -93,7 +93,7 @@ endpointData:
 const runGraphql = async (options, endpointData) => {
     try {
         const sessionString = await fetchSessionData(options, wwo_graphqlQueries.getSession);
-        if (debugGraphql) console.log('sessionString', sessionString);
+        if (debugGraphql) console.log('sessionString:', sessionString);
         await handleSessionData(sessionString, options, endpointData);
     } catch (error) {
         console.error('Error en runGraphql:', error);
@@ -103,14 +103,16 @@ const runGraphql = async (options, endpointData) => {
 const handleSessionData = async (sessionString, options, endpointData) => {
     const proposalsQuery = buildProposalsQuery(sessionString, endpointData);
     try {
+        if(debugGraphql) console.log('proposalsQuery', proposalsQuery);
         let proposalsData = await fetchProposalsData(options.graphqlConfig.endpointUrl, proposalsQuery);
         if (debugGraphql) console.log('Datos recibidos getProposals de GraphQL endpoint ' + options.graphqlConfig.endpointUrl + ':', proposalsData.data);
 
         if (proposalsData.errors && proposalsData.errors.length > 0) {
             if (debugGraphql) console.log('proposalsData.errors', proposalsData.errors);
-            
-            deleteCookie(options.sessionCookieName);
-            runGraphql(options, endpointData);
+            // If there are errors, delete the session cookie and run the query again
+            // doing this when there is an error in the proposals query it will result in an infinite loop!!!
+            // deleteCookie(options.sessionCookieName);
+            // runGraphql(options, endpointData);
             return;
         }
 
