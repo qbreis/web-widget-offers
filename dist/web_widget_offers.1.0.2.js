@@ -80,7 +80,7 @@ var css = "#wwo-offers-list{display:flex;justify-content:center}.wwo-slider-wrap
 },{"browserify-css":1}],3:[function(require,module,exports){
 var css = "ul.wwo-categories-nav{margin:0;padding:0;list-style:none;display:flex;justify-content:center}ul.wwo-categories-nav li.wwo-category-nav-item{background-color:#ddd;padding:.5em;margin:.5em;cursor:pointer;transition:all .35s}ul.wwo-categories-nav li.wwo-category-nav-item.wwo-active,ul.wwo-categories-nav li.wwo-category-nav-item:hover{background-color:#aaa}ul.wwo-grid-container li.wwo-single-element,ul.wwo-offers-container li.wwo-single-element{display:none}ul.wwo-grid-container li.wwo-single-element.wwo-active,ul.wwo-offers-container li.wwo-single-element.wwo-active{display:block}li.wwo-single-element{opacity:.3}li.wwo-single-element.wwo-lowest-price{opacity:1}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.2\\css\\generateNavCategoriesHtml.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":1}],4:[function(require,module,exports){
-var css = ".wwo-modal{background-color:rgba(0,0,0,.8);position:fixed;z-index:100;width:100vw;height:100vh;top:0;left:0;opacity:0;pointer-events:none;transition:all .35s}.wwo-modal.wwo-active{opacity:1;pointer-events:auto}.wwo-modal .wwo-modal-content{background-color:#fff;width:80%;height:100%;overflow-y:auto;position:absolute;top:0;right:-80%;transition:all .35s}.wwo-modal.wwo-active .wwo-modal-content{right:0}.wwo-modal-close{cursor:pointer;position:fixed;top:0;right:.5em;font-size:2em;width:50px;height:50px;display:flex;justify-content:center;align-items:center}#wwo-modal-container{padding:1em;padding-top:0;margin-top:50px}.wwo-establishment-proposal,.wwo-room-type-proposal{background-color:#cfcfcf;padding:1em;margin:1em 0;border-radius:20px}.wwo-room-type-data .wwo-my-selection-title{font-weight:700;font-size:1.1em;padding:1em 0}.wwo-room-type-data .wwo-my-selection-room-title{font-weight:700}.wwo-room-type-data .wwo-my-selection-room-title ul li{margin-bottom:.5em}.wwo-room-type-info{width:60%}.wwo-room-type-data{width:40%}.wwo-proposals-counter{background-color:rgba(0,0,0,.5);border-radius:10px;padding:.2em .4em;margin:0 .2em 0 0;color:#fff}.wwo-room-quantity-1{background-color:#e1e1e1;color:#000}.wwo-price{font-size:2em;background-color:rgba(0,0,0,.5);border-radius:10px;padding:.2em .4em;margin:0 .2em 0 0;color:#fff;margin:.5em 0;text-align:center}.wwo-offer-button-text,.wwo-room-type-proposal-link{background-color:#e1e1e1;border:0;border-radius:5px;text-transform:uppercase;font-weight:700;width:100%;padding:.5em;cursor:pointer}.wwo-details{font-size:1rem}.wwo-details:after{content:', '}.wwo-details:last-child:after{content:''}.wwo-accommodation-details{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:center}.wwo-accommodation-details li{background-color:#e1e1e1;border-radius:5px;padding:.2em .4em;margin:0 .5em 0 0}.wwo-disponibility-dates,.wwo-disponibility-range{color:rgba(0,0,0,.5);padding:.5em 0}.wwo-modal-header{display:flex;align-items:center;padding:1em}.wwo-offer-season,.wwo-offer-title{font-size:1.5em;font-weight:700;padding:.5em 0}.wwo-offer-season{text-transform:capitalize}.wwo-list-of-offers{list-style:none;padding:0;margin:0}.wwo-list-of-offers .wwo-list-of-accommodations .wwo-accommodation-item{padding:.2em 0;margin-bottom:.5em}.wwo-list-of-offers li{background-color:#cfcfcf;padding:1em;border-bottom:1px solid #e1e1e1}.wwo-offers-togle-title{font-size:1.1em;font-weight:700;background-color:#cfcfcf;padding:.5em;cursor:pointer;border-bottom:1px solid #e1e1e1}.wwo-offers-list-section{margin:1em 0}.wwo-price-amount{font-size:1.5em;font-weight:700}.wwo-image-gallery{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:50% 50%;gap:1em;height:400px}.wwo-image-gallery li{height:200px;width:100%;margin:0!important}.wwo-image-gallery li img{width:100%;height:100%;object-fit:cover}.wwo-image-gallery li:first-child{grid-column:1/2;grid-row:1/3;height:100%;width:100%}.wwo-image-gallery li:nth-child(n+4){display:none;opacity:.2}@media screen and (max-width:1000px){.wwo-modal-content{width:65%!important}}@media screen and (max-width:700px){.wwo-modal-content{width:100%!important}}.wwo-room-type-proposal{display:flex;align-items:center;justify-content:center;flex-wrap:wrap}.wwo-list-of-offers li .wwo-list-of-accommodations{display:flex;align-items:center;justify-content:space-between}.wwo-list-of-offers li .wwo-list-of-accommodations .wwo-accommodation-items{width:40%}.wwo-list-of-offers li .wwo-list-of-accommodations .wwo-price-amount{width:20%;text-align:center}.wwo-list-of-offers li .wwo-list-of-accommodations .wwo-disponibility-extract{width:40%}.wwo-accommodation-items .wwo-accommodation-item .wwo-accommodation-data{display:none}.wwo-list-of-offers .offer-item{opacity:.5;height:0;overflow:hidden;padding:0 1em;transition:all .2s;border-bottom:0}.wwo-list-of-offers .offer-item.active{opacity:1;height:auto;padding:1em;border-bottom:1px solid #e1e1e1}.wwo-open-close-disponibilities{display:flex;justify-content:center;align-items:center;color:#fff;padding:.5em;cursor:pointer;background-color:rgba(0,0,0,.5)}.wwo-open-close-disponibilities span{display:none}.wwo-open-close-disponibilities span.active{display:block}.wwo-offers-togle-title{position:relative;padding-right:calc(40px + .5em)}.wwo-offers-togle-title .wwo-open-close-disponibilities{position:absolute;right:0;top:0;display:block;justify-content:center;align-items:center;color:#fff;padding:0;cursor:pointer;background-color:rgba(0,0,0,.5)}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-less-offers,.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-more-offers{width:40px;height:40px;overflow:hidden;text-indent:45px;white-space:nowrap}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-less-offers:after,.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-more-offers:after{position:absolute;right:10px;top:5px;font-size:1.5em}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-more-offers:after{content:'+'}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-less-offers:after{content:'-';right:15px;top:2px}.wwo-room-type-description{width:100%;padding:1em;height:0;overflow:hidden;padding:0}.wwo-accommodation-details-list{list-style:none;padding:0}.wwo-room-type-description.active{height:auto;padding:1em}.wwo-room-type-description-toggle{padding:1em}.wwo-room-type-description-toggle .wwo-room-type-description-switch{cursor:pointer}.wwo-detail-type.wwo-type-chambres{margin-bottom:1em}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.2\\css\\modal.css" }, { "insertAt": "bottom" })); module.exports = css;
+var css = ".wwo-modal{background-color:rgba(0,0,0,.8);position:fixed;z-index:100;width:100vw;height:100vh;top:0;left:0;opacity:0;pointer-events:none;transition:all .35s}.wwo-modal.wwo-active{opacity:1;pointer-events:auto}.wwo-modal .wwo-modal-content{background-color:#fff;width:80%;height:100%;overflow-y:auto;position:absolute;top:0;right:-80%;transition:all .35s}.wwo-modal.wwo-active .wwo-modal-content{right:0}.wwo-modal-close{cursor:pointer;position:fixed;top:0;right:.5em;font-size:2em;width:50px;height:50px;display:flex;justify-content:center;align-items:center}#wwo-modal-container{padding:1em;padding-top:0;margin-top:50px}.wwo-establishment-proposal,.wwo-room-type-proposal{background-color:#cfcfcf;padding:1em;margin:1em 0;border-radius:20px}.wwo-room-type-data .wwo-my-selection-title{font-weight:700;font-size:1.1em;padding:1em 0}.wwo-room-type-data .wwo-my-selection-room-title{font-weight:700}.wwo-room-type-data .wwo-my-selection-room-title ul li{margin-bottom:.5em}.wwo-room-type-info{width:60%}.wwo-room-type-data{width:40%}.wwo-proposals-counter{background-color:rgba(0,0,0,.5);border-radius:10px;padding:.2em .4em;margin:0 .2em 0 0;color:#fff}.wwo-room-quantity-1{background-color:#e1e1e1;color:#000}.wwo-price{font-size:2em;background-color:rgba(0,0,0,.5);border-radius:10px;padding:.2em .4em;margin:0 .2em 0 0;color:#fff;margin:.5em 0;text-align:center}.wwo-offer-button-text,.wwo-room-type-proposal-link{background-color:#e1e1e1;border:0;border-radius:5px;text-transform:uppercase;font-weight:700;width:100%;padding:.5em;cursor:pointer}.wwo-details{font-size:1rem}.wwo-details:after{content:', '}.wwo-details:last-child:after{content:''}.wwo-accommodation-details{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:center}.wwo-accommodation-details li{background-color:#e1e1e1;border-radius:5px;padding:.2em .4em;margin:0 .5em 0 0}.wwo-disponibility-dates,.wwo-disponibility-range{color:rgba(0,0,0,.5);padding:.5em 0}.wwo-modal-header{display:flex;align-items:center;padding:1em}.wwo-offer-season,.wwo-offer-title{font-size:1.5em;font-weight:700;padding:.5em 0}.wwo-offer-season{text-transform:capitalize}.wwo-list-of-offers{list-style:none;padding:0;margin:0}.wwo-list-of-offers .wwo-list-of-accommodations .wwo-accommodation-item{padding:.2em 0;margin-bottom:.5em}.wwo-list-of-offers li{background-color:#cfcfcf;padding:1em;border-bottom:1px solid #e1e1e1}.wwo-offers-togle-title{font-size:1.1em;font-weight:700;background-color:#cfcfcf;padding:.5em;cursor:pointer;border-bottom:1px solid #e1e1e1}.wwo-offers-list-section{margin:1em 0}.wwo-price-amount{font-size:1.5em;font-weight:700}.wwo-image-gallery{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:50% 50%;gap:1em;height:400px}.wwo-image-gallery li{height:200px;width:100%;margin:0!important}.wwo-image-gallery li img{width:100%;height:100%;object-fit:cover}.wwo-image-gallery li:first-child{grid-column:1/2;grid-row:1/3;height:100%;width:100%}.wwo-image-gallery li:nth-child(n+4){display:none;opacity:.2}@media screen and (max-width:1000px){.wwo-modal-content{width:65%!important}}@media screen and (max-width:700px){.wwo-modal-content{width:100%!important}}.wwo-room-type-proposal{display:flex;align-items:center;justify-content:center;flex-wrap:wrap}.wwo-list-of-offers li .wwo-list-of-accommodations{display:flex;align-items:center;justify-content:space-between}.wwo-list-of-offers li .wwo-list-of-accommodations .wwo-accommodation-items{width:40%}.wwo-list-of-offers li .wwo-list-of-accommodations .wwo-price-amount{width:20%;text-align:center}.wwo-list-of-offers li .wwo-list-of-accommodations .wwo-disponibility-extract{width:40%}.wwo-accommodation-items .wwo-accommodation-item .wwo-accommodation-data{display:none}.wwo-list-of-offers .offer-item{opacity:.5;height:0;overflow:hidden;padding:0 1em;transition:all .2s;border-bottom:0}.wwo-list-of-offers .offer-item.active{opacity:1;height:auto;padding:1em;border-bottom:1px solid #e1e1e1}.wwo-open-close-disponibilities{display:flex;justify-content:center;align-items:center;color:#fff;padding:.5em;cursor:pointer;background-color:rgba(0,0,0,.5)}.wwo-open-close-disponibilities span{display:none}.wwo-open-close-disponibilities span.active{display:block}.wwo-offers-togle-title{position:relative;padding-right:calc(40px + .5em)}.wwo-offers-togle-title .wwo-open-close-disponibilities{position:absolute;right:0;top:0;display:block;justify-content:center;align-items:center;color:#fff;padding:0;cursor:pointer;background-color:rgba(0,0,0,.5)}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-less-offers,.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-more-offers{width:40px;height:40px;overflow:hidden;text-indent:45px;white-space:nowrap}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-less-offers:after,.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-more-offers:after{position:absolute;right:10px;top:5px;font-size:1.5em}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-more-offers:after{content:'+'}.wwo-offers-togle-title .wwo-open-close-disponibilities .wwo-less-offers:after{content:'-';right:15px;top:2px}.wwo-room-type-description{width:100%;padding:1em;height:0;overflow:hidden;padding:0}.wwo-accommodation-details-list{list-style:none;padding:0}.wwo-room-type-description.active{height:auto;padding:1em}.wwo-room-type-description-toggle{padding:1em}.wwo-room-type-description-toggle .wwo-room-type-description-switch{cursor:pointer}.wwo-detail-type.wwo-type-chambres{margin-bottom:1em}.wwo-room-type-description-visible{padding:1em}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.2\\css\\modal.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":1}],5:[function(require,module,exports){
 var css = "#web-widget-container,#wwo-modal{font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif}.wwo-offer-container.wwo-environment-preprod .wwo-debug-container,.wwo-offer-container.wwo-environment-preproduction .wwo-debug-container,.wwo-offer-container.wwo-environment-prod .wwo-debug-container,.wwo-offer-container.wwo-environment-production .wwo-debug-container{display:none!important}.wwo-offer-container.wwo-environment-dev .wwo-offer-item{height:800px}.wwo-featured-image-wrapper{height:200px;overflow:hidden}.wwo-offer-wrapper{padding:.5em}.wwo-featured-image{width:100%;height:100%;object-fit:cover}.offer-title{font-weight:700;font-size:1.2em}.wwo-no-offers{text-align:center;padding:1em}.wwo-price-without-discount{text-decoration:line-through;text-align:center;font-size:initial;font-weight:initial}.wwo-accommodation-code{display:none}.wwo-room-type-data ul{list-style-type:none;padding:0}.wwo-room-type-proposal{opacity:.2;overflow:hidden;height:0;padding:0!important;margin:0!important}.wwo-room-type-proposal.active{opacity:1;height:auto}.wwo-room-type-proposal-switch{cursor:pointer}.wwo-wrapper{padding:1em}"; (require("browserify-css").createStyle(css, { "href": "versions\\1.0.2\\css\\style.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":1}],6:[function(require,module,exports){
@@ -356,7 +356,7 @@ function initWidget(options) {
     }
 
     // Initialize the modal
-    initModal();
+    //initModal();
 }
 
 module.exports = { initWidget };
@@ -423,6 +423,7 @@ function getString(wwo_languageCode){
                 'lessOffers': 'Menos ofertas',
                 'more-info': 'Más información',
                 'less-info': 'Menos información',
+                'plus-info': '+ info',
             }
             break;  
         case 'en':
@@ -457,6 +458,7 @@ function getString(wwo_languageCode){
                 'lessOffers': 'Less offers',
                 'more-info': 'More info',
                 'less-info': 'Less info',
+                'plus-info': '+ info',
             }
             break;
         case 'fr':
@@ -491,6 +493,7 @@ function getString(wwo_languageCode){
                 'lessOffers': 'Moins d\'offres',
                 'more-info': 'Plus d\'infos',
                 'less-info': 'Moins d\'infos',
+                'plus-info': '+ info',
         }
         break;
         
@@ -1214,9 +1217,40 @@ const getRoomsQuantity = (roomTypes, accommodationCode) => {
     return quantity;
 };
 
-module.exports = { convertDateFormat, formatDateRange, addDaysToDate, getRoomsQuantity };
+const buildImageGalleryHtml = (imageGallery) => {
+    if (!Array.isArray(imageGallery) || imageGallery.length === 0) {
+        return '';
+    }
+    let codeHtml = '<ul class="wwo-image-gallery">';
+    imageGallery.forEach((item) => {
+        codeHtml += `<li><img src="${item.sizes['ud-thumb-500']}" alt="${item.alt || item.name}" width="200" height="200" /></li>`;
+    });
+    codeHtml += '</ul>';
+    return codeHtml;
+};
+
+const buildAccommodationDetailsHtml = (details) => {
+    if (!Array.isArray(details) || details.length === 0) {
+        return '';
+    }
+    let codeHtml = '<ul class="wwo-accommodation-details-list">';
+    details.forEach((item) => {
+        codeHtml += `
+            <li class="wwo-detail-type wwo-type-${item.tipo_de_detalle}">
+                <span class="wwo-detail-type-name">${item.tipo_de_detalle}</span>
+                <div class="wwo-details-description">
+                    ${item.alojamiento_especificaciones_tecnicas_descripcion}
+                </div>
+            </li>
+        `;
+    });
+    codeHtml += '</ul>';
+    return codeHtml;
+};
+
+module.exports = { convertDateFormat, formatDateRange, addDaysToDate, getRoomsQuantity, buildImageGalleryHtml, buildAccommodationDetailsHtml };
 },{"../lang/languageManager":9}],21:[function(require,module,exports){
-const { getRoomsQuantity } = require('../utils/utils');
+const { getRoomsQuantity, buildImageGalleryHtml, buildAccommodationDetailsHtml } = require('../utils/utils');
 const { getOptionsOffers } = require('../utils/optionsOffers');
 
 const buildAccommodationHtml = (item, disponibilityRange, selectedOffer, wwo_strings, numberOfChildrenDisplay, counter) => {
@@ -1349,6 +1383,7 @@ const buildAccommodationHtml = (item, disponibilityRange, selectedOffer, wwo_str
     `;
 };
 
+/*
 const buildImageGalleryHtml = (imageGallery) => {
     if (!Array.isArray(imageGallery) || imageGallery.length === 0) {
         return '';
@@ -1379,6 +1414,7 @@ const buildAccommodationDetailsHtml = (details) => {
     codeHtml += '</ul>';
     return codeHtml;
 };
+*/
 
 
 module.exports = { buildAccommodationHtml };
@@ -1695,6 +1731,9 @@ const getCrossSelling = (proposalsOffersArray, selectedOffer, wwo_strings, widge
                                     ${quantity} x
                                 </span>
                                 <strong>${accommodationItem.post_title}</strong>
+                                <button class="wwo-show-accommodation-details" data-accommodation-code="${accommodationItem['acf_ws_accommodation_code']}">
+                                    ${wwo_strings['plus-info']}
+                                </button>
                                 <div class="wwo-accommodation-data">
                                     (${accommodationItem.acf_ws_accommodation_nb_beds} ${wwo_strings.beds}, ${accommodationItem.acf_ws_accommodation_pax_max} ${wwo_strings['people-max']}, ${accommodationItem.acf_ws_accommodation_size_area} ${wwo_strings['square-meters']})
                                 </div><!-- .wwo-accommodation-data -->
@@ -2062,6 +2101,7 @@ const { getCrossSelling } = require('./crossSelling');
 // const { getCrossSellingOld } = require('./crossSellingOld');
 const { buildModalHtml } = require('./buildModalHtml');
 const { getOptionsOffers } = require('../utils/optionsOffers');
+const { buildImageGalleryHtml, buildAccommodationDetailsHtml } = require('../utils/utils');
 
 const debugModal = 0;
 if (debugModal) console.log('debugModal is set to 1');
@@ -2145,17 +2185,96 @@ const handleItemClick = (item) => {
     // TODO: Move following code to a separate file and import it where needed as it has nothing to do directly with "modal" functionality but with "offers" functionality PLUS refactor function itself couple o times...
     // Attach event listeners for the toggle buttons and the title
     const toggleButtons = document.querySelectorAll('.wwo-open-close-disponibilities');
-    const toggleTitles = document.querySelectorAll('.wwo-offers-togle-title');
-
     // Add event listeners to toggle buttons
     toggleButtons.forEach(button => {
         button.addEventListener('click', handleToggleOffersList);
     });
 
+    const toggleTitles = document.querySelectorAll('.wwo-offers-togle-title');
     // Add event listeners to toggle titles
     toggleTitles.forEach(title => {
         title.addEventListener('click', handleToggleOffersList);
     });
+
+    const toggleAccommodationMoreInfo = document.querySelectorAll('.wwo-show-accommodation-details');
+    // Add event listeners to accommodation more info buttons
+    toggleAccommodationMoreInfo.forEach(title => {
+        title.addEventListener('click', handleToggleAccommodationMoreInfo);
+    });
+
+
+
+
+
+
+
+    // Function to toggle accommodation more info
+    function handleToggleAccommodationMoreInfo(event) {
+        // console.log('Toggle accommodation more info');
+        if (debugModal) console.log('accommodation code is... ', event.currentTarget.dataset.accommodationCode);
+        if (debugModal) console.log('proposalsOffersArray', proposalsOffersArray);
+
+
+        // Find the first matching accommodation in proposalsOffersArray with acf_ws_accommodation_code === the clicked accommodation code (event.currentTarget.dataset.accommodationCode)
+        const firstMatchingAccommodation = proposalsOffersArray.flatMap(offer => 
+            offer.accommodation
+        ).find(accommodation => 
+            accommodation.acf_ws_accommodation_code === event.currentTarget.dataset.accommodationCode
+        );
+        
+        if (debugModal) console.log('firstMatchingAccommodation', firstMatchingAccommodation);
+
+        // Select the existing <div> with class "wwo-modal-content"
+        //var container = document.querySelector('.wwo-modal-content');
+        var container = document.getElementById('wwo-modal');
+
+        // Create a new <div> element
+        var newDiv = document.createElement('div');
+        newDiv.id = 'accommodation-details';
+
+        newDiv.innerHTML = `
+            <div class="wwo-modal-content">
+                <span class="wwo-modal-close wwo-modal-accommodation-details">&times;</span>
+                <div class="wwo-room-type-info">
+                    <div class="wwo-wrapper">
+                        <h2>
+                            ${firstMatchingAccommodation.post_title}
+                            <span class="wwo-accommodation-code"> (${firstMatchingAccommodation.acf_ws_accommodation_code})</span>
+                        </h2>
+                        <ul class="wwo-accommodation-details">
+                            <li class="wwo-size">${firstMatchingAccommodation.acf_ws_accommodation_size_area} ${wwo_strings['square-meters']}</li>
+                            <li class="wwo-capacity">${firstMatchingAccommodation.acf_ws_accommodation_nb_beds} ${wwo_strings['beds']}</li>
+                            <li class="wwo-beds">${firstMatchingAccommodation.acf_ws_accommodation_pax_max} ${wwo_strings['people-max']}</li>
+                        </ul>
+                        ${buildImageGalleryHtml(firstMatchingAccommodation.acf_accommodation_image_gallery)}
+                    </div><!-- .wwo-wrapper -->
+                </div><!-- .wwo-room-type-info -->
+                <div class="wwo-room-type-description-visible">
+                    ${buildAccommodationDetailsHtml(firstMatchingAccommodation.acf_accommodation_details)}
+                </div><!-- .wwo-room-type-description-visible -->
+            </div><!-- .wwo-modal-content -->
+        `;
+
+        //  Append the new <div> to the existing <div>
+        if (container) { // Check if the container exists
+            container.appendChild(newDiv);
+            const modalAccommodationDetailsClose = document.querySelectorAll('.wwo-modal-close.wwo-modal-accommodation-details');
+            modalAccommodationDetailsClose.forEach(button => {
+                button.addEventListener('click', handleModalAccommodationDetailsClose);
+            });
+            function handleModalAccommodationDetailsClose(event) {
+                var divToRemove = document.getElementById('accommodation-details');
+                if (divToRemove) {
+                    divToRemove.remove(); // This removes the element from the DOM
+                } else {
+                    console.error('Element with id "accommodation-details" not found.');
+                }
+            }
+        } else {
+            console.error('Container with class "wwo-modal-content" not found.');
+        }
+
+    }
 
     // Function to toggle offers list
     function handleToggleOffersList(event) {
@@ -2211,8 +2330,6 @@ const handleItemClick = (item) => {
         }
     }
 
-
-
     document.querySelectorAll('.wwo-room-type-proposal-switch').forEach(button => {
         button.addEventListener('click', handleToggleRoomTypeProposal);
     });
@@ -2231,7 +2348,6 @@ const handleItemClick = (item) => {
             }
         });
     }
-
 
     document.querySelectorAll('.wwo-room-type-description-switch').forEach(button => {
         button.addEventListener('click', handleToggleRoomTypeDescription);
@@ -2255,15 +2371,20 @@ const handleItemClick = (item) => {
             button.textContent = wwo_strings['more-info'];
         }
 
-        
     }
-
 
 };
 
 const handleModalClick = (event, modalElement) => {
     if (event.target === modalElement) {
-        modalElement.classList.remove('wwo-active');
+
+        /* check if there is accommodation-details div */
+        var divToRemove = document.getElementById('accommodation-details');
+        if (divToRemove) {
+            divToRemove.remove(); // This removes the element from the DOM
+        } else {
+            modalElement.classList.remove('wwo-active');
+        }
     }
 };
 
@@ -2293,49 +2414,8 @@ const findSelectedOffer = (proposalsOffersArray, itemDataSet) => {
     return selectedOffer;
 };
 
-// TODO: I can move this function to separate file and import it where needed as it has nothing to do directly with "modal" functionality but with "offers" functionality
-/*
-function handleToggleOffersList() {
-    console.log('Toggle offers list');
-
-    // Get the closest parent container of the clicked element
-    const container = this.closest('.wwo-open-close-disponibilities').previousElementSibling;
-
-    // Get all the <li> elements within this container
-    const listItems = container.querySelectorAll('.offer-item');
-
-    // Loop through each <li> element
-    listItems.forEach((item, index) => {
-        if (index === 0) {
-            // Always keep the first <li> active
-            item.classList.add('active');
-        } else {
-            // Toggle the 'active' class for other <li> elements
-            item.classList.toggle('active');
-        }
-    });
-
-    // Toggle the visibility of more/less offers buttons
-    const moreOffersBtn = this.closest('.wwo-open-close-disponibilities').querySelector('.wwo-more-offers');
-    const lessOffersBtn = this.closest('.wwo-open-close-disponibilities').querySelector('.wwo-less-offers');
-    moreOffersBtn.classList.toggle('active');
-    lessOffersBtn.classList.toggle('active');
-}
-
-// Ensure the function is available globally
-window.handleToggleOffersList = handleToggleOffersList; // Expose the function to the global scope
-*/
-
-
-
-
-
-
-
-
-
 module.exports = { initModal };
-},{"../lang/languageManager":9,"../utils/optionsOffers":16,"../utils/proposalsOffersArray":17,"./buildModalHtml":22,"./crossSelling":24,"./upselling":28}],28:[function(require,module,exports){
+},{"../lang/languageManager":9,"../utils/optionsOffers":16,"../utils/proposalsOffersArray":17,"../utils/utils":20,"./buildModalHtml":22,"./crossSelling":24,"./upselling":28}],28:[function(require,module,exports){
 const debugUpselling = 0;
 if (debugUpselling) console.log('debugUpselling is set to 1');
 
@@ -2378,10 +2458,6 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
     let listOfOffersUpselling = '<ul class="wwo-list-of-offers">';
     let counter = -1;
 
-
-
-
-
     orderedOffers.forEach((offerItem) => {
         if ( offerItem.proposal.proposalKey !== selectedOffer.proposal.proposalKey && counter < widgetDisplayLimit ) {
             // console.log('offerItem.accommodation.length:', offerItem.accommodation.length);
@@ -2405,24 +2481,18 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
                     `<strong>${accommodationItem.post_title} (${accommodationItem['acf_ws_accommodation_code']})</strong>`
                     */
 
-
-
-
-                
                     listOfOffersUpsellingAccommodations += `
                     <div class="wwo-accommodation-item">
                         <span class="wwo-proposals-counter wwo-room-quantity-${quantity}">
                             ${quantity} x
                         </span>
-                        
                         <strong>
                             ${accommodationItem.post_title}
                             <span class="wwo-accommodation-code"> (${accommodationItem['acf_ws_accommodation_code']})</span>
                         </strong>
-                        <button class="" data-accommodation-code="">
-                            + info
+                        <button class="wwo-show-accommodation-details" data-accommodation-code="${accommodationItem['acf_ws_accommodation_code']}">
+                            ${wwo_strings['plus-info']}
                         </button>
-
                         <div class="wwo-accommodation-data">
                             (${accommodationItem.acf_ws_accommodation_nb_beds} ${wwo_strings.beds}, ${accommodationItem.acf_ws_accommodation_pax_max} ${wwo_strings['people-max']}, ${accommodationItem.acf_ws_accommodation_size_area} ${wwo_strings['square-meters']})
                         </div><!-- .wwo-accommodation-data -->

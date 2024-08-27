@@ -1,4 +1,4 @@
-const { getRoomsQuantity } = require('../utils/utils');
+const { getRoomsQuantity, buildImageGalleryHtml, buildAccommodationDetailsHtml } = require('../utils/utils');
 const { getOptionsOffers } = require('../utils/optionsOffers');
 
 const buildAccommodationHtml = (item, disponibilityRange, selectedOffer, wwo_strings, numberOfChildrenDisplay, counter) => {
@@ -131,6 +131,7 @@ const buildAccommodationHtml = (item, disponibilityRange, selectedOffer, wwo_str
     `;
 };
 
+/*
 const buildImageGalleryHtml = (imageGallery) => {
     if (!Array.isArray(imageGallery) || imageGallery.length === 0) {
         return '';
@@ -161,6 +162,7 @@ const buildAccommodationDetailsHtml = (details) => {
     codeHtml += '</ul>';
     return codeHtml;
 };
+*/
 
 
 module.exports = { buildAccommodationHtml };
