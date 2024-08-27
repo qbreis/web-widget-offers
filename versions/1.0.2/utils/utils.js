@@ -120,4 +120,35 @@ const getRoomsQuantity = (roomTypes, accommodationCode) => {
     return quantity;
 };
 
-module.exports = { convertDateFormat, formatDateRange, addDaysToDate, getRoomsQuantity };
+const buildImageGalleryHtml = (imageGallery) => {
+    if (!Array.isArray(imageGallery) || imageGallery.length === 0) {
+        return '';
+    }
+    let codeHtml = '<ul class="wwo-image-gallery">';
+    imageGallery.forEach((item) => {
+        codeHtml += `<li><img src="${item.sizes['ud-thumb-500']}" alt="${item.alt || item.name}" width="200" height="200" /></li>`;
+    });
+    codeHtml += '</ul>';
+    return codeHtml;
+};
+
+const buildAccommodationDetailsHtml = (details) => {
+    if (!Array.isArray(details) || details.length === 0) {
+        return '';
+    }
+    let codeHtml = '<ul class="wwo-accommodation-details-list">';
+    details.forEach((item) => {
+        codeHtml += `
+            <li class="wwo-detail-type wwo-type-${item.tipo_de_detalle}">
+                <span class="wwo-detail-type-name">${item.tipo_de_detalle}</span>
+                <div class="wwo-details-description">
+                    ${item.alojamiento_especificaciones_tecnicas_descripcion}
+                </div>
+            </li>
+        `;
+    });
+    codeHtml += '</ul>';
+    return codeHtml;
+};
+
+module.exports = { convertDateFormat, formatDateRange, addDaysToDate, getRoomsQuantity, buildImageGalleryHtml, buildAccommodationDetailsHtml };

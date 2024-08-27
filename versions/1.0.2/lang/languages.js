@@ -33,6 +33,7 @@ function getString(wwo_languageCode){
                 'lessOffers': 'Menos ofertas',
                 'more-info': 'Más información',
                 'less-info': 'Menos información',
+                'plus-info': '+ info',
             }
             break;  
         case 'en':
@@ -67,6 +68,7 @@ function getString(wwo_languageCode){
                 'lessOffers': 'Less offers',
                 'more-info': 'More info',
                 'less-info': 'Less info',
+                'plus-info': '+ info',
             }
             break;
         case 'fr':
@@ -101,6 +103,7 @@ function getString(wwo_languageCode){
                 'lessOffers': 'Moins d\'offres',
                 'more-info': 'Plus d\'infos',
                 'less-info': 'Moins d\'infos',
+                'plus-info': '+ info',
         }
         break;
         

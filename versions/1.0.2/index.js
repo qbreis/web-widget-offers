@@ -85,7 +85,7 @@ function initWidget(options) {
     }
 
     // Initialize the modal
-    initModal();
+    //initModal();
 }
 
 module.exports = { initWidget };

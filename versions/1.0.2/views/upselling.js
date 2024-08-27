@@ -40,10 +40,6 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
     let listOfOffersUpselling = '<ul class="wwo-list-of-offers">';
     let counter = -1;
 
-
-
-
-
     orderedOffers.forEach((offerItem) => {
         if ( offerItem.proposal.proposalKey !== selectedOffer.proposal.proposalKey && counter < widgetDisplayLimit ) {
             // console.log('offerItem.accommodation.length:', offerItem.accommodation.length);
@@ -67,24 +63,18 @@ const getUpselling = (proposalsOffersArray, itemDataSet, selectedOffer, wwo_stri
                     `<strong>${accommodationItem.post_title} (${accommodationItem['acf_ws_accommodation_code']})</strong>`
                     */
 
-
-
-
-                
                     listOfOffersUpsellingAccommodations += `
                     <div class="wwo-accommodation-item">
                         <span class="wwo-proposals-counter wwo-room-quantity-${quantity}">
                             ${quantity} x
                         </span>
-                        
                         <strong>
                             ${accommodationItem.post_title}
                             <span class="wwo-accommodation-code"> (${accommodationItem['acf_ws_accommodation_code']})</span>
                         </strong>
-                        <button class="" data-accommodation-code="">
-                            + info
+                        <button class="wwo-show-accommodation-details" data-accommodation-code="${accommodationItem['acf_ws_accommodation_code']}">
+                            ${wwo_strings['plus-info']}
                         </button>
-
                         <div class="wwo-accommodation-data">
                             (${accommodationItem.acf_ws_accommodation_nb_beds} ${wwo_strings.beds}, ${accommodationItem.acf_ws_accommodation_pax_max} ${wwo_strings['people-max']}, ${accommodationItem.acf_ws_accommodation_size_area} ${wwo_strings['square-meters']})
                         </div><!-- .wwo-accommodation-data -->

@@ -128,6 +128,9 @@ const getCrossSelling = (proposalsOffersArray, selectedOffer, wwo_strings, widge
                                     ${quantity} x
                                 </span>
                                 <strong>${accommodationItem.post_title}</strong>
+                                <button class="wwo-show-accommodation-details" data-accommodation-code="${accommodationItem['acf_ws_accommodation_code']}">
+                                    ${wwo_strings['plus-info']}
+                                </button>
                                 <div class="wwo-accommodation-data">
                                     (${accommodationItem.acf_ws_accommodation_nb_beds} ${wwo_strings.beds}, ${accommodationItem.acf_ws_accommodation_pax_max} ${wwo_strings['people-max']}, ${accommodationItem.acf_ws_accommodation_size_area} ${wwo_strings['square-meters']})
                                 </div><!-- .wwo-accommodation-data -->
